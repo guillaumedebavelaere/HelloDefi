@@ -1,5 +1,4 @@
 import { EthProvider } from "./contexts/EthContext";
-import "./App.css";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Content from "./components/Content";
 
