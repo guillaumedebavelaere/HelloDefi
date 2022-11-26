@@ -8,26 +8,29 @@ function EthProvider({ children }) {
 
   const init = useCallback(
     async artifact => {
+      console.log("before if artifact");
       if (artifact) {
+        console.log("artifact found");
         const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
         const accounts = await web3.eth.requestAccounts();
         const networkID = await web3.eth.net.getId();
         const { abi } = artifact;
-        let address, contract;
+        let address, contract, wrongNetworkId;
         try {
-          address = artifact.networks[networkID].address;
-          contract = new web3.eth.Contract(abi, address);
+          wrongNetworkId = artifact.networks[networkID] === undefined;
+          address = artifact.networks[networkID]?.address;
+          contract = address !== undefined ? new web3.eth.Contract(abi, address) : undefined;
         } catch (err) {
           console.error(err);
         }
         dispatch({
           type: actions.init,
-          data: { artifact, web3, accounts, networkID, contract }
+          data: { artifact, web3, accounts, networkID, contract, wrongNetworkId }
         });
       }
     }, []);
 
-  useEffect(() => {
+  
     const tryInit = async () => {
       try {
         const artifact = require("../../contracts/SimpleStorage.json");
@@ -36,9 +39,6 @@ function EthProvider({ children }) {
         console.error(err);
       }
     };
-
-    tryInit();
-  }, [init]);
 
   useEffect(() => {
     const events = ["chainChanged", "accountsChanged"];
@@ -52,10 +52,24 @@ function EthProvider({ children }) {
     };
   }, [init, state.artifact]);
 
+  const connect = () => {    
+    tryInit();
+  }
+
+  const disconnect = () => {
+    dispatch({
+      type: actions.init,
+      data: initialState
+    });
+  }
+
+
   return (
     <EthContext.Provider value={{
       state,
-      dispatch
+      dispatch,
+      connect,
+      disconnect
     }}>
       {children}
     </EthContext.Provider>

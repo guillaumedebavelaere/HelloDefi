@@ -1,14 +1,19 @@
 import { EthProvider } from "./contexts/EthContext";
 import "./App.css";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Content from "./components/Content";
+
+const theme = createTheme();
 
 function App() {
+
   return (
     <EthProvider>
-      <div id="App" >
-        <div className="container">
-          
+      <ThemeProvider theme={theme}>
+        <div id="App" >
+          <Content />
         </div>
-      </div>
+      </ThemeProvider>
     </EthProvider>
   );
 }
