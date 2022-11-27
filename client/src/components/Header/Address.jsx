@@ -1,6 +1,6 @@
 import { Button, Popover } from "@mui/material";
 import { useState } from "react";
-import { useEth } from "../../../contexts/EthContext";
+import { useEth } from "../../contexts/EthContext";
 
 function Address() {
     const { connect, disconnect, state: { accounts } } = useEth();

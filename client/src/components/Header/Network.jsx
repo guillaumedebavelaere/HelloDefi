@@ -1,5 +1,5 @@
 import { Chip } from "@mui/material";
-import { useEth } from "../../../contexts/EthContext";
+import { useEth } from "../../contexts/EthContext";
 
 
 function Network() {

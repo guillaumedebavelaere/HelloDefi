@@ -1,6 +1,7 @@
 import { EthProvider } from "./contexts/EthContext";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Content from "./components/Content";
+import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
+import Header from "./components/Header";
 
 const theme = createTheme();
 
@@ -10,7 +11,17 @@ function App() {
     <EthProvider>
       <ThemeProvider theme={theme}>
         <div id="App" >
-          <Content />
+          <Grid2 container spacing={2}>
+            <Grid2 xs={12}>
+              <Header/>
+            </Grid2>
+            <Grid2 xs={12}>
+              <p>content</p>
+            </Grid2>
+            <Grid2 xs={12}>
+              <p>footer</p>
+            </Grid2>
+          </Grid2>
         </div>
       </ThemeProvider>
     </EthProvider>
