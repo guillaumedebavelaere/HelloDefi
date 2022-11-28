@@ -1,0 +1,450 @@
+{
+  "contractName": "ILendingPoolAAVE2",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "onBehalfOf",
+          "type": "address"
+        },
+        {
+          "internalType": "uint16",
+          "name": "referralCode",
+          "type": "uint16"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"onBehalfOf\",\"type\":\"address\"},{\"internalType\":\"uint16\",\"name\":\"referralCode\",\"type\":\"uint16\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"withdraw\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"deposit(address,uint256,address,uint16)\":{\"details\":\"Deposits an `amount` of underlying asset into the reserve, receiving in return overlying aTokens. - E.g. User deposits 100 USDC and gets in return 100 aUSDC\",\"params\":{\"amount\":\"The amount to be deposited\",\"asset\":\"The address of the underlying asset to deposit\",\"onBehalfOf\":\"The address that will receive the aTokens, same as msg.sender if the user   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens   is a different wallet\",\"referralCode\":\"Code used to register the integrator originating the operation, for potential rewards.   0 if the action is executed directly by the user, without any middle-man*\"}},\"withdraw(address,uint256,address)\":{\"details\":\"Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC\",\"params\":{\"amount\":\"The underlying amount to be withdrawn   - Send the value type(uint256).max in order to withdraw the whole aToken balance\",\"asset\":\"The address of the underlying asset to withdraw\",\"to\":\"Address that will receive the underlying, same as msg.sender if the user   wants to receive it on his own wallet, or a different address if the beneficiary is a   different wallet\"},\"returns\":{\"_0\":\"The final amount withdrawn*\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"This interface exposes AAVE2 ILendingPool methods. This has been created instead of imported from aave/protocols-v2 package because of the old version of solidity.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ILendingPoolAAVE2.sol\":\"ILendingPoolAAVE2\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ILendingPoolAAVE2.sol\":{\"keccak256\":\"0x736f8982946443d95abe0615290f60a98ec90dfaaa177505a99b33fd01314cef\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f7e07a459cfbe156f451f720f759bc05c6458574f4d9d04fd4bb07a8940268bc\",\"dweb:/ipfs/QmWF1KCLDcEeddste6iz63nXrk7ZB2YmQ9ZRkN4128wdff\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\n/**\n * This interface exposes AAVE2 ILendingPool methods.\n * This has been created instead of imported from aave/protocols-v2 package because of the old version of solidity.\n */\ninterface ILendingPoolAAVE2 {\n\n  /**\n   * @dev Deposits an `amount` of underlying asset into the reserve, receiving in return overlying aTokens.\n   * - E.g. User deposits 100 USDC and gets in return 100 aUSDC\n   * @param asset The address of the underlying asset to deposit\n   * @param amount The amount to be deposited\n   * @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user\n   *   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens\n   *   is a different wallet\n   * @param referralCode Code used to register the integrator originating the operation, for potential rewards.\n   *   0 if the action is executed directly by the user, without any middle-man\n   **/\n  function deposit(\n    address asset,\n    uint256 amount,\n    address onBehalfOf,\n    uint16 referralCode\n  ) external;\n\n  /**\n   * @dev Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned\n   * E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC\n   * @param asset The address of the underlying asset to withdraw\n   * @param amount The underlying amount to be withdrawn\n   *   - Send the value type(uint256).max in order to withdraw the whole aToken balance\n   * @param to Address that will receive the underlying, same as msg.sender if the user\n   *   wants to receive it on his own wallet, or a different address if the beneficiary is a\n   *   different wallet\n   * @return The final amount withdrawn\n   **/\n  function withdraw(\n    address asset,\n    uint256 amount,\n    address to\n  ) external returns (uint256);\n\n}\n",
+  "sourcePath": "/Users/guillaumedebavelaere/alyra/projects/HelloDefi/truffle/contracts/ILendingPoolAAVE2.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/ILendingPoolAAVE2.sol",
+    "exportedSymbols": {
+      "ILendingPoolAAVE2": [
+        83
+      ]
+    },
+    "id": 84,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 57,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ILendingPoolAAVE2",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 58,
+          "nodeType": "StructuredDocumentation",
+          "src": "57:177:1",
+          "text": " This interface exposes AAVE2 ILendingPool methods.\n This has been created instead of imported from aave/protocols-v2 package because of the old version of solidity."
+        },
+        "fullyImplemented": false,
+        "id": 83,
+        "linearizedBaseContracts": [
+          83
+        ],
+        "name": "ILendingPoolAAVE2",
+        "nameLocation": "245:17:1",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "documentation": {
+              "id": 59,
+              "nodeType": "StructuredDocumentation",
+              "src": "268:712:1",
+              "text": " @dev Deposits an `amount` of underlying asset into the reserve, receiving in return overlying aTokens.\n - E.g. User deposits 100 USDC and gets in return 100 aUSDC\n @param asset The address of the underlying asset to deposit\n @param amount The amount to be deposited\n @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user\n   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens\n   is a different wallet\n @param referralCode Code used to register the integrator originating the operation, for potential rewards.\n   0 if the action is executed directly by the user, without any middle-man*"
+            },
+            "functionSelector": "e8eda9df",
+            "id": 70,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposit",
+            "nameLocation": "992:7:1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 68,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 61,
+                  "mutability": "mutable",
+                  "name": "asset",
+                  "nameLocation": "1013:5:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 70,
+                  "src": "1005:13:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 60,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1005:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 63,
+                  "mutability": "mutable",
+                  "name": "amount",
+                  "nameLocation": "1032:6:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 70,
+                  "src": "1024:14:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 62,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1024:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 65,
+                  "mutability": "mutable",
+                  "name": "onBehalfOf",
+                  "nameLocation": "1052:10:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 70,
+                  "src": "1044:18:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 64,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1044:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 67,
+                  "mutability": "mutable",
+                  "name": "referralCode",
+                  "nameLocation": "1075:12:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 70,
+                  "src": "1068:19:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint16",
+                    "typeString": "uint16"
+                  },
+                  "typeName": {
+                    "id": 66,
+                    "name": "uint16",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1068:6:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint16",
+                      "typeString": "uint16"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "999:92:1"
+            },
+            "returnParameters": {
+              "id": 69,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1100:0:1"
+            },
+            "scope": 83,
+            "src": "983:118:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "documentation": {
+              "id": 71,
+              "nodeType": "StructuredDocumentation",
+              "src": "1105:665:1",
+              "text": " @dev Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned\n E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC\n @param asset The address of the underlying asset to withdraw\n @param amount The underlying amount to be withdrawn\n   - Send the value type(uint256).max in order to withdraw the whole aToken balance\n @param to Address that will receive the underlying, same as msg.sender if the user\n   wants to receive it on his own wallet, or a different address if the beneficiary is a\n   different wallet\n @return The final amount withdrawn*"
+            },
+            "functionSelector": "69328dec",
+            "id": 82,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "withdraw",
+            "nameLocation": "1782:8:1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 78,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 73,
+                  "mutability": "mutable",
+                  "name": "asset",
+                  "nameLocation": "1804:5:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 82,
+                  "src": "1796:13:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 72,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1796:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 75,
+                  "mutability": "mutable",
+                  "name": "amount",
+                  "nameLocation": "1823:6:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 82,
+                  "src": "1815:14:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 74,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1815:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 77,
+                  "mutability": "mutable",
+                  "name": "to",
+                  "nameLocation": "1843:2:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 82,
+                  "src": "1835:10:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 76,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1835:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1790:59:1"
+            },
+            "returnParameters": {
+              "id": 81,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 80,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 82,
+                  "src": "1868:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 79,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1868:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1867:9:1"
+            },
+            "scope": 83,
+            "src": "1773:104:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 84,
+        "src": "235:1645:1",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:1849:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2022-11-28T16:35:05.310Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "deposit(address,uint256,address,uint16)": {
+        "details": "Deposits an `amount` of underlying asset into the reserve, receiving in return overlying aTokens. - E.g. User deposits 100 USDC and gets in return 100 aUSDC",
+        "params": {
+          "amount": "The amount to be deposited",
+          "asset": "The address of the underlying asset to deposit",
+          "onBehalfOf": "The address that will receive the aTokens, same as msg.sender if the user   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens   is a different wallet",
+          "referralCode": "Code used to register the integrator originating the operation, for potential rewards.   0 if the action is executed directly by the user, without any middle-man*"
+        }
+      },
+      "withdraw(address,uint256,address)": {
+        "details": "Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC",
+        "params": {
+          "amount": "The underlying amount to be withdrawn   - Send the value type(uint256).max in order to withdraw the whole aToken balance",
+          "asset": "The address of the underlying asset to withdraw",
+          "to": "Address that will receive the underlying, same as msg.sender if the user   wants to receive it on his own wallet, or a different address if the beneficiary is a   different wallet"
+        },
+        "returns": {
+          "_0": "The final amount withdrawn*"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "notice": "This interface exposes AAVE2 ILendingPool methods. This has been created instead of imported from aave/protocols-v2 package because of the old version of solidity.",
+    "version": 1
+  }
+}
