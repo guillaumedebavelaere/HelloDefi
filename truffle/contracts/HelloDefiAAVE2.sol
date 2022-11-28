@@ -13,21 +13,10 @@ contract HelloDefiAAVE2 {
     ILendingPoolAAVE2 private _aaveLendingPool; 
     
     // mapping to keep track of the user's balance: user's adress => (asset address => asset qty).
-    mapping(address => mapping(address => uint256)) balances;
+    mapping(address => mapping(address => uint256)) public balances;
 
     constructor(address aaveILendingPoolAddress) {
         _aaveLendingPool = ILendingPoolAAVE2(aaveILendingPoolAddress);
-    }
-
-    /**
-     * Approve _spender to spent _amount _asset in behalf of the user
-     * @param _asset address of the asset to approve spending
-     * @param _spender address of the spender
-     * @param _amount quantity to allow to spend
-     * @return bool true if succeeds
-     */
-    function approve(address _asset, address _spender, uint256 _amount) external returns (bool) {
-        return IERC20(_asset).approve(_spender, _amount);
     }
 
     /**
