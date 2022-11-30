@@ -9,9 +9,8 @@ import "@openzeppelin/contracts/interfaces/IERC20.sol";
  * @dev This smart contract interacts with AAVE protocol v2
  */
 contract HelloDefiAAVE2 {
-    
-    ILendingPoolAAVE2 private _aaveLendingPool; 
-    
+    ILendingPoolAAVE2 private _aaveLendingPool;
+
     // mapping to keep track of the user's balance: user's adress => (asset address => asset qty).
     mapping(address => mapping(address => uint256)) public balances;
 
@@ -31,7 +30,7 @@ contract HelloDefiAAVE2 {
         if (!IERC20(_asset).transferFrom(msg.sender, address(this), _amount)) {
             revert("Error transfer from user to smart contract");
         }
- 
+
         // Approval to allow aave to spend the user's asset
         if (!IERC20(_asset).approve(address(_aaveLendingPool), _amount)) {
             revert("Error smart contract approval");
@@ -43,3 +42,12 @@ contract HelloDefiAAVE2 {
         _aaveLendingPool.deposit(_asset, _amount, address(this), 0);
     }
 }
+
+function withdraw(address _asset, address _to, uint256 _amount) external {
+    //Transfers the asset from user's wallet to this smart contract
+    if (!IERC20(_asset).transferFrom(address(this), msg.sender, _amount)) {
+        revert("Error transfer from smart contract to user");
+    }
+}
+
+
