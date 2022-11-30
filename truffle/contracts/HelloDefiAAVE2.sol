@@ -41,13 +41,25 @@ contract HelloDefiAAVE2 {
         // This smart contract deposits to AAVE in behalf of the user
         _aaveLendingPool.deposit(_asset, _amount, address(this), 0);
     }
-}
 
-function withdraw(address _asset, address _to, uint256 _amount) external {
-    //Transfers the asset from user's wallet to this smart contract
-    if (!IERC20(_asset).transferFrom(address(this), msg.sender, _amount)) {
-        revert("Error transfer from smart contract to user");
+    function withdraw(
+        address _asset,
+        address _to,
+        uint256 _amount
+    ) external {
+        // This smart contract withdraw from AAVE in behalf of the user
+        _aaveLendingPool.withdraw(_asset, _amount, address(this));
+
+        // Approval to allow aave to send the user's asset
+        if (!IERC20(_asset).approve(address(this), _amount)) {
+            revert("Error user approval");
+        }
+        // keep track of the user's balance
+        balances[msg.sender][_asset] -= _amount;
+
+        //Transfers the asset from this smart contract to user's wallet
+        if (!IERC20(_asset).transferFrom(address(this), _to, _amount)) {
+            revert("Error transfer from smart contract to user");
+        }
     }
 }
-
-
