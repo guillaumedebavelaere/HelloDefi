@@ -42,23 +42,28 @@ contract HelloDefiAAVE2 {
         _aaveLendingPool.deposit(_asset, _amount, address(this), 0);
     }
 
+    /**
+     * @dev Withdraws an `amount` of underlying _asset from the AAVE reserve, burning the equivalent aTokens owned by the smart contract
+     * E.g. Smart contract has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC. 100 USDC are then returned to the user (msg.sender)
+     * @param _asset The address of the underlying asset to withdraw
+     * @param _amount The underlying amount to be withdrawn
+     **/
     function withdraw(
         address _asset,
-        address _to,
         uint256 _amount
     ) external {
         // This smart contract withdraw from AAVE in behalf of the user
         _aaveLendingPool.withdraw(_asset, _amount, address(this));
 
-        // Approval to allow aave to send the user's asset
+        // Approval to allow aave to spend this smart contract asset
         if (!IERC20(_asset).approve(address(this), _amount)) {
-            revert("Error user approval");
+            revert("Error smart contract approval");
         }
         // keep track of the user's balance
         balances[msg.sender][_asset] -= _amount;
 
         //Transfers the asset from this smart contract to user's wallet
-        if (!IERC20(_asset).transferFrom(address(this), _to, _amount)) {
+        if (!IERC20(_asset).transferFrom(address(this), msg.sender, _amount)) {
             revert("Error transfer from smart contract to user");
         }
     }
