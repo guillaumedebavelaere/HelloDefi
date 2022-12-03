@@ -24,6 +24,7 @@
     "chai": "^4.3.7",
     "chai-bn": "^0.3.1",
     "dotenv": "^16.0.3",
+    "eth-gas-reporter": "^0.2.25",
     "truffle": "^5.6.8",
     "ts-node": "^10.9.1",
     "typechain": "^8.1.1",

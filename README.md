@@ -1,3 +1,5 @@
+[![CI](https://github.com/guillaumedebavelaere/HelloDefi/actions/workflows/ci.yml/badge.svg)](https://github.com/guillaumedebavelaere/HelloDefi/actions/workflows/ci.yml)
+
 # React Truffle Box
 
 This box comes with everything you need to start using Truffle to write, compile, test, and deploy smart contracts, and interact with them from a React app.

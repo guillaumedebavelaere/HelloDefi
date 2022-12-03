@@ -26,7 +26,10 @@ module.exports = {
 
   // Set default mocha options here, use special reporters, etc.
   mocha: {
-    
+    reporter: 'eth-gas-reporter',
+    reporterOptions : { 
+      currency: 'USD'
+    } 
   },
 
   // Configure your compilers
@@ -35,4 +38,6 @@ module.exports = {
       version: "0.8.17",      // Fetch exact version from solc-bin (default: truffle's version)
     }
   },
+
+  plugins: ["solidity-coverage"]
 };
