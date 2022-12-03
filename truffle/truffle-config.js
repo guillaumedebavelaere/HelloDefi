@@ -4,6 +4,10 @@ const infuraProjectId = process.env["INFURA_PROJECT_ID"];
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
+require("ts-node").register({
+  files: true,
+});
+
 module.exports = {
   contracts_build_directory: "../client/src/contracts",
   networks: {
