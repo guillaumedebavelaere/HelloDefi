@@ -1,0 +1,2553 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Slither",
+          "informationUri": "https://github.com/crytic/slither",
+          "version": "0.9.0",
+          "rules": [
+            {
+              "id": "3-0-solc-version",
+              "name": "solc-version",
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "0.0"
+              },
+              "shortDescription": {
+                "text": "Incorrect versions of Solidity"
+              },
+              "help": {
+                "text": "\nDeploy with any of the following Solidity versions:\n- 0.5.16 - 0.5.17\n- 0.6.11 - 0.6.12\n- 0.7.5 - 0.7.6\n- 0.8.16\n\nThe recommendations take into account:\n- Risks related to recent releases\n- Risks of complex code generation changes\n- Risks of new language features\n- Risks of known bugs\n\nUse a simple pragma version that allows any of these versions.\nConsider using the latest version of Solidity for testing."
+              }
+            },
+            {
+              "id": "0-1-unchecked-transfer",
+              "name": "unchecked-transfer",
+              "properties": {
+                "precision": "high",
+                "security-severity": "8.0"
+              },
+              "shortDescription": {
+                "text": "Unchecked transfer"
+              },
+              "help": {
+                "text": "Use `SafeERC20`, or ensure that the transfer/transferFrom return value is checked."
+              }
+            },
+            {
+              "id": "1-1-reentrancy-no-eth",
+              "name": "reentrancy-no-eth",
+              "properties": {
+                "precision": "high",
+                "security-severity": "4.0"
+              },
+              "shortDescription": {
+                "text": "Reentrancy vulnerabilities"
+              },
+              "help": {
+                "text": "Apply the [`check-effects-interactions` pattern](http://solidity.readthedocs.io/en/v0.4.21/security-considerations.html#re-entrancy)."
+              }
+            },
+            {
+              "id": "1-1-unused-return",
+              "name": "unused-return",
+              "properties": {
+                "precision": "high",
+                "security-severity": "4.0"
+              },
+              "shortDescription": {
+                "text": "Unused return"
+              },
+              "help": {
+                "text": "Ensure that all the return values of the function calls are used."
+              }
+            },
+            {
+              "id": "2-1-reentrancy-benign",
+              "name": "reentrancy-benign",
+              "properties": {
+                "precision": "high",
+                "security-severity": "3.0"
+              },
+              "shortDescription": {
+                "text": "Reentrancy vulnerabilities"
+              },
+              "help": {
+                "text": "Apply the [`check-effects-interactions` pattern](http://solidity.readthedocs.io/en/v0.4.21/security-considerations.html#re-entrancy)."
+              }
+            },
+            {
+              "id": "2-1-reentrancy-events",
+              "name": "reentrancy-events",
+              "properties": {
+                "precision": "high",
+                "security-severity": "3.0"
+              },
+              "shortDescription": {
+                "text": "Reentrancy vulnerabilities"
+              },
+              "help": {
+                "text": "Apply the [`check-effects-interactions` pattern](http://solidity.readthedocs.io/en/v0.4.21/security-considerations.html#re-entrancy)."
+              }
+            },
+            {
+              "id": "3-0-assembly",
+              "name": "assembly",
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "0.0"
+              },
+              "shortDescription": {
+                "text": "Assembly usage"
+              },
+              "help": {
+                "text": "Do not use `evm` assembly."
+              }
+            },
+            {
+              "id": "3-0-pragma",
+              "name": "pragma",
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "0.0"
+              },
+              "shortDescription": {
+                "text": "Different pragma directives are used"
+              },
+              "help": {
+                "text": "Use one Solidity version."
+              }
+            },
+            {
+              "id": "3-1-dead-code",
+              "name": "dead-code",
+              "properties": {
+                "precision": "high",
+                "security-severity": "0.0"
+              },
+              "shortDescription": {
+                "text": "Dead-code"
+              },
+              "help": {
+                "text": "Remove unused functions."
+              }
+            },
+            {
+              "id": "3-0-low-level-calls",
+              "name": "low-level-calls",
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "0.0"
+              },
+              "shortDescription": {
+                "text": "Low-level calls"
+              },
+              "help": {
+                "text": "Avoid low-level calls. Check the call success. If the call is meant for a contract, check for code existence."
+              }
+            },
+            {
+              "id": "3-0-naming-convention",
+              "name": "naming-convention",
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "0.0"
+              },
+              "shortDescription": {
+                "text": "Conformance to Solidity naming conventions"
+              },
+              "help": {
+                "text": "Follow the Solidity [naming convention](https://solidity.readthedocs.io/en/v0.4.25/style-guide.html#naming-conventions)."
+              }
+            },
+            {
+              "id": "2-1-missing-zero-check",
+              "name": "missing-zero-check",
+              "properties": {
+                "precision": "high",
+                "security-severity": "3.0"
+              },
+              "shortDescription": {
+                "text": "Missing zero address validation"
+              },
+              "help": {
+                "text": "Check that the address is not zero."
+              }
+            },
+            {
+              "id": "3-1-too-many-digits",
+              "name": "too-many-digits",
+              "properties": {
+                "precision": "high",
+                "security-severity": "0.0"
+              },
+              "shortDescription": {
+                "text": "Too many digits"
+              },
+              "help": {
+                "text": "\nUse:\n- [Ether suffix](https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#ether-units),\n- [Time suffix](https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#time-units), or\n- [The scientific notation](https://solidity.readthedocs.io/en/latest/types.html#rational-and-integer-literals)\n"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version0.8.17 (contracts/ILendingPoolAAVE2.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n",
+            "markdown": "Pragma version[0.8.17](contracts/ILendingPoolAAVE2.sol#L2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/ILendingPoolAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 2
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "58fa48164a8dcb7021d7dd8f41d588b00f3dc4ee688266572578bc95b5e84d76"
+          }
+        },
+        {
+          "ruleId": "0-1-unchecked-transfer",
+          "message": {
+            "text": "HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85) ignores return value by IERC20(_asset).transferFrom(address(this),msg.sender,_amount) (contracts/HelloDefiAAVE2.sol#82)\n",
+            "markdown": "[HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85) ignores return value by [IERC20(_asset).transferFrom(address(this),msg.sender,_amount)](contracts/HelloDefiAAVE2.sol#L82)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "56b4ef0225fe41dd9a459e235a037e163ecbbb76c09a8e9adf25082a1bcd1d7c"
+          }
+        },
+        {
+          "ruleId": "0-1-unchecked-transfer",
+          "message": {
+            "text": "HelloDefiAAVE2.deposit(address,uint256) (contracts/HelloDefiAAVE2.sol#44-60) ignores return value by IERC20(_asset).transferFrom(msg.sender,address(this),_amount) (contracts/HelloDefiAAVE2.sol#48)\n",
+            "markdown": "[HelloDefiAAVE2.deposit(address,uint256)](contracts/HelloDefiAAVE2.sol#L44-L60) ignores return value by [IERC20(_asset).transferFrom(msg.sender,address(this),_amount)](contracts/HelloDefiAAVE2.sol#L48)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 60
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "f76cf53dd0a3924af238c411d2d91fb3442fcbf2b01e208449e2388993944b0b"
+          }
+        },
+        {
+          "ruleId": "1-1-reentrancy-no-eth",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85):\n\tExternal calls:\n\t- _aaveLendingPool.withdraw(_asset,_amount,address(this)) (contracts/HelloDefiAAVE2.sol#73)\n\t- IERC20(_asset).approve(address(this),_amount) (contracts/HelloDefiAAVE2.sol#76)\n\tState variables written after the call(s):\n\t- balances[_asset] -= _amount (contracts/HelloDefiAAVE2.sol#79)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85):\n\tExternal calls:\n\t- [_aaveLendingPool.withdraw(_asset,_amount,address(this))](contracts/HelloDefiAAVE2.sol#L73)\n\t- [IERC20(_asset).approve(address(this),_amount)](contracts/HelloDefiAAVE2.sol#L76)\n\tState variables written after the call(s):\n\t- [balances[_asset] -= _amount](contracts/HelloDefiAAVE2.sol#L79)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "20657dcb8ccf6d2648108a7ffd71f81c2a3a28f3c0dc8790f7f8fee7c613ca0a"
+          }
+        },
+        {
+          "ruleId": "1-1-unused-return",
+          "message": {
+            "text": "HelloDefiAAVE2.deposit(address,uint256) (contracts/HelloDefiAAVE2.sol#44-60) ignores return value by IERC20(_asset).approve(address(_aaveLendingPool),_amount) (contracts/HelloDefiAAVE2.sol#51)\n",
+            "markdown": "[HelloDefiAAVE2.deposit(address,uint256)](contracts/HelloDefiAAVE2.sol#L44-L60) ignores return value by [IERC20(_asset).approve(address(_aaveLendingPool),_amount)](contracts/HelloDefiAAVE2.sol#L51)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 60
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "319624d218ca1799976a772dbf73cfdeb4f0b72026282dd0a349a664175b6e3c"
+          }
+        },
+        {
+          "ruleId": "1-1-unused-return",
+          "message": {
+            "text": "HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85) ignores return value by IERC20(_asset).approve(address(this),_amount) (contracts/HelloDefiAAVE2.sol#76)\n",
+            "markdown": "[HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85) ignores return value by [IERC20(_asset).approve(address(this),_amount)](contracts/HelloDefiAAVE2.sol#L76)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "8e0d411852c052dd0f5d223a96a60e643907f2c660c5771ff63028d7e878560d"
+          }
+        },
+        {
+          "ruleId": "1-1-unused-return",
+          "message": {
+            "text": "HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85) ignores return value by _aaveLendingPool.withdraw(_asset,_amount,address(this)) (contracts/HelloDefiAAVE2.sol#73)\n",
+            "markdown": "[HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85) ignores return value by [_aaveLendingPool.withdraw(_asset,_amount,address(this))](contracts/HelloDefiAAVE2.sol#L73)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "faf30f988fc80bf06d64e929ba38d988cbb38a5abc1952a656d3794e68d466db"
+          }
+        },
+        {
+          "ruleId": "2-1-reentrancy-benign",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2.deposit(address,uint256) (contracts/HelloDefiAAVE2.sol#44-60):\n\tExternal calls:\n\t- IERC20(_asset).transferFrom(msg.sender,address(this),_amount) (contracts/HelloDefiAAVE2.sol#48)\n\t- IERC20(_asset).approve(address(_aaveLendingPool),_amount) (contracts/HelloDefiAAVE2.sol#51)\n\tState variables written after the call(s):\n\t- balances[_asset] += _amount (contracts/HelloDefiAAVE2.sol#54)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2.deposit(address,uint256)](contracts/HelloDefiAAVE2.sol#L44-L60):\n\tExternal calls:\n\t- [IERC20(_asset).transferFrom(msg.sender,address(this),_amount)](contracts/HelloDefiAAVE2.sol#L48)\n\t- [IERC20(_asset).approve(address(_aaveLendingPool),_amount)](contracts/HelloDefiAAVE2.sol#L51)\n\tState variables written after the call(s):\n\t- [balances[_asset] += _amount](contracts/HelloDefiAAVE2.sol#L54)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 60
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "57bcf511fd43b98a01592d955c0d9a499ae3760687d906646025aacaf1e25f02"
+          }
+        },
+        {
+          "ruleId": "2-1-reentrancy-events",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2.deposit(address,uint256) (contracts/HelloDefiAAVE2.sol#44-60):\n\tExternal calls:\n\t- IERC20(_asset).transferFrom(msg.sender,address(this),_amount) (contracts/HelloDefiAAVE2.sol#48)\n\t- IERC20(_asset).approve(address(_aaveLendingPool),_amount) (contracts/HelloDefiAAVE2.sol#51)\n\t- _aaveLendingPool.deposit(_asset,_amount,address(this),0) (contracts/HelloDefiAAVE2.sol#57)\n\tEvent emitted after the call(s):\n\t- Deposit(_asset,_amount) (contracts/HelloDefiAAVE2.sol#59)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2.deposit(address,uint256)](contracts/HelloDefiAAVE2.sol#L44-L60):\n\tExternal calls:\n\t- [IERC20(_asset).transferFrom(msg.sender,address(this),_amount)](contracts/HelloDefiAAVE2.sol#L48)\n\t- [IERC20(_asset).approve(address(_aaveLendingPool),_amount)](contracts/HelloDefiAAVE2.sol#L51)\n\t- [_aaveLendingPool.deposit(_asset,_amount,address(this),0)](contracts/HelloDefiAAVE2.sol#L57)\n\tEvent emitted after the call(s):\n\t- [Deposit(_asset,_amount)](contracts/HelloDefiAAVE2.sol#L59)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 60
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "cca86653ffb9741a17d73c128075958c8e8f84ddbdf1d0749d97c200317d2c27"
+          }
+        },
+        {
+          "ruleId": "2-1-reentrancy-events",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85):\n\tExternal calls:\n\t- _aaveLendingPool.withdraw(_asset,_amount,address(this)) (contracts/HelloDefiAAVE2.sol#73)\n\t- IERC20(_asset).approve(address(this),_amount) (contracts/HelloDefiAAVE2.sol#76)\n\t- IERC20(_asset).transferFrom(address(this),msg.sender,_amount) (contracts/HelloDefiAAVE2.sol#82)\n\tEvent emitted after the call(s):\n\t- Withdraw(_asset,_amount) (contracts/HelloDefiAAVE2.sol#84)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85):\n\tExternal calls:\n\t- [_aaveLendingPool.withdraw(_asset,_amount,address(this))](contracts/HelloDefiAAVE2.sol#L73)\n\t- [IERC20(_asset).approve(address(this),_amount)](contracts/HelloDefiAAVE2.sol#L76)\n\t- [IERC20(_asset).transferFrom(address(this),msg.sender,_amount)](contracts/HelloDefiAAVE2.sol#L82)\n\tEvent emitted after the call(s):\n\t- [Withdraw(_asset,_amount)](contracts/HelloDefiAAVE2.sol#L84)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "d6d715562acb93cb91543fdd982e362a5d5ce32b12ba1f20cf2928b50c008248"
+          }
+        },
+        {
+          "ruleId": "3-0-assembly",
+          "message": {
+            "text": "AddressUpgradeable._revert(bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#206-218) uses assembly\n\t- INLINE ASM (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#211-214)\n",
+            "markdown": "[AddressUpgradeable._revert(bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L206-L218) uses assembly\n\t- [INLINE ASM](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L211-L214)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 206,
+                  "endLine": 218
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "13e9a3eeeac6d0c0e5a6302ecec3c1ae4904b685a5daeb35c93a4017791ab8ce"
+          }
+        },
+        {
+          "ruleId": "3-0-pragma",
+          "message": {
+            "text": "Different versions of Solidity are used:\n\t- Version used: ['0.8.17', '^0.8.0', '^0.8.1', '^0.8.2']\n\t- ^0.8.2 (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#4)\n\t- ^0.8.1 (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#4)\n\t- 0.8.17 (contracts/HelloDefiAAVE2.sol#2)\n\t- 0.8.17 (contracts/ILendingPoolAAVE2.sol#2)\n",
+            "markdown": "Different versions of Solidity are used:\n\t- Version used: ['0.8.17', '^0.8.0', '^0.8.1', '^0.8.2']\n\t- [^0.8.2](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L4)\n\t- [^0.8.1](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/access/Ownable.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/utils/Context.sol#L4)\n\t- [0.8.17](contracts/HelloDefiAAVE2.sol#L2)\n\t- [0.8.17](contracts/ILendingPoolAAVE2.sol#L2)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "de115a94e4bf64192b4cccb67c5e51b5268150cf107eb453f06caa8cf270d836"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Initializable._isInitializing() (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#162-164) is never used and should be removed\n",
+            "markdown": "[Initializable._isInitializing()](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L162-L164) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 162,
+                  "endLine": 164
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "0452b3df4b35b1b064cd022e8c386577836b77074c5117cf1967f26b72ef458c"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionCallWithValue(address,bytes,uint256) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#114-120) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionCallWithValue(address,bytes,uint256)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L114-L120) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 114,
+                  "endLine": 120
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "052edcc3ec737f313b30cba7be2cab5b23d56ffeb4cc9e7dabecc308d67e05e7"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionCall(address,bytes) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#85-87) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionCall(address,bytes)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L85-L87) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 85,
+                  "endLine": 87
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "43bf124a2e0f6fdce96ee70a846df34103ce6ae801af22db3863a427b2c607fd"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionCall(address,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#95-101) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionCall(address,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L95-L101) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 95,
+                  "endLine": 101
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "5f66074a40832285fcc83c25cca3088a737107da60d4a7a18cb03038e28868da"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.sendValue(address,uint256) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#60-65) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.sendValue(address,uint256)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L60-L65) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 60,
+                  "endLine": 65
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "63e180e74374991eacc59cf2f8e3af1c48bcdd92fc67944d8d8e25035d710c32"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionStaticCall(address,bytes) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#145-147) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionStaticCall(address,bytes)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L145-L147) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 145,
+                  "endLine": 147
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "7ae93326befb6ff0785f93f799ebdeb7a53c178129f345f422bfb1a5cec54b9b"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Context._msgData() (node_modules/@openzeppelin/contracts/utils/Context.sol#21-23) is never used and should be removed\n",
+            "markdown": "[Context._msgData()](node_modules/@openzeppelin/contracts/utils/Context.sol#L21-L23) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/utils/Context.sol"
+                },
+                "region": {
+                  "startLine": 21,
+                  "endLine": 23
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "93bd23634a3bf022810e43138345cf58db61248a704a7d277c8ec3d68c3ad188"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.verifyCallResult(bool,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#194-204) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.verifyCallResult(bool,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L194-L204) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 194,
+                  "endLine": 204
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "badf690eaa171662c83923ab0cb923e4affdd7929100ed2e2af048fdc3f1f577"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable._revert(bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#206-218) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable._revert(bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L206-L218) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 206,
+                  "endLine": 218
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "c04d1bf8776d6bbff22e237abc9fc9d31cc6be569d13edce07a4446f593d1244"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Initializable._getInitializedVersion() (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#155-157) is never used and should be removed\n",
+            "markdown": "[Initializable._getInitializedVersion()](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L155-L157) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 155,
+                  "endLine": 157
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "c08d7be4b407d22e4451a143fa4042d32225368689a3638ea9cf7af2856c9eca"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionStaticCall(address,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#155-162) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionStaticCall(address,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L155-L162) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 155,
+                  "endLine": 162
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "d83164dd2aec9bb4db06fa88327673b7d9fc2e91856896bac8ebfeaff52f2b75"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Initializable._disableInitializers() (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#144-150) is never used and should be removed\n",
+            "markdown": "[Initializable._disableInitializers()](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L144-L150) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 144,
+                  "endLine": 150
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "dc2bed4bc2b5ab49fa436151b5fa17db48c2c63cc7e3fb5c6f7919c1c5b432a2"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.verifyCallResultFromTarget(address,bool,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#170-186) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.verifyCallResultFromTarget(address,bool,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L170-L186) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 170,
+                  "endLine": 186
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "fb0feac429f9b908ecbbef0a88c4fd90486ab92097f20d87e6dd3e77ba2f9fef"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionCallWithValue(address,bytes,uint256,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#128-137) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionCallWithValue(address,bytes,uint256,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L128-L137) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 128,
+                  "endLine": 137
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "fdf46dfc766161fd09d722339ad6136961693904427d735b0996eeaab377eea2"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version0.8.17 (contracts/HelloDefiAAVE2.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n",
+            "markdown": "Pragma version[0.8.17](contracts/HelloDefiAAVE2.sol#L2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 2
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "17fd73bb26e395485cd8d5b78e8ded21e208bd9f714a22a8f79738095048a8b1"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/utils/Context.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/utils/Context.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "21c670e40e414a2f849413afbbdb25adb81dae6585c4f38fc83730c17377e60f"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version0.8.17 (contracts/ILendingPoolAAVE2.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n",
+            "markdown": "Pragma version[0.8.17](contracts/ILendingPoolAAVE2.sol#L2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/ILendingPoolAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 2
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "58fa48164a8dcb7021d7dd8f41d588b00f3dc4ee688266572578bc95b5e84d76"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "851a3cc70cf5a0e84cea60ba82f675bc668a61dfc08f0b82199206a5fbafb3b4"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "cb602d3b613de676c12cbbb3f4186e4ff4d453b2b666d94a4be59c091a580ac7"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/access/Ownable.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/access/Ownable.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "d9fcf15f6c48db746fe8b4b5b79cadf5dc4cde499aed490b6b22d0f93b6cdddd"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.2 (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.2](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "df5db7d467cb71fbad3cca7cef629a11b02bc8f14a74db90d7ac2cecf9dc0da6"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.1 (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.1](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "e64ad37105cb312bce8c4abfb13684ee0f969472b655be82bca640b480c86acb"
+          }
+        },
+        {
+          "ruleId": "3-0-low-level-calls",
+          "message": {
+            "text": "Low level call in AddressUpgradeable.sendValue(address,uint256) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#60-65):\n\t- (success) = recipient.call{value: amount}() (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#63)\n",
+            "markdown": "Low level call in [AddressUpgradeable.sendValue(address,uint256)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L60-L65):\n\t- [(success) = recipient.call{value: amount}()](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L63)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 60,
+                  "endLine": 65
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "55db164eb9ac65785b956cb99b8e24c40ef10858484c53f8e8593dd83a2c8ca0"
+          }
+        },
+        {
+          "ruleId": "3-0-low-level-calls",
+          "message": {
+            "text": "Low level call in AddressUpgradeable.functionCallWithValue(address,bytes,uint256,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#128-137):\n\t- (success,returndata) = target.call{value: value}(data) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#135)\n",
+            "markdown": "Low level call in [AddressUpgradeable.functionCallWithValue(address,bytes,uint256,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L128-L137):\n\t- [(success,returndata) = target.call{value: value}(data)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L135)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 128,
+                  "endLine": 137
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "b055de1f0e32261bfc94f8376eed86e29658d2f588ddd1134abed80e6d35fadf"
+          }
+        },
+        {
+          "ruleId": "3-0-low-level-calls",
+          "message": {
+            "text": "Low level call in AddressUpgradeable.functionStaticCall(address,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#155-162):\n\t- (success,returndata) = target.staticcall(data) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#160)\n",
+            "markdown": "Low level call in [AddressUpgradeable.functionStaticCall(address,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L155-L162):\n\t- [(success,returndata) = target.staticcall(data)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L160)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 155,
+                  "endLine": 162
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "baa83774a2040bdc437f652779408968735ec53303d22392bc04bbabb86294e7"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.withdraw(address,uint256)._amount (contracts/HelloDefiAAVE2.sol#68) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.withdraw(address,uint256)._amount](contracts/HelloDefiAAVE2.sol#L68) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 68
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "688923ef20de652428f13b384173b9c0335add772e8c1feb9759faabe74faffb"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.withdraw(address,uint256)._asset (contracts/HelloDefiAAVE2.sol#68) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.withdraw(address,uint256)._asset](contracts/HelloDefiAAVE2.sol#L68) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 68
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "6aa65f99d7d30c5d0259c2c4e5ba6a73548da8cb91e0e6eefa61ee6e7b0e66e6"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.initialize(address,address)._user (contracts/HelloDefiAAVE2.sol#29) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.initialize(address,address)._user](contracts/HelloDefiAAVE2.sol#L29) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 29,
+                  "endLine": 29
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "740f1ff16bf5e1aed1434bc858decab47f38ade7229ab373f838eea5cbbe2c09"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.deposit(address,uint256)._amount (contracts/HelloDefiAAVE2.sol#44) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.deposit(address,uint256)._amount](contracts/HelloDefiAAVE2.sol#L44) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 44
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "9a0e3f7761a32df539a1d69567bf1e22fc92178ca1d198e928a2c85efe006a83"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.initialize(address,address)._aaveILendingPoolAddress (contracts/HelloDefiAAVE2.sol#29) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.initialize(address,address)._aaveILendingPoolAddress](contracts/HelloDefiAAVE2.sol#L29) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 29,
+                  "endLine": 29
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "9c1123db2a3033dbb66f2f7cda37ee9258455089c7419d0e03d94bdb50b83e53"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.deposit(address,uint256)._asset (contracts/HelloDefiAAVE2.sol#44) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.deposit(address,uint256)._asset](contracts/HelloDefiAAVE2.sol#L44) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 44
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "b49ede578d0974726311a3b62c8c150e210934e1f172c04401139a9d9a1af64b"
+          }
+        },
+        {
+          "ruleId": "0-1-unchecked-transfer",
+          "message": {
+            "text": "HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85) ignores return value by IERC20(_asset).transferFrom(address(this),msg.sender,_amount) (contracts/HelloDefiAAVE2.sol#82)\n",
+            "markdown": "[HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85) ignores return value by [IERC20(_asset).transferFrom(address(this),msg.sender,_amount)](contracts/HelloDefiAAVE2.sol#L82)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "56b4ef0225fe41dd9a459e235a037e163ecbbb76c09a8e9adf25082a1bcd1d7c"
+          }
+        },
+        {
+          "ruleId": "0-1-unchecked-transfer",
+          "message": {
+            "text": "HelloDefiAAVE2.deposit(address,uint256) (contracts/HelloDefiAAVE2.sol#44-60) ignores return value by IERC20(_asset).transferFrom(msg.sender,address(this),_amount) (contracts/HelloDefiAAVE2.sol#48)\n",
+            "markdown": "[HelloDefiAAVE2.deposit(address,uint256)](contracts/HelloDefiAAVE2.sol#L44-L60) ignores return value by [IERC20(_asset).transferFrom(msg.sender,address(this),_amount)](contracts/HelloDefiAAVE2.sol#L48)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 60
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "f76cf53dd0a3924af238c411d2d91fb3442fcbf2b01e208449e2388993944b0b"
+          }
+        },
+        {
+          "ruleId": "1-1-reentrancy-no-eth",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85):\n\tExternal calls:\n\t- _aaveLendingPool.withdraw(_asset,_amount,address(this)) (contracts/HelloDefiAAVE2.sol#73)\n\t- IERC20(_asset).approve(address(this),_amount) (contracts/HelloDefiAAVE2.sol#76)\n\tState variables written after the call(s):\n\t- balances[_asset] -= _amount (contracts/HelloDefiAAVE2.sol#79)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85):\n\tExternal calls:\n\t- [_aaveLendingPool.withdraw(_asset,_amount,address(this))](contracts/HelloDefiAAVE2.sol#L73)\n\t- [IERC20(_asset).approve(address(this),_amount)](contracts/HelloDefiAAVE2.sol#L76)\n\tState variables written after the call(s):\n\t- [balances[_asset] -= _amount](contracts/HelloDefiAAVE2.sol#L79)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "20657dcb8ccf6d2648108a7ffd71f81c2a3a28f3c0dc8790f7f8fee7c613ca0a"
+          }
+        },
+        {
+          "ruleId": "1-1-unused-return",
+          "message": {
+            "text": "HelloDefiAAVE2.deposit(address,uint256) (contracts/HelloDefiAAVE2.sol#44-60) ignores return value by IERC20(_asset).approve(address(_aaveLendingPool),_amount) (contracts/HelloDefiAAVE2.sol#51)\n",
+            "markdown": "[HelloDefiAAVE2.deposit(address,uint256)](contracts/HelloDefiAAVE2.sol#L44-L60) ignores return value by [IERC20(_asset).approve(address(_aaveLendingPool),_amount)](contracts/HelloDefiAAVE2.sol#L51)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 60
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "319624d218ca1799976a772dbf73cfdeb4f0b72026282dd0a349a664175b6e3c"
+          }
+        },
+        {
+          "ruleId": "1-1-unused-return",
+          "message": {
+            "text": "HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85) ignores return value by IERC20(_asset).approve(address(this),_amount) (contracts/HelloDefiAAVE2.sol#76)\n",
+            "markdown": "[HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85) ignores return value by [IERC20(_asset).approve(address(this),_amount)](contracts/HelloDefiAAVE2.sol#L76)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "8e0d411852c052dd0f5d223a96a60e643907f2c660c5771ff63028d7e878560d"
+          }
+        },
+        {
+          "ruleId": "1-1-unused-return",
+          "message": {
+            "text": "HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85) ignores return value by _aaveLendingPool.withdraw(_asset,_amount,address(this)) (contracts/HelloDefiAAVE2.sol#73)\n",
+            "markdown": "[HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85) ignores return value by [_aaveLendingPool.withdraw(_asset,_amount,address(this))](contracts/HelloDefiAAVE2.sol#L73)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "faf30f988fc80bf06d64e929ba38d988cbb38a5abc1952a656d3794e68d466db"
+          }
+        },
+        {
+          "ruleId": "2-1-missing-zero-check",
+          "message": {
+            "text": "HelloDefiAAVE2Factory.constructor(address)._aaveILendingPoolAddress (contracts/HelloDefiAAVE2Factory.sol#22) lacks a zero-check on :\n\t\t- aaveILendingPoolAddress = _aaveILendingPoolAddress (contracts/HelloDefiAAVE2Factory.sol#24)\n",
+            "markdown": "[HelloDefiAAVE2Factory.constructor(address)._aaveILendingPoolAddress](contracts/HelloDefiAAVE2Factory.sol#L22) lacks a zero-check on :\n\t\t- [aaveILendingPoolAddress = _aaveILendingPoolAddress](contracts/HelloDefiAAVE2Factory.sol#L24)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2Factory.sol"
+                },
+                "region": {
+                  "startLine": 22,
+                  "endLine": 22
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "bcd1532ee68ca11dbba7c39b12a92189a7958131b78f1e6d754a85d7679c4b6a"
+          }
+        },
+        {
+          "ruleId": "2-1-reentrancy-benign",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2.deposit(address,uint256) (contracts/HelloDefiAAVE2.sol#44-60):\n\tExternal calls:\n\t- IERC20(_asset).transferFrom(msg.sender,address(this),_amount) (contracts/HelloDefiAAVE2.sol#48)\n\t- IERC20(_asset).approve(address(_aaveLendingPool),_amount) (contracts/HelloDefiAAVE2.sol#51)\n\tState variables written after the call(s):\n\t- balances[_asset] += _amount (contracts/HelloDefiAAVE2.sol#54)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2.deposit(address,uint256)](contracts/HelloDefiAAVE2.sol#L44-L60):\n\tExternal calls:\n\t- [IERC20(_asset).transferFrom(msg.sender,address(this),_amount)](contracts/HelloDefiAAVE2.sol#L48)\n\t- [IERC20(_asset).approve(address(_aaveLendingPool),_amount)](contracts/HelloDefiAAVE2.sol#L51)\n\tState variables written after the call(s):\n\t- [balances[_asset] += _amount](contracts/HelloDefiAAVE2.sol#L54)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 60
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "57bcf511fd43b98a01592d955c0d9a499ae3760687d906646025aacaf1e25f02"
+          }
+        },
+        {
+          "ruleId": "2-1-reentrancy-benign",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2Factory.createClone() (contracts/HelloDefiAAVE2Factory.sol#28-33):\n\tExternal calls:\n\t- HelloDefiAAVE2(clone).initialize(aaveILendingPoolAddress,msg.sender) (contracts/HelloDefiAAVE2Factory.sol#30)\n\tState variables written after the call(s):\n\t- userContracts[msg.sender] = clone (contracts/HelloDefiAAVE2Factory.sol#31)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2Factory.createClone()](contracts/HelloDefiAAVE2Factory.sol#L28-L33):\n\tExternal calls:\n\t- [HelloDefiAAVE2(clone).initialize(aaveILendingPoolAddress,msg.sender)](contracts/HelloDefiAAVE2Factory.sol#L30)\n\tState variables written after the call(s):\n\t- [userContracts[msg.sender] = clone](contracts/HelloDefiAAVE2Factory.sol#L31)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2Factory.sol"
+                },
+                "region": {
+                  "startLine": 28,
+                  "endLine": 33
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "593c03fbad555ed96b01ba7b185f5729c75444d66ed9a8ea5d5825e04154a6d0"
+          }
+        },
+        {
+          "ruleId": "2-1-reentrancy-events",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2Factory.createClone() (contracts/HelloDefiAAVE2Factory.sol#28-33):\n\tExternal calls:\n\t- HelloDefiAAVE2(clone).initialize(aaveILendingPoolAddress,msg.sender) (contracts/HelloDefiAAVE2Factory.sol#30)\n\tEvent emitted after the call(s):\n\t- CloneCreated(msg.sender,clone) (contracts/HelloDefiAAVE2Factory.sol#32)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2Factory.createClone()](contracts/HelloDefiAAVE2Factory.sol#L28-L33):\n\tExternal calls:\n\t- [HelloDefiAAVE2(clone).initialize(aaveILendingPoolAddress,msg.sender)](contracts/HelloDefiAAVE2Factory.sol#L30)\n\tEvent emitted after the call(s):\n\t- [CloneCreated(msg.sender,clone)](contracts/HelloDefiAAVE2Factory.sol#L32)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2Factory.sol"
+                },
+                "region": {
+                  "startLine": 28,
+                  "endLine": 33
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "b7a2454ac7eb9147073ee8a324eae48ab756d73b63066ef6ceb20291ad879b40"
+          }
+        },
+        {
+          "ruleId": "2-1-reentrancy-events",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2.deposit(address,uint256) (contracts/HelloDefiAAVE2.sol#44-60):\n\tExternal calls:\n\t- IERC20(_asset).transferFrom(msg.sender,address(this),_amount) (contracts/HelloDefiAAVE2.sol#48)\n\t- IERC20(_asset).approve(address(_aaveLendingPool),_amount) (contracts/HelloDefiAAVE2.sol#51)\n\t- _aaveLendingPool.deposit(_asset,_amount,address(this),0) (contracts/HelloDefiAAVE2.sol#57)\n\tEvent emitted after the call(s):\n\t- Deposit(_asset,_amount) (contracts/HelloDefiAAVE2.sol#59)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2.deposit(address,uint256)](contracts/HelloDefiAAVE2.sol#L44-L60):\n\tExternal calls:\n\t- [IERC20(_asset).transferFrom(msg.sender,address(this),_amount)](contracts/HelloDefiAAVE2.sol#L48)\n\t- [IERC20(_asset).approve(address(_aaveLendingPool),_amount)](contracts/HelloDefiAAVE2.sol#L51)\n\t- [_aaveLendingPool.deposit(_asset,_amount,address(this),0)](contracts/HelloDefiAAVE2.sol#L57)\n\tEvent emitted after the call(s):\n\t- [Deposit(_asset,_amount)](contracts/HelloDefiAAVE2.sol#L59)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 60
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "cca86653ffb9741a17d73c128075958c8e8f84ddbdf1d0749d97c200317d2c27"
+          }
+        },
+        {
+          "ruleId": "2-1-reentrancy-events",
+          "message": {
+            "text": "Reentrancy in HelloDefiAAVE2.withdraw(address,uint256) (contracts/HelloDefiAAVE2.sol#68-85):\n\tExternal calls:\n\t- _aaveLendingPool.withdraw(_asset,_amount,address(this)) (contracts/HelloDefiAAVE2.sol#73)\n\t- IERC20(_asset).approve(address(this),_amount) (contracts/HelloDefiAAVE2.sol#76)\n\t- IERC20(_asset).transferFrom(address(this),msg.sender,_amount) (contracts/HelloDefiAAVE2.sol#82)\n\tEvent emitted after the call(s):\n\t- Withdraw(_asset,_amount) (contracts/HelloDefiAAVE2.sol#84)\n",
+            "markdown": "Reentrancy in [HelloDefiAAVE2.withdraw(address,uint256)](contracts/HelloDefiAAVE2.sol#L68-L85):\n\tExternal calls:\n\t- [_aaveLendingPool.withdraw(_asset,_amount,address(this))](contracts/HelloDefiAAVE2.sol#L73)\n\t- [IERC20(_asset).approve(address(this),_amount)](contracts/HelloDefiAAVE2.sol#L76)\n\t- [IERC20(_asset).transferFrom(address(this),msg.sender,_amount)](contracts/HelloDefiAAVE2.sol#L82)\n\tEvent emitted after the call(s):\n\t- [Withdraw(_asset,_amount)](contracts/HelloDefiAAVE2.sol#L84)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 85
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "d6d715562acb93cb91543fdd982e362a5d5ce32b12ba1f20cf2928b50c008248"
+          }
+        },
+        {
+          "ruleId": "3-0-assembly",
+          "message": {
+            "text": "AddressUpgradeable._revert(bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#206-218) uses assembly\n\t- INLINE ASM (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#211-214)\n",
+            "markdown": "[AddressUpgradeable._revert(bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L206-L218) uses assembly\n\t- [INLINE ASM](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L211-L214)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 206,
+                  "endLine": 218
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "13e9a3eeeac6d0c0e5a6302ecec3c1ae4904b685a5daeb35c93a4017791ab8ce"
+          }
+        },
+        {
+          "ruleId": "3-0-assembly",
+          "message": {
+            "text": "Clones.predictDeterministicAddress(address,bytes32,address) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#61-77) uses assembly\n\t- INLINE ASM (node_modules/@openzeppelin/contracts/proxy/Clones.sol#67-76)\n",
+            "markdown": "[Clones.predictDeterministicAddress(address,bytes32,address)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L61-L77) uses assembly\n\t- [INLINE ASM](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L67-L76)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 61,
+                  "endLine": 77
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "158b80694a27498dd4b85bd58306653c73b13e7737615b58d09934f876d77731"
+          }
+        },
+        {
+          "ruleId": "3-0-assembly",
+          "message": {
+            "text": "Clones.clone(address) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#25-36) uses assembly\n\t- INLINE ASM (node_modules/@openzeppelin/contracts/proxy/Clones.sol#27-34)\n",
+            "markdown": "[Clones.clone(address)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L25-L36) uses assembly\n\t- [INLINE ASM](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L27-L34)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 25,
+                  "endLine": 36
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "83ffb6dea534a4798145e30c538245260f29048f21001dce428e36b49dd5d5f2"
+          }
+        },
+        {
+          "ruleId": "3-0-assembly",
+          "message": {
+            "text": "Clones.cloneDeterministic(address,bytes32) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#45-56) uses assembly\n\t- INLINE ASM (node_modules/@openzeppelin/contracts/proxy/Clones.sol#47-54)\n",
+            "markdown": "[Clones.cloneDeterministic(address,bytes32)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L45-L56) uses assembly\n\t- [INLINE ASM](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L47-L54)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 45,
+                  "endLine": 56
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "a246c5e6f9d75a8ab407d5cfa7e19bc2b0fd973ba045ca7ecb68dd741e85a192"
+          }
+        },
+        {
+          "ruleId": "3-0-pragma",
+          "message": {
+            "text": "Different versions of Solidity are used:\n\t- Version used: ['0.8.17', '^0.8.0', '^0.8.1', '^0.8.2']\n\t- ^0.8.2 (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#4)\n\t- ^0.8.1 (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/proxy/Clones.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4)\n\t- ^0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#4)\n\t- 0.8.17 (contracts/HelloDefiAAVE2.sol#2)\n\t- 0.8.17 (contracts/HelloDefiAAVE2Factory.sol#2)\n\t- 0.8.17 (contracts/ILendingPoolAAVE2.sol#2)\n",
+            "markdown": "Different versions of Solidity are used:\n\t- Version used: ['0.8.17', '^0.8.0', '^0.8.1', '^0.8.2']\n\t- [^0.8.2](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L4)\n\t- [^0.8.1](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/access/Ownable.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#L4)\n\t- [^0.8.0](node_modules/@openzeppelin/contracts/utils/Context.sol#L4)\n\t- [0.8.17](contracts/HelloDefiAAVE2.sol#L2)\n\t- [0.8.17](contracts/HelloDefiAAVE2Factory.sol#L2)\n\t- [0.8.17](contracts/ILendingPoolAAVE2.sol#L2)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "3ab4b07471c1174aba528157a1cbf1299aa38c00552fc149f9fb459f9f35a4e2"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Initializable._isInitializing() (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#162-164) is never used and should be removed\n",
+            "markdown": "[Initializable._isInitializing()](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L162-L164) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 162,
+                  "endLine": 164
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "0452b3df4b35b1b064cd022e8c386577836b77074c5117cf1967f26b72ef458c"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionCallWithValue(address,bytes,uint256) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#114-120) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionCallWithValue(address,bytes,uint256)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L114-L120) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 114,
+                  "endLine": 120
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "052edcc3ec737f313b30cba7be2cab5b23d56ffeb4cc9e7dabecc308d67e05e7"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Clones.predictDeterministicAddress(address,bytes32) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#82-88) is never used and should be removed\n",
+            "markdown": "[Clones.predictDeterministicAddress(address,bytes32)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L82-L88) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 82,
+                  "endLine": 88
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "237df71f5856432dba6590924f9f0480a8a8866f433f4fc562423021ae24b946"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionCall(address,bytes) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#85-87) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionCall(address,bytes)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L85-L87) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 85,
+                  "endLine": 87
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "43bf124a2e0f6fdce96ee70a846df34103ce6ae801af22db3863a427b2c607fd"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Clones.predictDeterministicAddress(address,bytes32,address) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#61-77) is never used and should be removed\n",
+            "markdown": "[Clones.predictDeterministicAddress(address,bytes32,address)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L61-L77) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 61,
+                  "endLine": 77
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "54ac2b1cdebbad006c593e8fc0ed0f82c17c5a27d13d05def8fa9a26f9fab074"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionCall(address,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#95-101) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionCall(address,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L95-L101) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 95,
+                  "endLine": 101
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "5f66074a40832285fcc83c25cca3088a737107da60d4a7a18cb03038e28868da"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.sendValue(address,uint256) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#60-65) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.sendValue(address,uint256)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L60-L65) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 60,
+                  "endLine": 65
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "63e180e74374991eacc59cf2f8e3af1c48bcdd92fc67944d8d8e25035d710c32"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionStaticCall(address,bytes) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#145-147) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionStaticCall(address,bytes)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L145-L147) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 145,
+                  "endLine": 147
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "7ae93326befb6ff0785f93f799ebdeb7a53c178129f345f422bfb1a5cec54b9b"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Context._msgData() (node_modules/@openzeppelin/contracts/utils/Context.sol#21-23) is never used and should be removed\n",
+            "markdown": "[Context._msgData()](node_modules/@openzeppelin/contracts/utils/Context.sol#L21-L23) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/utils/Context.sol"
+                },
+                "region": {
+                  "startLine": 21,
+                  "endLine": 23
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "93bd23634a3bf022810e43138345cf58db61248a704a7d277c8ec3d68c3ad188"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Clones.cloneDeterministic(address,bytes32) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#45-56) is never used and should be removed\n",
+            "markdown": "[Clones.cloneDeterministic(address,bytes32)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L45-L56) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 45,
+                  "endLine": 56
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "a40fe8d612dbb5fe5364cba6a3c64e06ede01ef03025e7f540dd1f72ca56daec"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.verifyCallResult(bool,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#194-204) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.verifyCallResult(bool,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L194-L204) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 194,
+                  "endLine": 204
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "badf690eaa171662c83923ab0cb923e4affdd7929100ed2e2af048fdc3f1f577"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable._revert(bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#206-218) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable._revert(bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L206-L218) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 206,
+                  "endLine": 218
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "c04d1bf8776d6bbff22e237abc9fc9d31cc6be569d13edce07a4446f593d1244"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Initializable._getInitializedVersion() (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#155-157) is never used and should be removed\n",
+            "markdown": "[Initializable._getInitializedVersion()](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L155-L157) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 155,
+                  "endLine": 157
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "c08d7be4b407d22e4451a143fa4042d32225368689a3638ea9cf7af2856c9eca"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionStaticCall(address,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#155-162) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionStaticCall(address,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L155-L162) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 155,
+                  "endLine": 162
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "d83164dd2aec9bb4db06fa88327673b7d9fc2e91856896bac8ebfeaff52f2b75"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "Initializable._disableInitializers() (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#144-150) is never used and should be removed\n",
+            "markdown": "[Initializable._disableInitializers()](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L144-L150) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 144,
+                  "endLine": 150
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "dc2bed4bc2b5ab49fa436151b5fa17db48c2c63cc7e3fb5c6f7919c1c5b432a2"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.verifyCallResultFromTarget(address,bool,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#170-186) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.verifyCallResultFromTarget(address,bool,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L170-L186) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 170,
+                  "endLine": 186
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "fb0feac429f9b908ecbbef0a88c4fd90486ab92097f20d87e6dd3e77ba2f9fef"
+          }
+        },
+        {
+          "ruleId": "3-1-dead-code",
+          "message": {
+            "text": "AddressUpgradeable.functionCallWithValue(address,bytes,uint256,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#128-137) is never used and should be removed\n",
+            "markdown": "[AddressUpgradeable.functionCallWithValue(address,bytes,uint256,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L128-L137) is never used and should be removed\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 128,
+                  "endLine": 137
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "fdf46dfc766161fd09d722339ad6136961693904427d735b0996eeaab377eea2"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version0.8.17 (contracts/HelloDefiAAVE2Factory.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n",
+            "markdown": "Pragma version[0.8.17](contracts/HelloDefiAAVE2Factory.sol#L2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2Factory.sol"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 2
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "05c1a838aa8f542c7678552e3ba2d0e1b4961a78f7972c426b6c39c238cce674"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/proxy/Clones.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "117b6e6a485572fe5747836c0ba3663f9558d539394a6cc51b23c0f83236b759"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version0.8.17 (contracts/HelloDefiAAVE2.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n",
+            "markdown": "Pragma version[0.8.17](contracts/HelloDefiAAVE2.sol#L2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 2
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "17fd73bb26e395485cd8d5b78e8ded21e208bd9f714a22a8f79738095048a8b1"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/utils/Context.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/utils/Context.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "21c670e40e414a2f849413afbbdb25adb81dae6585c4f38fc83730c17377e60f"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version0.8.17 (contracts/ILendingPoolAAVE2.sol#2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n",
+            "markdown": "Pragma version[0.8.17](contracts/ILendingPoolAAVE2.sol#L2) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6/0.8.7\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/ILendingPoolAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 2
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "58fa48164a8dcb7021d7dd8f41d588b00f3dc4ee688266572578bc95b5e84d76"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "851a3cc70cf5a0e84cea60ba82f675bc668a61dfc08f0b82199206a5fbafb3b4"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/interfaces/IERC20.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "cb602d3b613de676c12cbbb3f4186e4ff4d453b2b666d94a4be59c091a580ac7"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.0](node_modules/@openzeppelin/contracts/access/Ownable.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/access/Ownable.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "d9fcf15f6c48db746fe8b4b5b79cadf5dc4cde499aed490b6b22d0f93b6cdddd"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.2 (node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.2](node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "df5db7d467cb71fbad3cca7cef629a11b02bc8f14a74db90d7ac2cecf9dc0da6"
+          }
+        },
+        {
+          "ruleId": "3-0-solc-version",
+          "message": {
+            "text": "Pragma version^0.8.1 (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#4) allows old versions\n",
+            "markdown": "Pragma version[^0.8.1](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L4) allows old versions\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 4,
+                  "endLine": 4
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "e64ad37105cb312bce8c4abfb13684ee0f969472b655be82bca640b480c86acb"
+          }
+        },
+        {
+          "ruleId": "3-0-low-level-calls",
+          "message": {
+            "text": "Low level call in AddressUpgradeable.sendValue(address,uint256) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#60-65):\n\t- (success) = recipient.call{value: amount}() (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#63)\n",
+            "markdown": "Low level call in [AddressUpgradeable.sendValue(address,uint256)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L60-L65):\n\t- [(success) = recipient.call{value: amount}()](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L63)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 60,
+                  "endLine": 65
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "55db164eb9ac65785b956cb99b8e24c40ef10858484c53f8e8593dd83a2c8ca0"
+          }
+        },
+        {
+          "ruleId": "3-0-low-level-calls",
+          "message": {
+            "text": "Low level call in AddressUpgradeable.functionCallWithValue(address,bytes,uint256,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#128-137):\n\t- (success,returndata) = target.call{value: value}(data) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#135)\n",
+            "markdown": "Low level call in [AddressUpgradeable.functionCallWithValue(address,bytes,uint256,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L128-L137):\n\t- [(success,returndata) = target.call{value: value}(data)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L135)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 128,
+                  "endLine": 137
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "b055de1f0e32261bfc94f8376eed86e29658d2f588ddd1134abed80e6d35fadf"
+          }
+        },
+        {
+          "ruleId": "3-0-low-level-calls",
+          "message": {
+            "text": "Low level call in AddressUpgradeable.functionStaticCall(address,bytes,string) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#155-162):\n\t- (success,returndata) = target.staticcall(data) (node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#160)\n",
+            "markdown": "Low level call in [AddressUpgradeable.functionStaticCall(address,bytes,string)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L155-L162):\n\t- [(success,returndata) = target.staticcall(data)](node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol#L160)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts-upgradeable/utils/AddressUpgradeable.sol"
+                },
+                "region": {
+                  "startLine": 155,
+                  "endLine": 162
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "baa83774a2040bdc437f652779408968735ec53303d22392bc04bbabb86294e7"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.withdraw(address,uint256)._amount (contracts/HelloDefiAAVE2.sol#68) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.withdraw(address,uint256)._amount](contracts/HelloDefiAAVE2.sol#L68) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 68
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "688923ef20de652428f13b384173b9c0335add772e8c1feb9759faabe74faffb"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.withdraw(address,uint256)._asset (contracts/HelloDefiAAVE2.sol#68) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.withdraw(address,uint256)._asset](contracts/HelloDefiAAVE2.sol#L68) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 68,
+                  "endLine": 68
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "6aa65f99d7d30c5d0259c2c4e5ba6a73548da8cb91e0e6eefa61ee6e7b0e66e6"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.initialize(address,address)._user (contracts/HelloDefiAAVE2.sol#29) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.initialize(address,address)._user](contracts/HelloDefiAAVE2.sol#L29) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 29,
+                  "endLine": 29
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "740f1ff16bf5e1aed1434bc858decab47f38ade7229ab373f838eea5cbbe2c09"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.deposit(address,uint256)._amount (contracts/HelloDefiAAVE2.sol#44) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.deposit(address,uint256)._amount](contracts/HelloDefiAAVE2.sol#L44) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 44
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "9a0e3f7761a32df539a1d69567bf1e22fc92178ca1d198e928a2c85efe006a83"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.initialize(address,address)._aaveILendingPoolAddress (contracts/HelloDefiAAVE2.sol#29) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.initialize(address,address)._aaveILendingPoolAddress](contracts/HelloDefiAAVE2.sol#L29) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 29,
+                  "endLine": 29
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "9c1123db2a3033dbb66f2f7cda37ee9258455089c7419d0e03d94bdb50b83e53"
+          }
+        },
+        {
+          "ruleId": "3-0-naming-convention",
+          "message": {
+            "text": "Parameter HelloDefiAAVE2.deposit(address,uint256)._asset (contracts/HelloDefiAAVE2.sol#44) is not in mixedCase\n",
+            "markdown": "Parameter [HelloDefiAAVE2.deposit(address,uint256)._asset](contracts/HelloDefiAAVE2.sol#L44) is not in mixedCase\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "contracts/HelloDefiAAVE2.sol"
+                },
+                "region": {
+                  "startLine": 44,
+                  "endLine": 44
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "b49ede578d0974726311a3b62c8c150e210934e1f172c04401139a9d9a1af64b"
+          }
+        },
+        {
+          "ruleId": "3-1-too-many-digits",
+          "message": {
+            "text": "Clones.cloneDeterministic(address,bytes32) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#45-56) uses literals with too many digits:\n\t- mstore(uint256,uint256)(0x00,implementation << 0x60 >> 0xe8 | 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#50)\n",
+            "markdown": "[Clones.cloneDeterministic(address,bytes32)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L45-L56) uses literals with too many digits:\n\t- [mstore(uint256,uint256)(0x00,implementation << 0x60 >> 0xe8 | 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L50)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 45,
+                  "endLine": 56
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "6481c9acbd2956969def5b773c618fe3adfe6d431a17aaa4a25735d359a74aae"
+          }
+        },
+        {
+          "ruleId": "3-1-too-many-digits",
+          "message": {
+            "text": "Clones.clone(address) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#25-36) uses literals with too many digits:\n\t- mstore(uint256,uint256)(0x00,implementation << 0x60 >> 0xe8 | 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000) (node_modules/@openzeppelin/contracts/proxy/Clones.sol#30)\n",
+            "markdown": "[Clones.clone(address)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L25-L36) uses literals with too many digits:\n\t- [mstore(uint256,uint256)(0x00,implementation << 0x60 >> 0xe8 | 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000)](node_modules/@openzeppelin/contracts/proxy/Clones.sol#L30)\n"
+          },
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "node_modules/@openzeppelin/contracts/proxy/Clones.sol"
+                },
+                "region": {
+                  "startLine": 25,
+                  "endLine": 36
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "id": "bfbb1bdc1f6a22d3cab982a1ba9946f144455190b98de38db1cb3bf232c17425"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+name: Slither Analysis
+on: [push]
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Dependencies
+        working-directory: ./truffle
+        run: yarn install
+
+      - name: Compile contracts
+        working-directory: ./truffle
+        run: yarn compile
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip3 install solc-select slither-analyzer
+      
+      - name: Install solc version
+        run: solc-select install 0.8.17
+
+      - name: Select solc version
+        run: solc-select use 0.8.17
+
+      - name: slither 
+        working-directory: ./truffle
+        id: slither
+        continue-on-error: true
+        run: |
+          echo ::set-output name=sarif::results.sarif
+          slither ./contracts/ --sarif=results.sarif --solc-remaps @openzeppelin/=$(pwd)/node_modules/@openzeppelin/
+          echo "BEFOREEEEEE"
+          cat results.sarif
+          echo "AFTERRRRR"
+
+      - name: Upload SARIF file
+        if: always()
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ steps.slither.outputs.sarif }}
+      
+      # - uses: crytic/slither-action@v0.2.0
+      #   with:
+      #     node-version: 16
+      #     solc-version: 0.8.17
+      #     ignore-compile: true
+      #     target: './truffle/contracts/'
+      #     slither-args: --solc-remaps @openzeppelin/=$(pwd)/../node_modules/@openzeppelin/

@@ -27,3 +27,4 @@ jobs:
         working-directory: ./truffle
         run: yarn compile
 
+
