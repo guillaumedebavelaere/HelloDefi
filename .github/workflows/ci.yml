@@ -19,9 +19,11 @@ jobs:
           node-version: 16
 
       - name: Install Dependencies
+        working-directory: ./truffle
         run: yarn install
 
 # Compile
       - name: Compile
+        working-directory: ./truffle
         run: yarn compile
 
