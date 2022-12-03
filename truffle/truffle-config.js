@@ -4,6 +4,10 @@ const infuraProjectId = process.env["INFURA_PROJECT_ID"];
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
+require("ts-node").register({
+  files: true,
+});
+
 module.exports = {
   contracts_build_directory: "../client/src/contracts",
   networks: {
@@ -22,7 +26,10 @@ module.exports = {
 
   // Set default mocha options here, use special reporters, etc.
   mocha: {
-    
+    reporter: 'eth-gas-reporter',
+    reporterOptions : { 
+      currency: 'USD'
+    } 
   },
 
   // Configure your compilers
@@ -31,4 +38,6 @@ module.exports = {
       version: "0.8.17",      // Fetch exact version from solc-bin (default: truffle's version)
     }
   },
+
+  plugins: ["solidity-coverage"]
 };
