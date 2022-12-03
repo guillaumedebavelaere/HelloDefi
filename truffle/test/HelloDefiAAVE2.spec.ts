@@ -94,10 +94,17 @@ contract("HelloDefiAAVE2", function (accounts) {
         const assetBalance = await instance.balances(assetAddress, { from: owner });
         expect(assetBalance).to.be.a.bignumber.equal(web3.utils.toWei("50", 'ether'));
       });
+
+      it("should emit a Deposit event", async () => {
+        expectEvent(await instance.deposit(assetAddress, web3.utils.toWei("50", 'ether'), { from: owner }),
+          "Deposit",
+          { _asset: assetAddress, _amount: web3.utils.toWei("50", 'ether') }
+        );
+      });
     });
   });
 
-  describe.only("withdraw", async () => {
+  describe("withdraw", async () => {
     let asset;
     let assetAddress;
     beforeEach(async () => {
@@ -116,15 +123,15 @@ contract("HelloDefiAAVE2", function (accounts) {
     });
 
     it("should revert if the user is not the owner", async () => {
-        await expectRevert(instance.withdraw(assetAddress, web3.utils.toWei("100000", 'ether'), {from: account1}),
+      await expectRevert(instance.withdraw(assetAddress, web3.utils.toWei("100000", 'ether'), { from: account1 }),
         "caller is not the owner"
-        );
+      );
     });
 
     it("should revert if amount asked is 0", async () => {
-      await expectRevert(instance.withdraw(assetAddress, web3.utils.toWei("0", 'ether'), {from: owner}),
+      await expectRevert(instance.withdraw(assetAddress, web3.utils.toWei("0", 'ether'), { from: owner }),
         "_amount must be > 0!"
-        );
+      );
     });
 
     it("should revert if amount asked > smart contract balance", async () => {
@@ -139,6 +146,13 @@ contract("HelloDefiAAVE2", function (accounts) {
       expect(await asset.balanceOf(owner)).to.be.bignumber.equal(web3.utils.toWei("100000", 'ether'));
       expect(await asset.balanceOf(instance.address)).to.be.bignumber.equal(web3.utils.toWei("0", 'ether'));
       expect(await instance.balances(assetAddress)).to.be.bignumber.equal(web3.utils.toWei("0", 'ether'));
+    });
+
+    it("should emit a Withdraw event", async () => {
+      expectEvent(await instance.withdraw(assetAddress, web3.utils.toWei("50", 'ether'), { from: owner }),
+        "Withdraw",
+        { _asset: assetAddress, _amount: web3.utils.toWei("50", 'ether') }
+      );
     });
 
   });

@@ -17,16 +17,18 @@ contract HelloDefiAAVE2Factory {
     // mapping to keep track of the user smart contracts: user's adress => HelloDefiAAVE2 smart contract.
     mapping(address => address) public userContracts;
 
+    event CloneCreated(address _owner, address _clone);
+
     constructor(address _aaveILendingPoolAddress) {
         helloDefiAAVE2TemplateAddress = address(new HelloDefiAAVE2());
         aaveILendingPoolAddress = _aaveILendingPoolAddress;
     }
 
     // Create a clone of HelloDefiAAVE2 contract
-    function createClone() external returns (address) {
+    function createClone() external {
         address clone = Clones.clone(helloDefiAAVE2TemplateAddress);
         HelloDefiAAVE2(clone).initialize(aaveILendingPoolAddress, msg.sender);
         userContracts[msg.sender] = clone;
-        return clone;
+        emit CloneCreated(msg.sender, clone);
     }
 }

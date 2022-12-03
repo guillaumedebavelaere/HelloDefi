@@ -17,15 +17,20 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
     // mapping to keep track of the user's balance: asset address => asset qty
     mapping(address => uint256) public balances;
 
+    event Deposit(address _asset, uint256 _amount);
+    event Withdraw(address _asset, uint256 _amount);
+
     /**
      * @dev As HelloDefiAAVE2 is used as a Clone, there is no constructor.
      * @dev Call this function to initialize the clone instead.
+     * @param _aaveILendingPoolAddress aave lending pool smart contract address
+     * @param _user is the adress of the owner of this initialized clone
      */
-    function initialize(address aaveILendingPoolAddress, address _user)
+    function initialize(address _aaveILendingPoolAddress, address _user)
         external
         initializer
     {
-        _aaveLendingPool = ILendingPoolAAVE2(aaveILendingPoolAddress);
+        _aaveLendingPool = ILendingPoolAAVE2(_aaveILendingPoolAddress);
         _transferOwnership(_user);
     }
 
@@ -50,6 +55,8 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
 
         // This smart contract deposits to AAVE in behalf of the user
         _aaveLendingPool.deposit(_asset, _amount, address(this), 0);
+
+        emit Deposit(_asset, _amount);
     }
 
     /**
@@ -73,5 +80,7 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
 
         //Transfers the asset from this smart contract to user's wallet
         IERC20(_asset).transferFrom(address(this), msg.sender, _amount);
+
+        emit Withdraw(_asset, _amount);
     }
 }
