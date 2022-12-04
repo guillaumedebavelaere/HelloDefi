@@ -13,9 +13,12 @@ contract("HelloDefiAAVE2Factory", function (accounts) {
   describe("create HelloDefiAAVE2 clones", async () => {
     let factory: HelloDefiAAVE2FactoryInstance;
     const [owner, account1, account2] = accounts;
-    const _aaveILendingPoolAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210";
+    const _aaveILendingPoolAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210"; // fake address, not used
+    const _aavePriceeOracleAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210"; // fake address, not used
+    const _feesManagerAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210"; // fake address, not used
+
     beforeEach(async () => {
-      factory = await HelloDefiAAVE2Factory.new(_aaveILendingPoolAddress, { from: owner });
+      factory = await HelloDefiAAVE2Factory.new(_aaveILendingPoolAddress, _aavePriceeOracleAddress, _feesManagerAddress, { from: owner });
     });
 
     it("should create new HelloDefiAAVE2 smart contracts", async () => {
@@ -36,7 +39,7 @@ contract("HelloDefiAAVE2Factory", function (accounts) {
       expect(account2Sc).not.to.be.null;
     });
 
-    it("should emit a CloneCreated event",async () => {
+    it("should emit a CloneCreated event", async () => {
       let receiptOwner = await factory.createClone({ from: owner });
       let receiptAccount1 = await factory.createClone({ from: account1 });
       let receiptAccount2 = await factory.createClone({ from: account2 });
@@ -45,9 +48,9 @@ contract("HelloDefiAAVE2Factory", function (accounts) {
       const accountCloneAddress = await factory.userContracts(account1);
       const account2CloneAddress = await factory.userContracts(account2);
 
-      expectEvent(receiptOwner, "CloneCreated", { _owner: owner, _clone: ownerCloneAddress});
-      expectEvent(receiptAccount1, "CloneCreated", { _owner: account1, _clone: accountCloneAddress});
-      expectEvent(receiptAccount2, "CloneCreated", { _owner: account2, _clone: account2CloneAddress});
+      expectEvent(receiptOwner, "CloneCreated", { _owner: owner, _clone: ownerCloneAddress });
+      expectEvent(receiptAccount1, "CloneCreated", { _owner: account1, _clone: accountCloneAddress });
+      expectEvent(receiptAccount2, "CloneCreated", { _owner: account2, _clone: account2CloneAddress });
     });
 
   });
