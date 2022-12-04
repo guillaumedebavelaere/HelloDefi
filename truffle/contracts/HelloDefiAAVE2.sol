@@ -3,6 +3,7 @@ pragma solidity 0.8.17;
 
 import "./ILendingPoolAAVE2.sol";
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
@@ -12,6 +13,8 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
  * @dev It is created as a clone from the HelloDefiAAVE2Factory.
  */
 contract HelloDefiAAVE2 is Ownable, Initializable {
+    using SafeERC20 for IERC20;
+
     ILendingPoolAAVE2 private _aaveLendingPool;
 
     // mapping to keep track of the user's balance: asset address => asset qty
@@ -44,14 +47,14 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
     function deposit(address _asset, uint256 _amount) external onlyOwner {
         require(_amount > 0, "_amount must be > 0!");
 
-        // Transfers the asset from user's wallet to this smart contract
-        IERC20(_asset).transferFrom(msg.sender, address(this), _amount);
-
-        // Approval to allow aave to spend the user's asset
-        IERC20(_asset).approve(address(_aaveLendingPool), _amount);
-
         // keep track of the asset balance
         balances[_asset] += _amount;
+
+        // Transfers the asset from user's wallet to this smart contract
+        IERC20(_asset).safeTransferFrom(msg.sender, address(this), _amount);
+
+        // Approval to allow aave to spend the user's asset
+        IERC20(_asset).safeIncreaseAllowance(address(_aaveLendingPool), _amount);
 
         // This smart contract deposits to AAVE in behalf of the user
         _aaveLendingPool.deposit(_asset, _amount, address(this), 0);
@@ -69,17 +72,17 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
         require(_amount > 0, "_amount must be > 0!");
         require(_amount <= balances[_asset], "Insufficiant balance");
 
-        // This smart contract withdraw from AAVE in behalf of the user
-        _aaveLendingPool.withdraw(_asset, _amount, address(this));
-
-        // Approval to allow aave to spend this smart contract asset
-        IERC20(_asset).approve(address(this), _amount);
-            
         // keep track of the asset's balance
         balances[_asset] -= _amount;
 
+        // This smart contract withdraw from AAVE in behalf of the user
+        require(_aaveLendingPool.withdraw(_asset, _amount, address(this)) > 0, "0 whithdrawn from AAVE!");
+
+        // Approval to allow aave to spend this smart contract asset
+        IERC20(_asset).safeIncreaseAllowance(address(this), _amount);
+
         //Transfers the asset from this smart contract to user's wallet
-        IERC20(_asset).transferFrom(address(this), msg.sender, _amount);
+        IERC20(_asset).safeTransferFrom(address(this), msg.sender, _amount);
 
         emit Withdraw(_asset, _amount);
     }

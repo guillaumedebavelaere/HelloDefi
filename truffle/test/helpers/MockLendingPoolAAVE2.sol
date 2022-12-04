@@ -9,13 +9,16 @@ contract MockLendingPoolAAVE2 is ILendingPoolAAVE2 {
         uint256 amount,
         address onBehalfOf,
         uint16 referralCode
-    ) external override {}
+    ) external override {
+        // nothing to do, it is just a mock
+    }
 
     function withdraw(
         address asset,
         uint256 amount,
         address to
     ) external override returns (uint256) {
-        return 0;
+        // nothing to do, it is just a mock
+        return 1;
     }
 }

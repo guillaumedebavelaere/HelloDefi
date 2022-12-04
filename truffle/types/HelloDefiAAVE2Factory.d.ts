@@ -13,7 +13,17 @@ export interface HelloDefiAAVE2FactoryContract
   ): Promise<HelloDefiAAVE2FactoryInstance>;
 }
 
-type AllEvents = never;
+export interface CloneCreated {
+  name: "CloneCreated";
+  args: {
+    _owner: string;
+    _clone: string;
+    0: string;
+    1: string;
+  };
+}
+
+type AllEvents = CloneCreated;
 
 export interface HelloDefiAAVE2FactoryInstance
   extends Truffle.ContractInstance {
@@ -26,7 +36,7 @@ export interface HelloDefiAAVE2FactoryInstance
     (txDetails?: Truffle.TransactionDetails): Promise<
       Truffle.TransactionResponse<AllEvents>
     >;
-    call(txDetails?: Truffle.TransactionDetails): Promise<string>;
+    call(txDetails?: Truffle.TransactionDetails): Promise<void>;
     sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>;
     estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
   };
@@ -41,7 +51,7 @@ export interface HelloDefiAAVE2FactoryInstance
       (txDetails?: Truffle.TransactionDetails): Promise<
         Truffle.TransactionResponse<AllEvents>
       >;
-      call(txDetails?: Truffle.TransactionDetails): Promise<string>;
+      call(txDetails?: Truffle.TransactionDetails): Promise<void>;
       sendTransaction(txDetails?: Truffle.TransactionDetails): Promise<string>;
       estimateGas(txDetails?: Truffle.TransactionDetails): Promise<number>;
     };

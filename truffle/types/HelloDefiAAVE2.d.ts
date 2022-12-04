@@ -10,6 +10,16 @@ export interface HelloDefiAAVE2Contract
   "new"(meta?: Truffle.TransactionDetails): Promise<HelloDefiAAVE2Instance>;
 }
 
+export interface Deposit {
+  name: "Deposit";
+  args: {
+    _asset: string;
+    _amount: BN;
+    0: string;
+    1: BN;
+  };
+}
+
 export interface Initialized {
   name: "Initialized";
   args: {
@@ -28,7 +38,17 @@ export interface OwnershipTransferred {
   };
 }
 
-type AllEvents = Initialized | OwnershipTransferred;
+export interface Withdraw {
+  name: "Withdraw";
+  args: {
+    _asset: string;
+    _amount: BN;
+    0: string;
+    1: BN;
+  };
+}
+
+type AllEvents = Deposit | Initialized | OwnershipTransferred | Withdraw;
 
 export interface HelloDefiAAVE2Instance extends Truffle.ContractInstance {
   balances(arg0: string, txDetails?: Truffle.TransactionDetails): Promise<BN>;
@@ -73,25 +93,27 @@ export interface HelloDefiAAVE2Instance extends Truffle.ContractInstance {
 
   /**
    * As HelloDefiAAVE2 is used as a Clone, there is no constructor.Call this function to initialize the clone instead.
+   * @param _aaveILendingPoolAddress aave lending pool smart contract address
+   * @param _user is the adress of the owner of this initialized clone
    */
   initialize: {
     (
-      aaveILendingPoolAddress: string,
+      _aaveILendingPoolAddress: string,
       _user: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<Truffle.TransactionResponse<AllEvents>>;
     call(
-      aaveILendingPoolAddress: string,
+      _aaveILendingPoolAddress: string,
       _user: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<void>;
     sendTransaction(
-      aaveILendingPoolAddress: string,
+      _aaveILendingPoolAddress: string,
       _user: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<string>;
     estimateGas(
-      aaveILendingPoolAddress: string,
+      _aaveILendingPoolAddress: string,
       _user: string,
       txDetails?: Truffle.TransactionDetails
     ): Promise<number>;
@@ -196,25 +218,27 @@ export interface HelloDefiAAVE2Instance extends Truffle.ContractInstance {
 
     /**
      * As HelloDefiAAVE2 is used as a Clone, there is no constructor.Call this function to initialize the clone instead.
+     * @param _aaveILendingPoolAddress aave lending pool smart contract address
+     * @param _user is the adress of the owner of this initialized clone
      */
     initialize: {
       (
-        aaveILendingPoolAddress: string,
+        _aaveILendingPoolAddress: string,
         _user: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<Truffle.TransactionResponse<AllEvents>>;
       call(
-        aaveILendingPoolAddress: string,
+        _aaveILendingPoolAddress: string,
         _user: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<void>;
       sendTransaction(
-        aaveILendingPoolAddress: string,
+        _aaveILendingPoolAddress: string,
         _user: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<string>;
       estimateGas(
-        aaveILendingPoolAddress: string,
+        _aaveILendingPoolAddress: string,
         _user: string,
         txDetails?: Truffle.TransactionDetails
       ): Promise<number>;
