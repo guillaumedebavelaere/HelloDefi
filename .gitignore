@@ -11,6 +11,9 @@ build
 # Testing
 coverage
 
+# Typescript generated files
+truffle/types
+
 # Env
 .env
 .env.local
