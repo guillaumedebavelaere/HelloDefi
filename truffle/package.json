@@ -5,9 +5,9 @@
   "main": "truffle-config.js",
   "dependencies": {},
   "scripts": {
-    "compile": "truffle compile && npm run generate-types generate-types-test",
+    "compile": "truffle compile && truffle compile --contracts_directory test/helpers && npm run generate-types && npm run clean-mocks",
     "generate-types": "typechain --target=truffle-v5 --out-dir types '../client/src/contracts/*.json'",
-    "generate-types-test": "typechain --target=truffle-v5 --target test/helpers --out-dir types '../client/src/contracts/*.json'",
+    "clean-mocks" : "rm ../client/src/contracts/MockERC20.json ../client/src/contracts/MockLendingPoolAAVE2.json ../client/src/contracts/Context.json",
     "test": "truffle test"
   },
   "author": "Guillaume Debavelaere",
