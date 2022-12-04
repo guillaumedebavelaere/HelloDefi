@@ -12,7 +12,7 @@ build
 coverage
 
 # Typescript generated files
-truffle/types
+truffle/types/*.ts
 
 # Env
 .env
