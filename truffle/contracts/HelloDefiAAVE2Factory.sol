@@ -19,7 +19,7 @@ contract HelloDefiAAVE2Factory {
     // mapping to keep track of the user smart contracts: user's adress => HelloDefiAAVE2 smart contract.
     mapping(address => address) public userContracts;
 
-    event CloneCreated(address _owner, address _clone);
+    event CloneCreated(address indexed  _owner, address _clone);
 
     constructor(
         address _aaveILendingPoolAddress,

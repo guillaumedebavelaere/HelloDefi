@@ -32,8 +32,8 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
     // mapping to keep track of the user's asset avg dollar cost : asset address => asset avg cost
     mapping(address => uint256) public assetAvgCost;
 
-    event Deposit(address _asset, uint256 _amount);
-    event Withdraw(address _asset, uint256 _amount);
+    event Deposit(address indexed _asset, uint256 _amount);
+    event Withdraw(address indexed _asset, uint256 _amount);
 
     /**
      * @dev As HelloDefiAAVE2 is used as a Clone, there is no constructor.
