@@ -5,14 +5,17 @@
   "main": "truffle-config.js",
   "dependencies": {},
   "scripts": {
-    "compile": "truffle compile && truffle compile --contracts_directory test/helpers && npm run generate-types && npm run clean-mocks",
+    "compile": "npm run clean-abi && npm run clean-mocks && truffle compile --reset && truffle compile --contracts_directory test/helpers --reset && npm run generate-types && npm run clean-mocks",
     "generate-types": "typechain --target=truffle-v5 --out-dir types '../client/src/contracts/*.json'",
-    "clean-mocks" : "rm ../client/src/contracts/MockERC20.json ../client/src/contracts/MockLendingPoolAAVE2.json ../client/src/contracts/Context.json",
+    "clean-mocks": "rimraf ../client/src/contracts/Mock*.json ../client/src/contracts/Context.json",
+    "clean-types": "rimraf types/*",
+    "clean-abi": "rimraf ../client/src/contracts/*.json",
     "test": "truffle test"
   },
   "author": "Guillaume Debavelaere",
   "license": "MIT",
   "devDependencies": {
+    "@chainlink/contracts": "^0.5.1",
     "@openzeppelin/contracts": "^4.8.0",
     "@openzeppelin/contracts-upgradeable": "^4.8.0",
     "@openzeppelin/test-helpers": "^0.5.16",
@@ -25,6 +28,7 @@
     "chai-bn": "^0.3.1",
     "dotenv": "^16.0.3",
     "eth-gas-reporter": "^0.2.25",
+    "rimraf": "^3.0.2",
     "truffle": "^5.6.8",
     "ts-node": "^10.9.1",
     "typechain": "^8.1.1",
