@@ -11,6 +11,7 @@ module.exports = async function (deployer) {
   await deployer.deploy(
     HelloDefiAAVE2Factory, 
     process.env.LENDING_POOL_AAVE2_CONTRACT_ADDRESS, 
+    process.env.PROTOCOL_DATA_PROVIDER_AAVE2_CONTRACT_ADDRESS, 
     PriceFeedConsumer.address,   
     FeesCollector.address
   );

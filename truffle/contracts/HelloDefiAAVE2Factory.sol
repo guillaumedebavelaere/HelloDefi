@@ -12,7 +12,8 @@ import "@openzeppelin/contracts/proxy/Clones.sol";
  */
 contract HelloDefiAAVE2Factory {
     address immutable helloDefiAAVE2TemplateAddress;
-    address immutable aaveILendingPoolAddress;
+    address immutable aaveLendingPoolAddress;
+    address immutable aaveProtocolDataProviderAddress;
     address immutable priceFeedAddress;
     address immutable feesManagerAddress;
 
@@ -22,12 +23,14 @@ contract HelloDefiAAVE2Factory {
     event CloneCreated(address indexed  _owner, address _clone);
 
     constructor(
-        address _aaveILendingPoolAddress,
+        address _aaveLendingPoolAddress,
+        address _aaveProtocolDataProviderAddress,
         address  _priceFeedAddress,
         address _feesManagerAddress
     ) {
         helloDefiAAVE2TemplateAddress = address(new HelloDefiAAVE2());
-        aaveILendingPoolAddress = _aaveILendingPoolAddress;
+        aaveLendingPoolAddress = _aaveLendingPoolAddress;
+        aaveProtocolDataProviderAddress = _aaveProtocolDataProviderAddress;
         priceFeedAddress =  _priceFeedAddress;
         feesManagerAddress = _feesManagerAddress;
     }
@@ -36,7 +39,8 @@ contract HelloDefiAAVE2Factory {
     function createClone() external {
         address clone = Clones.clone(helloDefiAAVE2TemplateAddress);
         HelloDefiAAVE2(clone).initialize(
-            aaveILendingPoolAddress,
+            aaveLendingPoolAddress,
+            aaveProtocolDataProviderAddress,
             priceFeedAddress,
             feesManagerAddress,
             msg.sender

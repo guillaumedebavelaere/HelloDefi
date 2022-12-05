@@ -14,11 +14,18 @@ contract("HelloDefiAAVE2Factory", function (accounts) {
     let factory: HelloDefiAAVE2FactoryInstance;
     const [owner, account1, account2] = accounts;
     const _aaveILendingPoolAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210"; // fake address, not used
-    const _aavePriceeOracleAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210"; // fake address, not used
+    const _aaveProtocolDataProviderAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210"; // fake address, not used
+    const _priceFeedAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210"; // fake address, not used
     const _feesManagerAddress = "0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210"; // fake address, not used
 
     beforeEach(async () => {
-      factory = await HelloDefiAAVE2Factory.new(_aaveILendingPoolAddress, _aavePriceeOracleAddress, _feesManagerAddress, { from: owner });
+      factory = await HelloDefiAAVE2Factory.new(
+        _aaveILendingPoolAddress, 
+        _aaveProtocolDataProviderAddress, 
+        _priceFeedAddress, 
+        _feesManagerAddress, 
+        { from: owner }
+      );
     });
 
     it("should create new HelloDefiAAVE2 smart contracts", async () => {

@@ -2,10 +2,12 @@
 pragma solidity 0.8.17;
 
 import "./ILendingPoolAAVE2.sol";
+import "./IProtocolDataProviderAAVE2.sol";
 import "./PriceFeedConsumer.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./FeesCollector.sol";
 import "@openzeppelin/contracts/interfaces/IERC20.sol";
+import "@openzeppelin/contracts/interfaces/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
@@ -20,16 +22,17 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
     using SafeERC20 for IERC20;
 
     ILendingPoolAAVE2 private _aaveLendingPool;
+    IProtocolDataProviderAAVE2 private _aaveProtocoDataProvider;
     PriceFeedConsumer private _priceFeed;
     FeesCollector private _feesCollector;
 
     uint256 private constant _referalCommission = 2; // 2%
     uint256 private constant _performanceCommission = 10; // 10%
 
-    // mapping to keep track of the user's balance: asset address => asset qty
-    mapping(address => uint256) public balances;
+    // mapping to keep track of the user's deposit balance: asset address => deposited asset qty
+    mapping(address => uint256) public depositedBalance;
 
-    // mapping to keep track of the user's asset avg dollar cost : asset address => asset avg cost
+    // mapping to keep track of the user's asset avg deposit dollar cost : asset address => asset avg cost
     mapping(address => uint256) public assetAvgCost;
 
     event Deposit(address indexed _asset, uint256 _amount);
@@ -38,18 +41,23 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
     /**
      * @dev As HelloDefiAAVE2 is used as a Clone, there is no constructor.
      * @dev Call this function to initialize the clone instead.
-     * @param _aaveILendingPoolAddress aave lending pool smart contract address
+     * @param _aaveLendingPoolAddress aave lending pool smart contract address
+     * @param _aaveProtocolDataProviderAddress aave protocol data provider smart contract address
      * @param _priceFeedAddress price feed address
      * @param _feesCollectorAddress fees collector smart contract address
      * @param _user is the adress of the owner of this initialized clone
      */
     function initialize(
-        address _aaveILendingPoolAddress,
+        address _aaveLendingPoolAddress,
+        address _aaveProtocolDataProviderAddress,
         address _priceFeedAddress,
         address _feesCollectorAddress,
         address _user
     ) external initializer {
-        _aaveLendingPool = ILendingPoolAAVE2(_aaveILendingPoolAddress);
+        _aaveLendingPool = ILendingPoolAAVE2(_aaveLendingPoolAddress);
+        _aaveProtocoDataProvider = IProtocolDataProviderAAVE2(
+            _aaveProtocolDataProviderAddress
+        );
         _priceFeed = PriceFeedConsumer(_priceFeedAddress);
         _feesCollector = FeesCollector(_feesCollectorAddress);
         _transferOwnership(_user);
@@ -76,7 +84,7 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
         assetAvgCost[_asset] = _computeAssetAvgCost(_asset, amountAfterFees);
 
         // keep track of the asset balance
-        balances[_asset] += amountAfterFees;
+        depositedBalance[_asset] += amountAfterFees;
 
         // Approval to allow aave to spend the user's asset
         IERC20(_asset).safeIncreaseAllowance(
@@ -98,7 +106,21 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
      **/
     function withdraw(address _asset, uint256 _amount) external onlyOwner {
         require(_amount > 0, "_amount must be > 0!");
-        require(_amount <= balances[_asset], "Insufficiant balance");
+
+        // Getting total balance (deposited + rewards)
+        (uint256 totalBalance, , , , , , , , ) = _aaveProtocoDataProvider
+            .getUserReserveData(_asset, address(this));
+        require(_amount <= totalBalance, "Insufficiant balance");
+
+        // collect performance fees
+        uint256 lastPrice = _priceFeed.getLatestPrice(_asset);
+        uint256 totalRemainingBalance = _collectPerformanceFees(_asset, totalBalance, lastPrice);
+
+        // If the user withdraw all of it
+        if (_amount > totalRemainingBalance) {
+            _amount = totalRemainingBalance;
+            lastPrice = 0;
+        }
 
         // This smart contract withdraw from AAVE in behalf of the user
         require(
@@ -106,23 +128,21 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
             "0 whithdrawn from AAVE!"
         );
 
-        // collect performance fees
-        uint256 amountAfterFees = _collectPerformanceFees(_asset, _amount);
-
-        // keep track of the asset's balance
-        balances[_asset] -= _amount;
+        // Update the user asset's balance and avg cost
+        depositedBalance[_asset] = (totalRemainingBalance - _amount);
+        assetAvgCost[_asset] = lastPrice;
 
         // Approval to allow aave to spend this smart contract asset
-        IERC20(_asset).safeIncreaseAllowance(address(this), amountAfterFees);
+        IERC20(_asset).safeIncreaseAllowance(address(this), _amount);
 
         //Transfers the asset from this smart contract to user's wallet
         IERC20(_asset).safeTransferFrom(
             address(this),
             msg.sender,
-            amountAfterFees
+            _amount
         );
 
-        emit Withdraw(_asset, amountAfterFees);
+        emit Withdraw(_asset, _amount);
     }
 
     /**
@@ -153,27 +173,33 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
     }
 
     /**
-     *  _collectPerformanceFees computes the performance fees and substract the fees from the withdraw amount asked.
-     * The fees are collected by the FeesCollector.
+     *  _collectPerformanceFees computes the performance fees send them to the FeesCollector;
      * @param _asset asset to withdraw
-     * @param _amount asset quantity to withdraw
+     * @param _totalBalance total asset quantity (deposited + rewards)
      * @return the remaining amount to withdraw after the applied fees.
      */
-    function _collectPerformanceFees(address _asset, uint256 _amount)
-        private
-        returns (uint256)
-    {
-        require(_amount > 0, "amount must be > 0");
-        uint256 lastPrice = _priceFeed.getLatestPrice(_asset);
-        int256 profitOrLoss = (int256(lastPrice) -
-            int256(assetAvgCost[_asset])) * int256(_amount);
+    function _collectPerformanceFees(
+        address _asset,
+        uint256 _totalBalance,
+        uint256 _lastPrice
+    ) private returns (uint256) {
+        // Compute the real avg cost
+        uint256 _avgCost = _computeRealAvgCost(_asset, _totalBalance);
 
+        // Compute profit or loss
+        int256 profitOrLoss = (int256(_lastPrice) - int256(_avgCost)) *
+            int256(_totalBalance) / 10**18;
+        
         if (profitOrLoss > 100) {
             // 100 is the minimum to be able to compute the fees
             uint256 dollarFees = (uint256(profitOrLoss) *
                 _performanceCommission) / 100;
-            uint256 feesQty = dollarFees / _amount;
-
+            
+            uint256 feesQty = dollarFees * 10**18/ _lastPrice;
+            
+            // Withdraw fees from AAVE
+            _aaveLendingPool.withdraw(_asset, feesQty, address(this));
+            
             // Allow this smart contract to spend fees amount
             IERC20(_asset).safeIncreaseAllowance(address(this), feesQty);
 
@@ -183,11 +209,9 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
                 address(_feesCollector),
                 feesQty
             );
-
-            return _amount - feesQty;
-        } else {
-            return _amount;
+            return _totalBalance - feesQty;
         }
+        return _totalBalance;
     }
 
     /**
@@ -200,14 +224,38 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
         view
         returns (uint256)
     {
-        uint256 totalQty = balances[_asset] + _depositAmount;
+        uint256 totalQty = depositedBalance[_asset] + _depositAmount;
         require(totalQty > 0, "No quantity!");
-        uint256 currentTotalValue = balances[_asset] * assetAvgCost[_asset];
+        uint256 currentTotalValue = depositedBalance[_asset] *
+            assetAvgCost[_asset];
 
         uint256 lastPrice = _priceFeed.getLatestPrice(_asset);
 
         uint256 depositTotalValue = _depositAmount * lastPrice;
 
         return (depositTotalValue + currentTotalValue) / totalQty;
+    }
+
+    /**
+     * _computeRealAvgCost computes the real avg cost for the user, ie: including aToken rewards.
+     * @param _asset address of the asset
+     * @param _totalBalance total balance = deposited + rewards
+     * @return the real avg cost
+     */
+    function _computeRealAvgCost(address _asset, uint256 _totalBalance)
+        private
+        view
+        returns (uint256)
+    {
+        uint256 totalDepositedValue = depositedBalance[_asset] *
+            assetAvgCost[_asset];
+        if (IERC20Metadata(_asset).decimals() < 18) {
+            // aToken have 18 decimals
+            uint256 decimalsToAdd = 10**IERC20Metadata(_asset).decimals() /
+                10**18;
+            totalDepositedValue = totalDepositedValue * decimalsToAdd;
+        }
+
+        return totalDepositedValue / _totalBalance;
     }
 }

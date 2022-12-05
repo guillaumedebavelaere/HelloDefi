@@ -15,8 +15,8 @@ interface IPriceFeedConsumer {
 contract PriceFeedConsumer is IPriceFeedConsumer {
     AggregatorV3Interface internal priceFeed;
 
-    constructor(address AggregatorAddress) {
-        priceFeed = AggregatorV3Interface(AggregatorAddress);
+    constructor(address _aggregatorAddress) {
+        priceFeed = AggregatorV3Interface(_aggregatorAddress);
     }
 
     /**
@@ -31,8 +31,8 @@ contract PriceFeedConsumer is IPriceFeedConsumer {
             uint80 answeredInRound
         ) = priceFeed.latestRoundData();
         if (priceFeed.decimals() < IERC20Metadata(_asset).decimals()) {
-            uint8 decimalsToAdd = IERC20Metadata(_asset).decimals() / priceFeed.decimals();
-            return uint256(price) * uint256(decimalsToAdd);
+            uint256 decimalsToAdd = 10**IERC20Metadata(_asset).decimals() / 10**priceFeed.decimals();
+            return uint256(price) * decimalsToAdd;
         }
         return uint256(price);
     }
