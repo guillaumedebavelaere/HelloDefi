@@ -31,7 +31,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -1758,9 +1759,17 @@
     "name": "solc",
     "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
   },
-  "networks": {},
-  "schemaVersion": "3.4.11",
-  "updatedAt": "2022-12-05T13:09:56.565Z",
+  "networks": {
+    "5": {
+      "events": {},
+      "links": {},
+      "address": "0x216F789776F7828c516b762370182C9854172e1F",
+      "transactionHash": "0x943d7f0bc4a2d922068de1a47ee4ef962e7a7448b72ae83845cb90642f86a206"
+    }
+  },
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2022-12-05T16:15:28.521Z",
+  "networkType": "ethereum",
   "devdoc": {
     "details": "FeesCollector is the smart contract to collect the fees from user's HelloDefiAAVE2 deposits and withdraws",
     "kind": "dev",

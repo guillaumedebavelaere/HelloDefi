@@ -3,11 +3,14 @@ const actions = {
 };
 
 const initialState = {
-  artifact: null,
+  factoryArtifact: null,
   web3: null,
   accounts: null,
   networkID: null,
-  contract: null,
+  factory: null,
+  clone: null,
+  priceFeed: null,
+  erc20Abi: null,
   wrongNetworkId: false
 };
 
