@@ -3822,14 +3822,34 @@
   },
   "networks": {
     "5": {
-      "events": {},
+      "events": {
+        "0x3d2b821286d97aa9d35330d87a82f7b548b9737b10e2d1ba59994edfd50e9d2b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "_owner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "_clone",
+              "type": "address"
+            }
+          ],
+          "name": "CloneCreated",
+          "type": "event"
+        }
+      },
       "links": {},
-      "address": "0x706c6DbAd511Bb7a067f36BA76d747d93f133cC3",
-      "transactionHash": "0xd3dd93c86a4b84b6e14cd24afb20777e23b5d1cacb0b0fb43bd7b54e56f39d1d"
+      "address": "0xA010F2A5daDf31f3bE420E372265E7B46d6dafc3",
+      "transactionHash": "0x2104eb69629e862afa24fe61b0187b92d0163c9e24a8f4017468f4592b6bb114"
     }
   },
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-12-05T16:15:28.522Z",
+  "updatedAt": "2022-12-06T23:49:16.124Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "This smart contract creates and keep track of the HelloDefiAAVE2 smart contract using the clone pattern in order to save gas.",

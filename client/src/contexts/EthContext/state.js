@@ -10,6 +10,7 @@ const initialState = {
   factory: null,
   clone: null,
   priceFeed: null,
+  protocolDataProvider: null,
   erc20Abi: null,
   wrongNetworkId: false
 };

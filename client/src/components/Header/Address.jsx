@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEth } from "../../contexts/EthContext";
 
 function Address() {
-    const { connect, disconnect, state: { accounts } } = useEth();
+    const { refreshContext, disconnect, state: { accounts } } = useEth();
     const [anchorEl, setAnchorEl] = useState(null);
 
     const formatETHAddress = (s, size = 5) => {
@@ -32,7 +32,7 @@ function Address() {
     return <>
 
         {accounts === undefined || accounts === null
-            ? <Button variant="contained" onClick={connect}>Connect wallet</Button>
+            ? <Button variant="contained" onClick={refreshContext}>Connect wallet</Button>
             : (<div>
                 <Button aria-describedby={id} variant="contained" onClick={handleClick}>{formatETHAddress(accounts[0])}</Button>
                 <Popover
