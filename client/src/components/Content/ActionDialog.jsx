@@ -48,7 +48,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
             }
 
         })()
-    }, [depositValue, assetAddress, priceFeed.methods, web3.utils]);
+    }, [depositValue, assetAddress]);
 
     async function verifyAllowance(cloneAddress) {
         try {
@@ -68,10 +68,10 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
             const allowed = await tokenContract.methods.approve(cloneAddress, web3.utils.toWei(depositValue))
                 .send({ from: accounts[0] });
             setApproved(allowed);
+            setDepositLoading(false);
             if (!allowed) {
                 alert("Approval error. Try again.");
             }
-            setDepositLoading(false);
         } catch(error) {
             console.log(error);
             setDepositLoading(false);

@@ -68,7 +68,7 @@ function InvestmentCard({assetAddress, symbol}) {
                     .on('error',    err => console.log("err: " + err))
             }     
         })();
-    }, []);
+    }, [accounts, clone]);
 
 
 
