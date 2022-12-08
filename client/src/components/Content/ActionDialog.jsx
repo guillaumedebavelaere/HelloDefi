@@ -6,7 +6,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useEth } from "../../contexts/EthContext";
 import LoadingButton from '@mui/lab/LoadingButton';
-const { Dialog, DialogTitle, Typography, Button, TextField, InputAdornment } = require("@mui/material");
+const { Dialog, DialogTitle, Typography, Button, TextField, InputAdornment, Slider } = require("@mui/material");
 
 function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDeposited, symbol, tokenContract }) {
     const { refreshContext, state: { accounts, web3, priceFeed, clone, factory } } = useEth();
@@ -22,17 +22,19 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     const [depositValue, setDepositValue] = useState(0);
     const [depositValueDollars, setDepositValueDollars] = useState(0);
     const [approved, setApproved] = useState(false);
-    const [withdrawValue, setWithdrawValue] = useState(0);
 
+    const handleDepositSliderChange = e => {
+        setDepositValue(e.target.value);
+    }
 
-    const handleDepositChange = async e => {
+    const handleDepositChange = e => {
         setDepositValue(e.target.value);
     }
 
     useEffect(() => {
-        (async() => {
-            const balance = await tokenContract.methods.balanceOf(accounts[0]).call({from: accounts[0]});
-            setBalanceUser(Math.round(web3.utils.fromWei(balance)*100) / 100);
+        (async () => {
+            const balance = await tokenContract.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
+            setBalanceUser(Math.round(web3.utils.fromWei(balance) * 100) / 100);
         })();
     });
 
@@ -56,7 +58,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
             const allowAmount = await tokenContract.methods.allowance(accounts[0], cloneAddress).call({ from: accounts[0] });
             setApproved(depositValue <= web3.utils.fromWei(allowAmount));
             setDepositLoading(false);
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             setDepositLoading(false);
         }
@@ -72,7 +74,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
             if (!allowed) {
                 alert("Approval error. Try again.");
             }
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             setDepositLoading(false);
         }
@@ -92,7 +94,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     async function createClone() {
         try {
             setDepositLoading(true);
-            const receipt =  await factory.methods.createClone().send({ from: accounts[0] });
+            const receipt = await factory.methods.createClone().send({ from: accounts[0] });
             setDepositLoading(false);
             return receipt;
         } catch (error) {
@@ -116,21 +118,59 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
             refreshContext();
             const cloneAddress = receipt.events.CloneCreated.returnValues._clone;
             await approve(cloneAddress);
-        } else if(!approved) {
+        } else if (!approved) {
             await approve(clone.options.address);
         } else {
             await deposit();
             handleClose();
         }
-
     }
 
-    const handleWithdrawChange = () => {
-        console.log("on cahnge");
+    /**
+     * Withdraw methods
+     */
+    const [withdrawLoading, setWithdrawLoading] = useState(false);
+    const [withdrawValue, setWithdrawValue] = useState(0);
+    const [withdrawValueDollars, setWithdrawValueDollars] = useState(0);
+
+    useEffect(() => {
+        (async () => {
+            if (withdrawValue !== 0) {
+                const lastPrice = await priceFeed.methods.getLatestPrice(assetAddress).call();
+                setWithdrawValueDollars(
+                    Math.round(withdrawValue * web3.utils.fromWei(lastPrice) * 100) / 100
+                );
+            } else {
+                setWithdrawValueDollars(0);
+            }
+
+        })()
+    }, [withdrawValue, assetAddress]);
+
+    const handleDepositWithdrawChange = e => {
+        setWithdrawValue(e.target.value);
     }
 
-    const handleWithdrawSubmit = () => {
-        console.log("on cahnge");
+    const handleWithdrawChange = e => {
+        setWithdrawValue(e.target.value);
+    }
+
+    const withdraw = async () => {
+        try {
+            setWithdrawLoading(true);
+            await clone.methods.withdraw(assetAddress, web3.utils.toWei(withdrawValue))
+                .send({ from: accounts[0] });
+            setWithdrawLoading(false);
+        } catch (error) {
+            console.log(error);
+            setWithdrawLoading(false);
+        }
+    }
+
+    const handleWithdrawSubmit = async (e) => {
+        e.preventDefault();
+        await withdraw();
+        handleClose();
     }
 
     return (
@@ -175,6 +215,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                         </InputAdornment>
                                     }}
                                 />
+                                {/* <Slider id="deposit-slider" min={0} defaultValue={0} max={balanceUser} value={depositValue} onChange={handleDepositSliderChange} aria-label="Default" valueLabelDisplay="auto" /> */}
                                 <LoadingButton
                                     type="submit"
                                     variant="contained"
@@ -186,7 +227,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                     {clone === undefined ?
                                         <>Create {symbol} Investment</>
                                         : approved ? <>Deposit {symbol}</>
-                                        : <>Approve {symbol}</>}
+                                            : <>Approve {symbol}</>}
 
                                 </LoadingButton>
                             </Box>
@@ -200,8 +241,8 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                             }}
                         >
                             <Box display="flex" justifyContent="flex-end" alignItems="flex-end" mb={0}>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    Use max (0 {symbol})
+                                <Typography sx={{ fontSize: 14, cursor: "pointer" }} color="text.secondary" gutterBottom onClick={() => setWithdrawValue(balanceDeposited)}>
+                                    Use max ({balanceDeposited} {symbol})
                                 </Typography>
                             </Box>
                             <Box component="form" onSubmit={handleWithdrawSubmit} noValidate mt={0}>
@@ -214,15 +255,25 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                     name="withdraw"
                                     value={withdrawValue}
                                     onChange={handleWithdrawChange}
+                                    InputProps={{
+                                        endAdornment: <InputAdornment position="end">
+                                            <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
+                                                ${withdrawValueDollars}
+                                            </Typography>
+                                        </InputAdornment>
+                                    }}
                                 />
-                                <Button
+                                {/* <Slider id="withdraw-slider" min={0} defaultValue={0} max={+balanceDeposited} value={withdrawValue} onChange={handleDepositWithdrawChange} aria-label="Default" valueLabelDisplay="auto" /> */}
+                                <LoadingButton
                                     type="submit"
                                     variant="contained"
+                                    loading={withdrawLoading}
+                                    disabled={balanceDeposited === 0}
                                     fullWidth
                                     sx={{ mt: 3, mb: 2 }}
                                 >
                                     Withdraw {symbol}
-                                </Button>
+                                </LoadingButton>
                             </Box>
                         </Box>
                     </TabPanel>

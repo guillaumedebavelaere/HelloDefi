@@ -4,6 +4,10 @@ const actions = {
 
 const initialState = {
   factoryArtifact: null,
+  IERC20Artifact: null,
+  cloneArtifact: null,
+  priceFeedArtifact: null,
+  protocolDataProviderArtifact: null,
   web3: null,
   accounts: null,
   networkID: null,

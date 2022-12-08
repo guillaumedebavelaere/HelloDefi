@@ -10,10 +10,13 @@ function EthProvider({ children }) {
 
   const init = useCallback(
     async (factoryArtifact, cloneArtifact, IERC20Artifact, priceFeedArtifact, protocolDataProviderArtifact) => {
+      console.log("init called 1" + IERC20Artifact);
       if (factoryArtifact && cloneArtifact && IERC20Artifact && priceFeedArtifact && protocolDataProviderArtifact) {
+        console.log("init called 2");
         const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
         const accounts = await web3.eth.requestAccounts();
         const networkID = await web3.eth.net.getId();
+        console.log("networkid: " + networkID);
         const { abi: factoryAbi } = factoryArtifact;
         const { abi: cloneAbi } = cloneArtifact;
         const { abi: priceFeedAbi } = priceFeedArtifact;
@@ -40,7 +43,8 @@ function EthProvider({ children }) {
         }
         dispatch({
           type: actions.init,
-          data: { factoryArtifact, web3, accounts, networkID, factory, clone, priceFeed, protocolDataProvider, erc20Abi, wrongNetworkId }
+          data: { factoryArtifact, IERC20Artifact, cloneArtifact, priceFeedArtifact, protocolDataProviderArtifact, web3, accounts, networkID, 
+            factory, clone, priceFeed, protocolDataProvider, erc20Abi, wrongNetworkId }
         });
       }
     }, []);
@@ -53,7 +57,6 @@ function EthProvider({ children }) {
         const IERC20Artifact = require("../../contracts/IERC20Metadata.json");
         const priceFeedArtifact = require("../../contracts/PriceFeedConsumer.json");
         const protocolDataProviderArtifact = require("../../contracts/IProtocolDataProviderAAVE2.json");
-        
         init(factoryArtifact, cloneArtifact, IERC20Artifact, priceFeedArtifact, protocolDataProviderArtifact);
       } catch (err) {
         console.error(err);
@@ -63,14 +66,14 @@ function EthProvider({ children }) {
   useEffect(() => {
     const events = ["chainChanged", "accountsChanged"];
     const handleChange = () => {
-      init(state.artifact);
+      init(state.factoryArtifact, state.cloneArtifact, state.IERC20Artifact, state.priceFeedArtifact, state.protocolDataProviderArtifact);
     };
 
     events.forEach(e => window.ethereum.on(e, handleChange));
     return () => {
       events.forEach(e => window.ethereum.removeListener(e, handleChange));
     };
-  }, [init, state.artifact]);
+  }, [init, state.factoryArtifact, state.cloneArtifact, state.IERC20Artifact, state.priceFeedArtifact, state.protocolDataProviderArtifact]);
 
   const refreshContext = () => {    
     tryInit();

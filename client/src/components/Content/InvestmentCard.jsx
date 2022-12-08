@@ -53,6 +53,11 @@ function InvestmentCard({assetAddress, symbol}) {
             if (clone !== undefined) {
                 await refreshBalanceDeposited();
                 await refreshRewards();
+            } else {
+                setBalanceDeposited(0);
+                setBalanceDepositedUsd(0);
+                setRewards(0)
+                setRewardsUsd(0);
             }
         })()
     }, [accounts, clone]);
@@ -61,6 +66,19 @@ function InvestmentCard({assetAddress, symbol}) {
         (async()=> {
             if (clone !== undefined) {
                 await clone.events.Deposit({ _asset: assetAddress, fromBlock: "earliest" })
+                    .on('data', async event => {
+                        await refreshBalanceDeposited();
+                        await refreshRewards();
+                    })
+                    .on('error',    err => console.log("err: " + err))
+            }     
+        })();
+    }, [accounts, clone]);
+
+    useEffect(() => {
+        (async()=> {
+            if (clone !== undefined) {
+                await clone.events.Withdraw({ _asset: assetAddress, fromBlock: "earliest" })
                     .on('data', async event => {
                         await refreshBalanceDeposited();
                         await refreshRewards();
@@ -111,7 +129,7 @@ function InvestmentCard({assetAddress, symbol}) {
             selectedValue={selectedValue}
             open={open}
             onClose={handleClose}
-            balance={balanceDeposited}
+            balanceDeposited={balanceDeposited}
             symbol={symbol}
             assetAddress={assetAddress}
             tokenContract={tokenContract}
