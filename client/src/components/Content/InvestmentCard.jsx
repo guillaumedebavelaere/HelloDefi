@@ -5,7 +5,7 @@ import { useEth } from "../../contexts/EthContext";
 import ActionDialog from "./ActionDialog";
 
 function InvestmentCard({assetAddress, symbol}) {
-    const {state: {web3, accounts, clone, priceFeed, protocolDataProvider, erc20Abi}} = useEth();
+    const {state: {web3, accounts, artifacts, contracts}} = useEth();
     const [balanceDeposited, setBalanceDeposited] = useState(0);
     const [balanceDepositedUsd, setBalanceDepositedUsd] = useState(0);
     const [rewards, setRewards] = useState(0);
@@ -14,7 +14,7 @@ function InvestmentCard({assetAddress, symbol}) {
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState("");
 
-    const tokenContract = new web3.eth.Contract(erc20Abi, assetAddress);
+    const tokenContract = new web3.eth.Contract(artifacts.IERC20Metadata.abi, assetAddress);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -26,23 +26,23 @@ function InvestmentCard({assetAddress, symbol}) {
     };
     
     async function refreshBalanceDeposited() {
-        const balanceDeposited = await clone.methods.depositedBalance(assetAddress).call({ from: accounts[0] });
-        setBalanceDeposited(web3.utils.fromWei(balanceDeposited));
+        const balanceDeposited = await contracts.HelloDefiAAVE2.methods.depositedBalance(assetAddress).call({ from: accounts[0] });
+        setBalanceDeposited(Math.round(web3.utils.fromWei(balanceDeposited)* 100) / 100);
 
-        const lastPrice = await priceFeed.methods.getLatestPrice(assetAddress).call();
+        const lastPrice = await contracts.PriceFeedConsumer.methods.getLatestPrice(assetAddress).call();
         setBalanceDepositedUsd(
             Math.round(web3.utils.fromWei(balanceDeposited) * web3.utils.fromWei(lastPrice) * 100) / 100
         );
     }
 
     async function refreshRewards() {
-        const {aTokenBalance} = await protocolDataProvider.methods.getUserReserveData(assetAddress, clone.options.address)
+        const {aTokenBalance} = await contracts.IProtocolDataProviderAAVE2.methods.getUserReserveData(assetAddress, contracts.HelloDefiAAVE2.options.address)
             .call({from: accounts[0]});
         
         const rewards = web3.utils.BN(aTokenBalance).sub(web3.utils.toWei(web3.utils.BN(balanceDeposited)));
         setRewards(web3.utils.fromWei(rewards));
 
-        const lastPrice = await priceFeed.methods.getLatestPrice(assetAddress).call();
+        const lastPrice = await contracts.PriceFeedConsumer.methods.getLatestPrice(assetAddress).call();
         setRewardsUsd(
             Math.round(web3.utils.fromWei(rewards) * web3.utils.fromWei(lastPrice) * 100) / 100
         );
@@ -50,7 +50,7 @@ function InvestmentCard({assetAddress, symbol}) {
 
     useEffect(() => {
         (async() => {
-            if (clone !== undefined) {
+            if (contracts?.HelloDefiAAVE2 !== undefined) {
                 await refreshBalanceDeposited();
                 await refreshRewards();
             } else {
@@ -60,12 +60,12 @@ function InvestmentCard({assetAddress, symbol}) {
                 setRewardsUsd(0);
             }
         })()
-    }, [accounts, clone]);
+    }, [accounts, contracts?.HelloDefiAAVE2]);
 
     useEffect(() => {
         (async()=> {
-            if (clone !== undefined) {
-                await clone.events.Deposit({ _asset: assetAddress, fromBlock: "earliest" })
+            if (contracts?.HelloDefiAAVE2 !== undefined) {
+                await contracts.HelloDefiAAVE2.events.Deposit({ _asset: assetAddress, fromBlock: "earliest" })
                     .on('data', async event => {
                         await refreshBalanceDeposited();
                         await refreshRewards();
@@ -73,12 +73,12 @@ function InvestmentCard({assetAddress, symbol}) {
                     .on('error',    err => console.log("err: " + err))
             }     
         })();
-    }, [accounts, clone]);
+    }, [accounts, contracts?.HelloDefiAAVE2]);
 
     useEffect(() => {
         (async()=> {
-            if (clone !== undefined) {
-                await clone.events.Withdraw({ _asset: assetAddress, fromBlock: "earliest" })
+            if (contracts?.HelloDefiAAVE2 !== undefined) {
+                await contracts.HelloDefiAAVE2.events.Withdraw({ _asset: assetAddress, fromBlock: "earliest" })
                     .on('data', async event => {
                         await refreshBalanceDeposited();
                         await refreshRewards();
@@ -86,7 +86,7 @@ function InvestmentCard({assetAddress, symbol}) {
                     .on('error',    err => console.log("err: " + err))
             }     
         })();
-    }, [accounts, clone]);
+    }, [accounts, contracts?.HelloDefiAAVE2]);
 
 
 

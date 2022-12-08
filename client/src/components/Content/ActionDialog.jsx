@@ -6,10 +6,10 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useEth } from "../../contexts/EthContext";
 import LoadingButton from '@mui/lab/LoadingButton';
-const { Dialog, DialogTitle, Typography, Button, TextField, InputAdornment, Slider } = require("@mui/material");
+const { Dialog, DialogTitle, Typography, TextField, InputAdornment } = require("@mui/material");
 
 function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDeposited, symbol, tokenContract }) {
-    const { refreshContext, state: { accounts, web3, priceFeed, clone, factory } } = useEth();
+    const { refreshContext, state: { accounts, web3, contracts } } = useEth();
     const [tabValue, setTabValue] = useState('1');
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
@@ -23,9 +23,6 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     const [depositValueDollars, setDepositValueDollars] = useState(0);
     const [approved, setApproved] = useState(false);
 
-    const handleDepositSliderChange = e => {
-        setDepositValue(e.target.value);
-    }
 
     const handleDepositChange = e => {
         setDepositValue(e.target.value);
@@ -41,7 +38,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     useEffect(() => {
         (async () => {
             if (depositValue !== 0) {
-                const lastPrice = await priceFeed.methods.getLatestPrice(assetAddress).call();
+                const lastPrice = await contracts.PriceFeedConsumer.methods.getLatestPrice(assetAddress).call();
                 setDepositValueDollars(
                     Math.round(depositValue * web3.utils.fromWei(lastPrice) * 100) / 100
                 );
@@ -83,7 +80,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     async function deposit() {
         try {
             setDepositLoading(true);
-            await clone.methods.deposit(assetAddress, web3.utils.toWei(depositValue)).send({ from: accounts[0] });
+            await contracts.HelloDefiAAVE2.methods.deposit(assetAddress, web3.utils.toWei(depositValue)).send({ from: accounts[0] });
             setDepositLoading(false);
         } catch (error) {
             console.log(error);
@@ -94,7 +91,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     async function createClone() {
         try {
             setDepositLoading(true);
-            const receipt = await factory.methods.createClone().send({ from: accounts[0] });
+            const receipt = await contracts.HelloDefiAAVE2Factory.methods.createClone().send({ from: accounts[0] });
             setDepositLoading(false);
             return receipt;
         } catch (error) {
@@ -105,21 +102,21 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
 
     useEffect(() => {
         (async () => {
-            if (clone !== undefined) {
-                await verifyAllowance(clone.options.address);
+            if (contracts?.HelloDefiAAVE2 !== undefined) {
+                await verifyAllowance(contracts.HelloDefiAAVE2.options.address);
             }
         })();
-    }, [depositValue, clone]);
+    }, [depositValue, contracts?.HelloDefiAAVE2]);
 
     const handleDepositSubmit = async (e) => {
         e.preventDefault();
-        if (clone === undefined) {
+        if (contracts?.HelloDefiAAVE2 === undefined) {
             const receipt = await createClone();
             refreshContext();
             const cloneAddress = receipt.events.CloneCreated.returnValues._clone;
             await approve(cloneAddress);
         } else if (!approved) {
-            await approve(clone.options.address);
+            await approve(contracts.HelloDefiAAVE2.options.address);
         } else {
             await deposit();
             handleClose();
@@ -136,7 +133,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     useEffect(() => {
         (async () => {
             if (withdrawValue !== 0) {
-                const lastPrice = await priceFeed.methods.getLatestPrice(assetAddress).call();
+                const lastPrice = await contracts.PriceFeedConsumer.methods.getLatestPrice(assetAddress).call();
                 setWithdrawValueDollars(
                     Math.round(withdrawValue * web3.utils.fromWei(lastPrice) * 100) / 100
                 );
@@ -147,9 +144,6 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
         })()
     }, [withdrawValue, assetAddress]);
 
-    const handleDepositWithdrawChange = e => {
-        setWithdrawValue(e.target.value);
-    }
 
     const handleWithdrawChange = e => {
         setWithdrawValue(e.target.value);
@@ -158,7 +152,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     const withdraw = async () => {
         try {
             setWithdrawLoading(true);
-            await clone.methods.withdraw(assetAddress, web3.utils.toWei(withdrawValue))
+            await contracts.HelloDefiAAVE2.methods.withdraw(assetAddress, web3.utils.toWei(withdrawValue))
                 .send({ from: accounts[0] });
             setWithdrawLoading(false);
         } catch (error) {
@@ -215,7 +209,6 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                         </InputAdornment>
                                     }}
                                 />
-                                {/* <Slider id="deposit-slider" min={0} defaultValue={0} max={balanceUser} value={depositValue} onChange={handleDepositSliderChange} aria-label="Default" valueLabelDisplay="auto" /> */}
                                 <LoadingButton
                                     type="submit"
                                     variant="contained"
@@ -224,7 +217,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                     fullWidth
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    {clone === undefined ?
+                                    {contracts?.HelloDefiAAVE2 === undefined ?
                                         <>Create {symbol} Investment</>
                                         : approved ? <>Deposit {symbol}</>
                                             : <>Approve {symbol}</>}
@@ -263,7 +256,6 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                         </InputAdornment>
                                     }}
                                 />
-                                {/* <Slider id="withdraw-slider" min={0} defaultValue={0} max={+balanceDeposited} value={withdrawValue} onChange={handleDepositWithdrawChange} aria-label="Default" valueLabelDisplay="auto" /> */}
                                 <LoadingButton
                                     type="submit"
                                     variant="contained"

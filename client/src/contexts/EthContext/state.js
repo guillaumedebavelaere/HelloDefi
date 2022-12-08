@@ -3,19 +3,11 @@ const actions = {
 };
 
 const initialState = {
-  factoryArtifact: null,
-  IERC20Artifact: null,
-  cloneArtifact: null,
-  priceFeedArtifact: null,
-  protocolDataProviderArtifact: null,
+  artifacts: null,
+  contracts: null,
   web3: null,
   accounts: null,
   networkID: null,
-  factory: null,
-  clone: null,
-  priceFeed: null,
-  protocolDataProvider: null,
-  erc20Abi: null,
   wrongNetworkId: false
 };
 
