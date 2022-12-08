@@ -9,20 +9,30 @@ interface IPriceFeedConsumer {
 }
 
 /**
- * For now it supports only one asset feed price
+ * For now it supports manual added asset because feed registry (https://docs.chain.link/data-feeds/feed-registry)
+ * is not available on testnet.
  * TODO: handle multiple assets
  */
 contract PriceFeedConsumer is IPriceFeedConsumer {
-    AggregatorV3Interface internal priceFeed;
+    AggregatorV3Interface internal priceFeedDai;
+    AggregatorV3Interface internal priceFeedLink;
 
-    constructor(address _aggregatorAddress) {
-        priceFeed = AggregatorV3Interface(_aggregatorAddress);
+    constructor(address _aggregatorAddressDai, address _aggregatorAddressLink) {
+        priceFeedDai = AggregatorV3Interface(_aggregatorAddressDai);
+        priceFeedLink = AggregatorV3Interface(_aggregatorAddressLink);
     }
 
     /**
      * Returns the latest price
      */
     function getLatestPrice(address _asset) override public view returns (uint256) {
+        AggregatorV3Interface priceFeed = priceFeedDai;
+        if (_asset == address(0x75Ab5AB1Eef154C0352Fc31D2428Cef80C7F8B33)) {
+            priceFeed = priceFeedDai;
+        } else {
+            priceFeed = priceFeedLink;
+        }
+        
         (
             uint80 roundID,
             int256 price,
@@ -35,5 +45,9 @@ contract PriceFeedConsumer is IPriceFeedConsumer {
             return uint256(price) * decimalsToAdd;
         }
         return uint256(price);
+    }
+
+    function _getPriceFeed(address _asset) private returns(AggregatorV3Interface) {
+        return priceFeedDai;
     }
 }
