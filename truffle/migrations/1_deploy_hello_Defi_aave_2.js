@@ -5,7 +5,7 @@ const HelloDefiAAVE2Factory = artifacts.require("HelloDefiAAVE2Factory");
 
 
 module.exports = async function (deployer) {
-  await deployer.deploy(PriceFeedConsumer, process.env.DAI_AGGREGATOR_V3_CHAIN_LINK_CONTRACT_ADDRESS);
+  await deployer.deploy(PriceFeedConsumer, process.env.DAI_AGGREGATOR_V3_CHAIN_LINK_CONTRACT_ADDRESS, process.env.LINK_AGGREGATOR_V3_CHAIN_LINK_CONTRACT_ADDRESS);
   await deployer.deploy(FeesCollector);
 
   await deployer.deploy(
