@@ -9,5 +9,15 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
  * @dev FeesCollector is the smart contract to collect the fees from user's HelloDefiAAVE2 deposits and withdraws
  */
 contract FeesCollector is Ownable {
-    
+    using SafeERC20 for IERC20;
+
+    function withdraw(address _asset, uint256 _amount) external onlyOwner {
+        require(_amount > 0, "_amount must be > 0!");
+
+        // Allow this smart contract to spend amount
+        IERC20(_asset).safeIncreaseAllowance(address(this), _amount);
+
+        //Transfer funds from this smart contract to the user
+        IERC20(_asset).safeTransferFrom(address(this), msg.sender, _amount);
+    }
 }

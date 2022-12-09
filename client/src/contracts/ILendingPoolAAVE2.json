@@ -68,27 +68,27 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\n/**\n * This interface exposes AAVE2 ILendingPool methods.\n * This has been created instead of imported from aave/protocols-v2 package because of the old version of solidity.\n */\ninterface ILendingPoolAAVE2 {\n    /**\n     * @dev Deposits an `amount` of underlying asset into the reserve, receiving in return overlying aTokens.\n     * - E.g. User deposits 100 USDC and gets in return 100 aUSDC\n     * @param asset The address of the underlying asset to deposit\n     * @param amount The amount to be deposited\n     * @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user\n     *   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens\n     *   is a different wallet\n     * @param referralCode Code used to register the integrator originating the operation, for potential rewards.\n     *   0 if the action is executed directly by the user, without any middle-man\n     **/\n    function deposit(\n        address asset,\n        uint256 amount,\n        address onBehalfOf,\n        uint16 referralCode\n    ) external;\n\n    /**\n     * @dev Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned\n     * E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC\n     * @param asset The address of the underlying asset to withdraw\n     * @param amount The underlying amount to be withdrawn\n     *   - Send the value type(uint256).max in order to withdraw the whole aToken balance\n     * @param to Address that will receive the underlying, same as msg.sender if the user\n     *   wants to receive it on his own wallet, or a different address if the beneficiary is a\n     *   different wallet\n     * @return The final amount withdrawn\n     **/\n    function withdraw(\n        address asset,\n        uint256 amount,\n        address to\n    ) external returns (uint256);\n}\n",
-  "sourcePath": "/Users/guillaumedebavelaere/alyra/projects/HelloDefi/truffle/contracts/ILendingPoolAAVE2.sol",
+  "sourcePath": "/Users/Adam/Desktop/HelloDefi/ProjectAlyra/truffle/contracts/ILendingPoolAAVE2.sol",
   "ast": {
     "absolutePath": "project:/contracts/ILendingPoolAAVE2.sol",
     "exportedSymbols": {
       "ILendingPoolAAVE2": [
-        788
+        1594
       ]
     },
-    "id": 789,
+    "id": 1595,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 762,
+        "id": 1568,
         "literals": [
           "solidity",
           "0.8",
           ".17"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:6"
+        "src": "32:23:12"
       },
       {
         "abstract": false,
@@ -97,48 +97,48 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-          "id": 763,
+          "id": 1569,
           "nodeType": "StructuredDocumentation",
-          "src": "57:177:6",
+          "src": "57:177:12",
           "text": " This interface exposes AAVE2 ILendingPool methods.\n This has been created instead of imported from aave/protocols-v2 package because of the old version of solidity."
         },
         "fullyImplemented": false,
-        "id": 788,
+        "id": 1594,
         "linearizedBaseContracts": [
-          788
+          1594
         ],
         "name": "ILendingPoolAAVE2",
-        "nameLocation": "245:17:6",
+        "nameLocation": "245:17:12",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "documentation": {
-              "id": 764,
+              "id": 1570,
               "nodeType": "StructuredDocumentation",
-              "src": "269:732:6",
+              "src": "269:732:12",
               "text": " @dev Deposits an `amount` of underlying asset into the reserve, receiving in return overlying aTokens.\n - E.g. User deposits 100 USDC and gets in return 100 aUSDC\n @param asset The address of the underlying asset to deposit\n @param amount The amount to be deposited\n @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user\n   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens\n   is a different wallet\n @param referralCode Code used to register the integrator originating the operation, for potential rewards.\n   0 if the action is executed directly by the user, without any middle-man*"
             },
             "functionSelector": "e8eda9df",
-            "id": 775,
+            "id": 1581,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "deposit",
-            "nameLocation": "1015:7:6",
+            "nameLocation": "1015:7:12",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 773,
+              "id": 1579,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 766,
+                  "id": 1572,
                   "mutability": "mutable",
                   "name": "asset",
-                  "nameLocation": "1040:5:6",
+                  "nameLocation": "1040:5:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 775,
-                  "src": "1032:13:6",
+                  "scope": 1581,
+                  "src": "1032:13:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -146,10 +146,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 765,
+                    "id": 1571,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1032:7:6",
+                    "src": "1032:7:12",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -160,13 +160,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 768,
+                  "id": 1574,
                   "mutability": "mutable",
                   "name": "amount",
-                  "nameLocation": "1063:6:6",
+                  "nameLocation": "1063:6:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 775,
-                  "src": "1055:14:6",
+                  "scope": 1581,
+                  "src": "1055:14:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -174,10 +174,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 767,
+                    "id": 1573,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1055:7:6",
+                    "src": "1055:7:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -187,13 +187,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 770,
+                  "id": 1576,
                   "mutability": "mutable",
                   "name": "onBehalfOf",
-                  "nameLocation": "1087:10:6",
+                  "nameLocation": "1087:10:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 775,
-                  "src": "1079:18:6",
+                  "scope": 1581,
+                  "src": "1079:18:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -201,10 +201,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 769,
+                    "id": 1575,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1079:7:6",
+                    "src": "1079:7:12",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -215,13 +215,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 772,
+                  "id": 1578,
                   "mutability": "mutable",
                   "name": "referralCode",
-                  "nameLocation": "1114:12:6",
+                  "nameLocation": "1114:12:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 775,
-                  "src": "1107:19:6",
+                  "scope": 1581,
+                  "src": "1107:19:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -229,10 +229,10 @@
                     "typeString": "uint16"
                   },
                   "typeName": {
-                    "id": 771,
+                    "id": 1577,
                     "name": "uint16",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1107:6:6",
+                    "src": "1107:6:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint16",
                       "typeString": "uint16"
@@ -241,48 +241,48 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1022:110:6"
+              "src": "1022:110:12"
             },
             "returnParameters": {
-              "id": 774,
+              "id": 1580,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1141:0:6"
+              "src": "1141:0:12"
             },
-            "scope": 788,
-            "src": "1006:136:6",
+            "scope": 1594,
+            "src": "1006:136:12",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-              "id": 776,
+              "id": 1582,
               "nodeType": "StructuredDocumentation",
-              "src": "1148:685:6",
+              "src": "1148:685:12",
               "text": " @dev Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned\n E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC\n @param asset The address of the underlying asset to withdraw\n @param amount The underlying amount to be withdrawn\n   - Send the value type(uint256).max in order to withdraw the whole aToken balance\n @param to Address that will receive the underlying, same as msg.sender if the user\n   wants to receive it on his own wallet, or a different address if the beneficiary is a\n   different wallet\n @return The final amount withdrawn*"
             },
             "functionSelector": "69328dec",
-            "id": 787,
+            "id": 1593,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "withdraw",
-            "nameLocation": "1847:8:6",
+            "nameLocation": "1847:8:12",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 783,
+              "id": 1589,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 778,
+                  "id": 1584,
                   "mutability": "mutable",
                   "name": "asset",
-                  "nameLocation": "1873:5:6",
+                  "nameLocation": "1873:5:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 787,
-                  "src": "1865:13:6",
+                  "scope": 1593,
+                  "src": "1865:13:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -290,10 +290,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 777,
+                    "id": 1583,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1865:7:6",
+                    "src": "1865:7:12",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -304,13 +304,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 780,
+                  "id": 1586,
                   "mutability": "mutable",
                   "name": "amount",
-                  "nameLocation": "1896:6:6",
+                  "nameLocation": "1896:6:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 787,
-                  "src": "1888:14:6",
+                  "scope": 1593,
+                  "src": "1888:14:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -318,10 +318,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 779,
+                    "id": 1585,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1888:7:6",
+                    "src": "1888:7:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -331,13 +331,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 782,
+                  "id": 1588,
                   "mutability": "mutable",
                   "name": "to",
-                  "nameLocation": "1920:2:6",
+                  "nameLocation": "1920:2:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 787,
-                  "src": "1912:10:6",
+                  "scope": 1593,
+                  "src": "1912:10:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -345,10 +345,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 781,
+                    "id": 1587,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1912:7:6",
+                    "src": "1912:7:12",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -358,21 +358,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1855:73:6"
+              "src": "1855:73:12"
             },
             "returnParameters": {
-              "id": 786,
+              "id": 1592,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 785,
+                  "id": 1591,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 787,
-                  "src": "1947:7:6",
+                  "scope": 1593,
+                  "src": "1947:7:12",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -380,10 +380,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 784,
+                    "id": 1590,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1947:7:6",
+                    "src": "1947:7:12",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -392,29 +392,29 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1946:9:6"
+              "src": "1946:9:12"
             },
-            "scope": 788,
-            "src": "1838:118:6",
+            "scope": 1594,
+            "src": "1838:118:12",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 789,
-        "src": "235:1723:6",
+        "scope": 1595,
+        "src": "235:1723:12",
         "usedErrors": []
       }
     ],
-    "src": "32:1927:6"
+    "src": "32:1927:12"
   },
   "compiler": {
     "name": "solc",
     "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.11",
-  "updatedAt": "2022-12-05T13:10:01.306Z",
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2022-12-09T19:58:41.417Z",
   "devdoc": {
     "kind": "dev",
     "methods": {
