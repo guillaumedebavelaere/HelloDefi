@@ -35,8 +35,6 @@ function EthProvider({ children }) {
           if (contracts["HelloDefiAAVE2Factory"]) {
             const cloneAddress = await contracts.HelloDefiAAVE2Factory.methods.userContracts(accounts[0]).call({from: accounts[0]});
             if (cloneAddress !== ZERO_ADDRESS) {
-              console.log("artifact", artifacts)
-              console.log("contracts", contracts)
               contracts.HelloDefiAAVE2 = new web3.eth.Contract(artifacts.HelloDefiAAVE2.abi, cloneAddress);
             }
           }

@@ -1783,12 +1783,12 @@
         }
       },
       "links": {},
-      "address": "0xf4c68182e48D711AE49d2c7cE800583aAB42C254",
-      "transactionHash": "0xf0c5afbc8476911437a7bdae7e63b52e5412fffb3dab3247035d752dbab6b7f9"
+      "address": "0x6B6B81b3a7FC1d98FCe38655a5d75a67989F3a90",
+      "transactionHash": "0x5aebfe35fea3cb8a057f0d90add564d175217966d6b5d9891020865fa0fe21df"
     }
   },
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-12-08T20:19:18.063Z",
+  "updatedAt": "2022-12-09T18:56:57.443Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "FeesCollector is the smart contract to collect the fees from user's HelloDefiAAVE2 deposits and withdraws",
