@@ -12,7 +12,6 @@ function InvestmentCard({assetAddress, symbol}) {
     const [rewardsUsd, setRewardsUsd] = useState(0);
 
     const [open, setOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState("");
 
     const tokenContract = new web3.eth.Contract(artifacts.IERC20Metadata.abi, assetAddress);
 
@@ -22,7 +21,6 @@ function InvestmentCard({assetAddress, symbol}) {
 
     const handleClose = (value) => {
         setOpen(false);
-        setSelectedValue(value);
     };
 
     async function refreshBalanceDepositedAndRewards() {
@@ -120,7 +118,6 @@ function InvestmentCard({assetAddress, symbol}) {
             </CardActions>
         </Card>
         <ActionDialog
-            selectedValue={selectedValue}
             open={open}
             onClose={handleClose}
             balanceDeposited={balanceDeposited}

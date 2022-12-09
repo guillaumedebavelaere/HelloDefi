@@ -8,15 +8,16 @@ import { useEth } from "../../contexts/EthContext";
 import LoadingButton from '@mui/lab/LoadingButton';
 const { Dialog, DialogTitle, Typography, TextField, InputAdornment } = require("@mui/material");
 
-function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDeposited, symbol, tokenContract }) {
+function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, tokenContract }) {
     const { refreshContext, state: { accounts, web3, contracts } } = useEth();
     const [tabValue, setTabValue] = useState('1');
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
     };
     const handleClose = () => {
-        onClose(selectedValue);
+        onClose();
     };
+    
     const [balanceUser, setBalanceUser] = useState(0);
     const [depositLoading, setDepositLoading] = useState(false);
     const [depositValue, setDepositValue] = useState(0);
@@ -24,16 +25,16 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     const [approved, setApproved] = useState(false);
 
 
-    const handleDepositChange = e => {
-        setDepositValue(e.target.value);
-    }
-
     useEffect(() => {
         (async () => {
             const balance = await tokenContract.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
             setBalanceUser(Math.round(web3.utils.fromWei(balance) * 100000000) / 100000000);
         })();
-    });
+    },[open]);
+
+    const handleDepositChange = e => {
+        setDepositValue(e.target.value);
+    }
 
     useEffect(() => {
         (async () => {
