@@ -7,7 +7,6 @@ import { HelloDefiAAVE2Instance } from "../types/HelloDefiAAVE2";
 import { ILendingPoolAAVE2Instance } from "../types/ILendingPoolAAVE2";
 import web3 from 'web3';
 import { FeesCollectorInstance, MockPriceFeedConsumerInstance, MockProtocolDataProviderAAVE2Instance } from "../types";
-import { IProtocolDataProviderAAVE2Instance } from "../types/IProtocolDataProviderAAVE2";
 
 const HelloDefiAAVE2 = artifacts.require("HelloDefiAAVE2");
 const FeesCollector = artifacts.require("FeesCollector");
@@ -234,8 +233,7 @@ contract("HelloDefiAAVE2", function (accounts) {
         await aaveProtocolDataProvider.setMockedBalance(web3.utils.toWei("60", "ether")); // profit in qty because of the rewards
 
         // Put rewards on the contract
-        await asset.approve(owner, web3.utils.toWei("11", 'ether'), { from: owner });
-        await asset.transferFrom(owner, instance.address, web3.utils.toWei("11", 'ether'), { from: owner });
+        await asset.transfer(instance.address, web3.utils.toWei("11", 'ether'), { from: owner });
 
         expect(await asset.balanceOf(feesCollectorInstance.address))
           .to.be.a.bignumber.equal(web3.utils.toWei("1", 'ether'));

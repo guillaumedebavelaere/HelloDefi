@@ -14,10 +14,7 @@ contract FeesCollector is Ownable {
     function withdraw(address _asset, uint256 _amount) external onlyOwner {
         require(_amount > 0, "_amount must be > 0!");
 
-        // Allow this smart contract to spend amount
-        IERC20(_asset).safeIncreaseAllowance(address(this), _amount);
-
         //Transfer funds from this smart contract to the user
-        IERC20(_asset).safeTransferFrom(address(this), msg.sender, _amount);
+        IERC20(_asset).safeTransfer(msg.sender, _amount);
     }
 }

@@ -132,12 +132,8 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
         depositedBalance[_asset] = (totalRemainingBalance - _amount);
         assetAvgCost[_asset] = lastPrice;
 
-        // Approval to allow aave to spend this smart contract asset
-        IERC20(_asset).safeIncreaseAllowance(address(this), _amount);
-
         //Transfers the asset from this smart contract to user's wallet
-        IERC20(_asset).safeTransferFrom(
-            address(this),
+        IERC20(_asset).safeTransfer(
             msg.sender,
             _amount
         );
@@ -159,12 +155,8 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
         require(_amount > 100);
         uint256 fees = (_amount * _referalCommission) / 100;
 
-        // Allow this smart contract to spend fees amount in behalf of the _userClone
-        IERC20(_asset).safeIncreaseAllowance(address(this), fees);
-
         // Transfer referal fees to the fees collector
-        IERC20(_asset).safeTransferFrom(
-            address(this),
+        IERC20(_asset).safeTransfer(
             address(_feesCollector),
             fees
         );
@@ -199,16 +191,13 @@ contract HelloDefiAAVE2 is Ownable, Initializable {
             
             // Withdraw fees from AAVE
             _aaveLendingPool.withdraw(_asset, feesQty, address(this));
-            
-            // Allow this smart contract to spend fees amount
-            IERC20(_asset).safeIncreaseAllowance(address(this), feesQty);
 
             // Transfer performance fees to the fees collector
-            IERC20(_asset).safeTransferFrom(
-                address(this),
+            IERC20(_asset).safeTransfer(
                 address(_feesCollector),
                 feesQty
             );
+            
             return _totalBalance - feesQty;
         }
         return _totalBalance;
