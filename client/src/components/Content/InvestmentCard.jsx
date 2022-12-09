@@ -24,35 +24,31 @@ function InvestmentCard({assetAddress, symbol}) {
         setOpen(false);
         setSelectedValue(value);
     };
-    
-    async function refreshBalanceDeposited() {
-        const balanceDeposited = await contracts.HelloDefiAAVE2.methods.depositedBalance(assetAddress).call({ from: accounts[0] });
-        setBalanceDeposited(Math.round(web3.utils.fromWei(balanceDeposited)* 100) / 100);
 
-        const lastPrice = await contracts.PriceFeedConsumer.methods.getLatestPrice(assetAddress).call();
-        setBalanceDepositedUsd(
-            Math.round(web3.utils.fromWei(balanceDeposited) * web3.utils.fromWei(lastPrice) * 100) / 100
-        );
-    }
+    async function refreshBalanceDepositedAndRewards() {
+        const currentBalanceDeposited = await contracts.HelloDefiAAVE2.methods.depositedBalance(assetAddress).call({ from: accounts[0] });
+        setBalanceDeposited(Math.round(web3.utils.fromWei(currentBalanceDeposited) * 100000000) / 100000000);
 
-    async function refreshRewards() {
-        const {aTokenBalance} = await contracts.IProtocolDataProviderAAVE2.methods.getUserReserveData(assetAddress, contracts.HelloDefiAAVE2.options.address)
+        const result = await contracts.IProtocolDataProviderAAVE2.methods.getUserReserveData(assetAddress, contracts.HelloDefiAAVE2.options.address)
             .call({from: accounts[0]});
-        
-        const rewards = web3.utils.BN(aTokenBalance).sub(web3.utils.toWei(web3.utils.BN(balanceDeposited)));
-        setRewards(web3.utils.fromWei(rewards));
+        const aTokenBalance = result[0];
+
+        const rewards = web3.utils.BN(aTokenBalance).sub(web3.utils.BN(currentBalanceDeposited));
+        setRewards(Math.round(web3.utils.fromWei(rewards) * 100000000) / 100000000);
 
         const lastPrice = await contracts.PriceFeedConsumer.methods.getLatestPrice(assetAddress).call();
         setRewardsUsd(
             Math.round(web3.utils.fromWei(rewards) * web3.utils.fromWei(lastPrice) * 100) / 100
+        );
+        setBalanceDepositedUsd(
+            Math.round(web3.utils.fromWei(currentBalanceDeposited) * web3.utils.fromWei(lastPrice) * 100) / 100
         );
     }
 
     useEffect(() => {
         (async() => {
             if (contracts?.HelloDefiAAVE2 !== undefined) {
-                await refreshBalanceDeposited();
-                await refreshRewards();
+                await refreshBalanceDepositedAndRewards();
             } else {
                 setBalanceDeposited(0);
                 setBalanceDepositedUsd(0);
@@ -67,8 +63,7 @@ function InvestmentCard({assetAddress, symbol}) {
             if (contracts?.HelloDefiAAVE2 !== undefined) {
                 await contracts.HelloDefiAAVE2.events.Deposit({ _asset: assetAddress, fromBlock: "earliest" })
                     .on('data', async event => {
-                        await refreshBalanceDeposited();
-                        await refreshRewards();
+                        await refreshBalanceDepositedAndRewards();
                     })
                     .on('error',    err => console.log("err: " + err))
             }     
@@ -80,8 +75,7 @@ function InvestmentCard({assetAddress, symbol}) {
             if (contracts?.HelloDefiAAVE2 !== undefined) {
                 await contracts.HelloDefiAAVE2.events.Withdraw({ _asset: assetAddress, fromBlock: "earliest" })
                     .on('data', async event => {
-                        await refreshBalanceDeposited();
-                        await refreshRewards();
+                        await refreshBalanceDepositedAndRewards();
                     })
                     .on('error',    err => console.log("err: " + err))
             }     

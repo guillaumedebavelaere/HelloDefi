@@ -31,7 +31,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     useEffect(() => {
         (async () => {
             const balance = await tokenContract.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
-            setBalanceUser(Math.round(web3.utils.fromWei(balance) * 100) / 100);
+            setBalanceUser(Math.round(web3.utils.fromWei(balance) * 100000000) / 100000000);
         })();
     });
 
@@ -112,9 +112,9 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
         e.preventDefault();
         if (contracts?.HelloDefiAAVE2 === undefined) {
             const receipt = await createClone();
-            refreshContext();
             const cloneAddress = receipt.events.CloneCreated.returnValues._clone;
             await approve(cloneAddress);
+            refreshContext();
         } else if (!approved) {
             await approve(contracts.HelloDefiAAVE2.options.address);
         } else {
@@ -152,7 +152,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     const withdraw = async () => {
         try {
             setWithdrawLoading(true);
-            await contracts.HelloDefiAAVE2.methods.withdraw(assetAddress, web3.utils.toWei(withdrawValue))
+            await contracts.HelloDefiAAVE2.methods.withdraw(assetAddress, web3.utils.toWei(`${withdrawValue}`))
                 .send({ from: accounts[0] });
             setWithdrawLoading(false);
         } catch (error) {
