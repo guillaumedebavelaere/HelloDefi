@@ -33,8 +33,8 @@ function InvestmentCard({assetAddress, symbol}) {
             .call({from: accounts[0]});
         const aTokenBalance = result[0];
 
-        const rewards = web3.utils.BN(aTokenBalance).sub(web3.utils.BN(currentBalanceDeposited));
-        setRewards(Math.round(web3.utils.fromWei(rewards) * 100000000) / 100000000);
+        const rewards = web3.utils.toBN(aTokenBalance).sub(web3.utils.toBN(currentBalanceDeposited));
+        setRewards((Math.round(web3.utils.fromWei(rewards.toString()) * 100000000) / 100000000).toFixed(8));
 
         const lastPrice = await contracts.PriceFeedConsumer.methods.getLatestPrice(assetAddress).call();
         setRewardsUsd(
