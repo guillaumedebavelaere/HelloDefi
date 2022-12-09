@@ -8,15 +8,16 @@ import { useEth } from "../../contexts/EthContext";
 import LoadingButton from '@mui/lab/LoadingButton';
 const { Dialog, DialogTitle, Typography, TextField, InputAdornment } = require("@mui/material");
 
-function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDeposited, symbol, tokenContract }) {
+function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, tokenContract }) {
     const { refreshContext, state: { accounts, web3, contracts } } = useEth();
     const [tabValue, setTabValue] = useState('1');
     const handleTabChange = (event, newValue) => {
         setTabValue(newValue);
     };
     const handleClose = () => {
-        onClose(selectedValue);
+        onClose();
     };
+    
     const [balanceUser, setBalanceUser] = useState(0);
     const [depositLoading, setDepositLoading] = useState(false);
     const [depositValue, setDepositValue] = useState(0);
@@ -24,16 +25,16 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
     const [approved, setApproved] = useState(false);
 
 
-    const handleDepositChange = e => {
-        setDepositValue(e.target.value);
-    }
-
     useEffect(() => {
         (async () => {
             const balance = await tokenContract.methods.balanceOf(accounts[0]).call({ from: accounts[0] });
             setBalanceUser(Math.round(web3.utils.fromWei(balance) * 100000000) / 100000000);
         })();
-    });
+    },[open]);
+
+    const handleDepositChange = e => {
+        setDepositValue(e.target.value);
+    }
 
     useEffect(() => {
         (async () => {
@@ -146,7 +147,11 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
 
 
     const handleWithdrawChange = e => {
-        setWithdrawValue(e.target.value);
+        let value = e.target.value;
+        if (value > balanceDeposited) {
+            value = balanceDeposited;
+        }
+        setWithdrawValue(value);
     }
 
     const withdraw = async () => {
@@ -212,7 +217,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                 <LoadingButton
                                     type="submit"
                                     variant="contained"
-                                    disabled={depositValue === 0}
+                                    disabled={depositValue === "0" || depositValue === ""}
                                     loading={depositLoading}
                                     fullWidth
                                     sx={{ mt: 3, mb: 2 }}
@@ -260,7 +265,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                     type="submit"
                                     variant="contained"
                                     loading={withdrawLoading}
-                                    disabled={balanceDeposited === 0}
+                                    disabled={balanceDeposited === "0" || withdrawValue === "0" || withdrawValue === ""}
                                     fullWidth
                                     sx={{ mt: 3, mb: 2 }}
                                 >
