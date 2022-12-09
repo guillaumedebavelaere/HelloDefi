@@ -65,7 +65,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
     async function approve(cloneAddress) {
         try {
             setDepositLoading(true);
-            const allowed = await tokenContract.methods.approve(cloneAddress, web3.utils.toWei(depositValue))
+            const allowed = await tokenContract.methods.approve(cloneAddress, web3.utils.toWei(`${depositValue}`))
                 .send({ from: accounts[0] });
             setApproved(allowed);
             setDepositLoading(false);
@@ -81,7 +81,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
     async function deposit() {
         try {
             setDepositLoading(true);
-            await contracts.HelloDefiAAVE2.methods.deposit(assetAddress, web3.utils.toWei(depositValue)).send({ from: accounts[0] });
+            await contracts.HelloDefiAAVE2.methods.deposit(assetAddress, web3.utils.toWei(`${depositValue}`)).send({ from: accounts[0] });
             setDepositLoading(false);
         } catch (error) {
             console.log(error);
@@ -173,7 +173,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
     }
 
     return (
-        <Dialog onClose={handleClose} open={open}>
+        <Dialog onClose={handleClose} open={open} PaperProps={{ sx: { minWidth: "20%" } }}>
             <DialogTitle display="flex" justifyContent="center" alignItems="center">
                 <img src={`/${symbol.toLowerCase()}.svg`} width="40px" height="40px" />
             </DialogTitle>
@@ -214,6 +214,9 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
                                         </InputAdornment>
                                     }}
                                 />
+                                <Typography sx={{ fontSize: 12}} color="text.secondary" gutterBottom>
+                                    A 2% referal fee is taken on deposit
+                                </Typography>
                                 <LoadingButton
                                     type="submit"
                                     variant="contained"
@@ -261,6 +264,9 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
                                         </InputAdornment>
                                     }}
                                 />
+                                <Typography sx={{ fontSize: 12}} color="text.secondary" gutterBottom>
+                                    A 10% performance fee is taken on withdrawal
+                                </Typography>
                                 <LoadingButton
                                     type="submit"
                                     variant="contained"

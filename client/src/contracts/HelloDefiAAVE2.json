@@ -21816,7 +21816,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-12-08T20:17:54.673Z",
+  "updatedAt": "2022-12-09T18:52:25.529Z",
   "devdoc": {
     "details": "This smart contract interacts with AAVE protocol v2.It is created as a clone from the HelloDefiAAVE2Factory.",
     "kind": "dev",
