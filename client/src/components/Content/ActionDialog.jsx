@@ -146,7 +146,11 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
 
 
     const handleWithdrawChange = e => {
-        setWithdrawValue(e.target.value);
+        let value = e.target.value;
+        if (value > balanceDeposited) {
+            value = balanceDeposited;
+        }
+        setWithdrawValue(value);
     }
 
     const withdraw = async () => {
@@ -212,7 +216,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                 <LoadingButton
                                     type="submit"
                                     variant="contained"
-                                    disabled={depositValue === 0}
+                                    disabled={depositValue === "0" || depositValue === ""}
                                     loading={depositLoading}
                                     fullWidth
                                     sx={{ mt: 3, mb: 2 }}
@@ -260,7 +264,7 @@ function ActionDialog({ assetAddress, onClose, selectedValue, open, balanceDepos
                                     type="submit"
                                     variant="contained"
                                     loading={withdrawLoading}
-                                    disabled={balanceDeposited === 0}
+                                    disabled={balanceDeposited === "0" || withdrawValue === "0" || withdrawValue === ""}
                                     fullWidth
                                     sx={{ mt: 3, mb: 2 }}
                                 >
