@@ -113,7 +113,7 @@ function InvestmentCard({assetAddress, symbol}) {
                 </Box>
                 <Box display="flex" justifyContent="space-between" mt={2}>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        APR
+                        Gross APR
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         {apr}%
