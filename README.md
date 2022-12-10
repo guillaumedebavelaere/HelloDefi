@@ -84,11 +84,12 @@ yarn test
 
 - The [PriceFeedConsumer](https://github.com/guillaumedebavelaere/HelloDefi/blob/master/truffle/contracts/FeesCollector.sol) is using AggregatorV3Interface from chainlink. The problem is we have to import a price feed for each asset. We could use [feed registry](https://docs.chain.link/data-feeds/feed-registry), but it is not available yet on testnet.
 - We created manually mocks for external contracts to run the tests. The issue is the abi for mocks are generated in the same folder as other abis and not necessary to run the dapps. Moreover it is painful to create a mock each time we want to add an external contract. It would be probably better to migrate the app to use hardhat instead of truffle in order to use a library like [waffle](https://ethereum-waffle.readthedocs.io/en/latest/mock-contract.html#mock-contract). Hardhat comes also with solidity-coverage plugin, which doesn't work anymore with truffle.
-- The fees are taken currently from token deposited/withdrawn. It may be better to take the fees in ethers to simplify the code (separating the action of taking the fees from deposit/withdrawn methods).
+- The fees are taken currently from token deposited/withdrawn. It may be better to take the fees in ethers to simplify the code (separating the action of taking the fees from deposit/withdrawn methods). It would also simplify the withdraw of the fees (only eth to withdraw).
 - The FeesCollector actually have a simple withdraw methods. It would be nice to have an admin dashboard to see the token collected and withdraw from the interface. Also the FeesCollector should able to be managed by multiple admins.
 - The referal fees should go directly to the wealth manager. We should add a dashboard for the admin to register the adress of the users and corresponding wealth managers.
-- Add support of eth lending
-- Use of the aave borrowing to do leverage
-- Add other protocols
-- Add a website (landing page, ...)
+- Add support of eth lending.
+- Use of the aave borrowing to do leverage.
+- Add other protocols.
+- Add a website (landing page, ...).
 - Create our own token and distribute as a reward to the users. It could be used for a DAO to vote to add certain protocols for example, or to decrease the fees if the user holds it.
+- Add a seamless on ramp solution.
