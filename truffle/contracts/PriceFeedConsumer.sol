@@ -34,20 +34,15 @@ contract PriceFeedConsumer is IPriceFeedConsumer {
         }
         
         (
-            uint80 roundID,
+            ,
             int256 price,
-            uint256 startedAt,
-            uint256 timeStamp,
-            uint80 answeredInRound
+            ,
+            ,
         ) = priceFeed.latestRoundData();
         if (priceFeed.decimals() < IERC20Metadata(_asset).decimals()) {
             uint256 decimalsToAdd = 10**IERC20Metadata(_asset).decimals() / 10**priceFeed.decimals();
             return uint256(price) * decimalsToAdd;
         }
         return uint256(price);
-    }
-
-    function _getPriceFeed(address _asset) private returns(AggregatorV3Interface) {
-        return priceFeedDai;
     }
 }

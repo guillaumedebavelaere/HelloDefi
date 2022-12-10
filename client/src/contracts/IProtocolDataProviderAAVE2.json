@@ -64,9 +64,73 @@
       ],
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "asset",
+          "type": "address"
+        }
+      ],
+      "name": "getReserveData",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "availableLiquidity",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalStableDebt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "totalVariableDebt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "liquidityRate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "variableBorrowRate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "stableBorrowRate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "averageStableBorrowRate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "liquidityIndex",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "variableBorrowIndex",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint40",
+          "name": "lastUpdateTimestamp",
+          "type": "uint40"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getUserReserveData\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"currentATokenBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"currentStableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"currentVariableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"principalStableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"scaledVariableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"stableBorrowRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidityRate\",\"type\":\"uint256\"},{\"internalType\":\"uint40\",\"name\":\"stableRateLastUpdated\",\"type\":\"uint40\"},{\"internalType\":\"bool\",\"name\":\"usageAsCollateralEnabled\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"AAVE2 interface to get the aToken balance from the underlying assset\",\"kind\":\"dev\",\"methods\":{\"getUserReserveData(address,address)\":{\"details\":\"Returns the user's reserve data for asset.    \"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/IProtocolDataProviderAAVE2.sol\":\"IProtocolDataProviderAAVE2\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/IProtocolDataProviderAAVE2.sol\":{\"keccak256\":\"0x942e9fefc04608fdc1a15d2eedc61666786818904cf1423126ae8d13f9adad53\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c49b094f9ca836b6a6c9b0130979ebe4be3a42e15b6ae6b8f90ab1336460ca42\",\"dweb:/ipfs/QmTkbe5iAZvNoRyLGZP4ntp812LBJtPjwBXJCUcMc277UL\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"}],\"name\":\"getReserveData\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"availableLiquidity\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalStableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalVariableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidityRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"variableBorrowRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"stableBorrowRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"averageStableBorrowRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidityIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"variableBorrowIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint40\",\"name\":\"lastUpdateTimestamp\",\"type\":\"uint40\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getUserReserveData\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"currentATokenBalance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"currentStableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"currentVariableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"principalStableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"scaledVariableDebt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"stableBorrowRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidityRate\",\"type\":\"uint256\"},{\"internalType\":\"uint40\",\"name\":\"stableRateLastUpdated\",\"type\":\"uint40\"},{\"internalType\":\"bool\",\"name\":\"usageAsCollateralEnabled\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"AAVE2 interface to get the aToken balance from the underlying assset\",\"kind\":\"dev\",\"methods\":{\"getReserveData(address)\":{\"details\":\"Returns the reserve data for asset.\"},\"getUserReserveData(address,address)\":{\"details\":\"Returns the user's reserve data for asset.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/IProtocolDataProviderAAVE2.sol\":\"IProtocolDataProviderAAVE2\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/IProtocolDataProviderAAVE2.sol\":{\"keccak256\":\"0xa3787e8a8f514cc9e9fb35321a744dee3816a15325e2998286e36d690659eb75\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://32130388507ed40476a0b51edbea7a58d279c06e1be2f256c322ec3f463371ff\",\"dweb:/ipfs/QmdZjiHtHxCevscLJduBgRG8HU4fNBicZD8xpvELVqcrX9\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -74,16 +138,16 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\n/**\n * @dev AAVE2 interface to get the aToken balance from the underlying assset\n */\ninterface IProtocolDataProviderAAVE2 {\n\n    /**\n     * @dev Returns the user's reserve data for asset.    \n     */\n    function getUserReserveData(address asset, address user)\n        external\n        view\n        returns (\n            uint256 currentATokenBalance,\n            uint256 currentStableDebt,\n            uint256 currentVariableDebt,\n            uint256 principalStableDebt,\n            uint256 scaledVariableDebt,\n            uint256 stableBorrowRate,\n            uint256 liquidityRate,\n            uint40 stableRateLastUpdated,\n            bool usageAsCollateralEnabled\n        );\n}\n",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\n/**\n * @dev AAVE2 interface to get the aToken balance from the underlying assset\n */\ninterface IProtocolDataProviderAAVE2 {\n    /**\n     * @dev Returns the user's reserve data for asset.\n     */\n    function getUserReserveData(address asset, address user)\n        external\n        view\n        returns (\n            uint256 currentATokenBalance,\n            uint256 currentStableDebt,\n            uint256 currentVariableDebt,\n            uint256 principalStableDebt,\n            uint256 scaledVariableDebt,\n            uint256 stableBorrowRate,\n            uint256 liquidityRate,\n            uint40 stableRateLastUpdated,\n            bool usageAsCollateralEnabled\n        );\n\n    /**\n     * @dev Returns the reserve data for asset.\n     */\n    function getReserveData(address asset)\n        external\n        view\n        returns (\n            uint256 availableLiquidity,\n            uint256 totalStableDebt,\n            uint256 totalVariableDebt,\n            uint256 liquidityRate,\n            uint256 variableBorrowRate,\n            uint256 stableBorrowRate,\n            uint256 averageStableBorrowRate,\n            uint256 liquidityIndex,\n            uint256 variableBorrowIndex,\n            uint40 lastUpdateTimestamp\n        );\n}\n",
   "sourcePath": "/Users/guillaumedebavelaere/alyra/projects/HelloDefi/truffle/contracts/IProtocolDataProviderAAVE2.sol",
   "ast": {
     "absolutePath": "project:/contracts/IProtocolDataProviderAAVE2.sol",
     "exportedSymbols": {
       "IProtocolDataProviderAAVE2": [
-        818
+        844
       ]
     },
-    "id": 819,
+    "id": 845,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
@@ -110,9 +174,9 @@
           "text": " @dev AAVE2 interface to get the aToken balance from the underlying assset"
         },
         "fullyImplemented": false,
-        "id": 818,
+        "id": 844,
         "linearizedBaseContracts": [
-          818
+          844
         ],
         "name": "IProtocolDataProviderAAVE2",
         "nameLocation": "152:26:7",
@@ -122,8 +186,8 @@
             "documentation": {
               "id": 792,
               "nodeType": "StructuredDocumentation",
-              "src": "186:70:7",
-              "text": " @dev Returns the user's reserve data for asset.    "
+              "src": "185:66:7",
+              "text": " @dev Returns the user's reserve data for asset."
             },
             "functionSelector": "28dd2d01",
             "id": 817,
@@ -131,7 +195,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "getUserReserveData",
-            "nameLocation": "270:18:7",
+            "nameLocation": "265:18:7",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 797,
@@ -142,10 +206,10 @@
                   "id": 794,
                   "mutability": "mutable",
                   "name": "asset",
-                  "nameLocation": "297:5:7",
+                  "nameLocation": "292:5:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "289:13:7",
+                  "src": "284:13:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -156,7 +220,7 @@
                     "id": 793,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "289:7:7",
+                    "src": "284:7:7",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -170,10 +234,10 @@
                   "id": 796,
                   "mutability": "mutable",
                   "name": "user",
-                  "nameLocation": "312:4:7",
+                  "nameLocation": "307:4:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "304:12:7",
+                  "src": "299:12:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -184,7 +248,7 @@
                     "id": 795,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "304:7:7",
+                    "src": "299:7:7",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -194,7 +258,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "288:29:7"
+              "src": "283:29:7"
             },
             "returnParameters": {
               "id": 816,
@@ -205,10 +269,10 @@
                   "id": 799,
                   "mutability": "mutable",
                   "name": "currentATokenBalance",
-                  "nameLocation": "386:20:7",
+                  "nameLocation": "381:20:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "378:28:7",
+                  "src": "373:28:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -219,7 +283,7 @@
                     "id": 798,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "378:7:7",
+                    "src": "373:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -232,10 +296,10 @@
                   "id": 801,
                   "mutability": "mutable",
                   "name": "currentStableDebt",
-                  "nameLocation": "428:17:7",
+                  "nameLocation": "423:17:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "420:25:7",
+                  "src": "415:25:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -246,7 +310,7 @@
                     "id": 800,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "420:7:7",
+                    "src": "415:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -259,10 +323,10 @@
                   "id": 803,
                   "mutability": "mutable",
                   "name": "currentVariableDebt",
-                  "nameLocation": "467:19:7",
+                  "nameLocation": "462:19:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "459:27:7",
+                  "src": "454:27:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -273,7 +337,7 @@
                     "id": 802,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "459:7:7",
+                    "src": "454:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -286,10 +350,10 @@
                   "id": 805,
                   "mutability": "mutable",
                   "name": "principalStableDebt",
-                  "nameLocation": "508:19:7",
+                  "nameLocation": "503:19:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "500:27:7",
+                  "src": "495:27:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -300,7 +364,7 @@
                     "id": 804,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "500:7:7",
+                    "src": "495:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -313,10 +377,10 @@
                   "id": 807,
                   "mutability": "mutable",
                   "name": "scaledVariableDebt",
-                  "nameLocation": "549:18:7",
+                  "nameLocation": "544:18:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "541:26:7",
+                  "src": "536:26:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -327,7 +391,7 @@
                     "id": 806,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "541:7:7",
+                    "src": "536:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -340,10 +404,10 @@
                   "id": 809,
                   "mutability": "mutable",
                   "name": "stableBorrowRate",
-                  "nameLocation": "589:16:7",
+                  "nameLocation": "584:16:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "581:24:7",
+                  "src": "576:24:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -354,7 +418,7 @@
                     "id": 808,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "581:7:7",
+                    "src": "576:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -367,10 +431,10 @@
                   "id": 811,
                   "mutability": "mutable",
                   "name": "liquidityRate",
-                  "nameLocation": "627:13:7",
+                  "nameLocation": "622:13:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "619:21:7",
+                  "src": "614:21:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -381,7 +445,7 @@
                     "id": 810,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "619:7:7",
+                    "src": "614:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -394,10 +458,10 @@
                   "id": 813,
                   "mutability": "mutable",
                   "name": "stableRateLastUpdated",
-                  "nameLocation": "661:21:7",
+                  "nameLocation": "656:21:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "654:28:7",
+                  "src": "649:28:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -408,7 +472,7 @@
                     "id": 812,
                     "name": "uint40",
                     "nodeType": "ElementaryTypeName",
-                    "src": "654:6:7",
+                    "src": "649:6:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint40",
                       "typeString": "uint40"
@@ -421,10 +485,10 @@
                   "id": 815,
                   "mutability": "mutable",
                   "name": "usageAsCollateralEnabled",
-                  "nameLocation": "701:24:7",
+                  "nameLocation": "696:24:7",
                   "nodeType": "VariableDeclaration",
                   "scope": 817,
-                  "src": "696:29:7",
+                  "src": "691:29:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -435,7 +499,7 @@
                     "id": 814,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "696:4:7",
+                    "src": "691:4:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -444,21 +508,354 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "364:371:7"
+              "src": "359:371:7"
             },
-            "scope": 818,
-            "src": "261:475:7",
+            "scope": 844,
+            "src": "256:475:7",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "documentation": {
+              "id": 818,
+              "nodeType": "StructuredDocumentation",
+              "src": "737:59:7",
+              "text": " @dev Returns the reserve data for asset."
+            },
+            "functionSelector": "35ea6a75",
+            "id": 843,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getReserveData",
+            "nameLocation": "810:14:7",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 821,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 820,
+                  "mutability": "mutable",
+                  "name": "asset",
+                  "nameLocation": "833:5:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "825:13:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 819,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "825:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "824:15:7"
+            },
+            "returnParameters": {
+              "id": 842,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 823,
+                  "mutability": "mutable",
+                  "name": "availableLiquidity",
+                  "nameLocation": "908:18:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "900:26:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 822,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "900:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 825,
+                  "mutability": "mutable",
+                  "name": "totalStableDebt",
+                  "nameLocation": "948:15:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "940:23:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 824,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "940:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 827,
+                  "mutability": "mutable",
+                  "name": "totalVariableDebt",
+                  "nameLocation": "985:17:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "977:25:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 826,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "977:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 829,
+                  "mutability": "mutable",
+                  "name": "liquidityRate",
+                  "nameLocation": "1024:13:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "1016:21:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 828,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1016:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 831,
+                  "mutability": "mutable",
+                  "name": "variableBorrowRate",
+                  "nameLocation": "1059:18:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "1051:26:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 830,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1051:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 833,
+                  "mutability": "mutable",
+                  "name": "stableBorrowRate",
+                  "nameLocation": "1099:16:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "1091:24:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 832,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1091:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 835,
+                  "mutability": "mutable",
+                  "name": "averageStableBorrowRate",
+                  "nameLocation": "1137:23:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "1129:31:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 834,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1129:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 837,
+                  "mutability": "mutable",
+                  "name": "liquidityIndex",
+                  "nameLocation": "1182:14:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "1174:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 836,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1174:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 839,
+                  "mutability": "mutable",
+                  "name": "variableBorrowIndex",
+                  "nameLocation": "1218:19:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "1210:27:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 838,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1210:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 841,
+                  "mutability": "mutable",
+                  "name": "lastUpdateTimestamp",
+                  "nameLocation": "1258:19:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 843,
+                  "src": "1251:26:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint40",
+                    "typeString": "uint40"
+                  },
+                  "typeName": {
+                    "id": 840,
+                    "name": "uint40",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1251:6:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint40",
+                      "typeString": "uint40"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "886:401:7"
+            },
+            "scope": 844,
+            "src": "801:487:7",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 819,
-        "src": "142:596:7",
+        "scope": 845,
+        "src": "142:1148:7",
         "usedErrors": []
       }
     ],
-    "src": "32:707:7"
+    "src": "32:1259:7"
   },
   "compiler": {
     "name": "solc",
@@ -466,13 +863,16 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2022-12-10T10:14:02.031Z",
+  "updatedAt": "2022-12-10T11:53:56.192Z",
   "devdoc": {
     "details": "AAVE2 interface to get the aToken balance from the underlying assset",
     "kind": "dev",
     "methods": {
+      "getReserveData(address)": {
+        "details": "Returns the reserve data for asset."
+      },
       "getUserReserveData(address,address)": {
-        "details": "Returns the user's reserve data for asset.    "
+        "details": "Returns the user's reserve data for asset."
       }
     },
     "version": 1

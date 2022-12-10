@@ -10,10 +10,14 @@ function InvestmentCard({assetAddress, symbol}) {
     const [balanceDepositedUsd, setBalanceDepositedUsd] = useState(0);
     const [rewards, setRewards] = useState(0);
     const [rewardsUsd, setRewardsUsd] = useState(0);
+    const [apr, setApr] = useState(0);
 
     const [open, setOpen] = useState(false);
 
     const tokenContract = new web3.eth.Contract(artifacts.IERC20Metadata.abi, assetAddress);
+
+    // AAVE constant to compute the APR
+    const RAY = web3.utils.toWei("1000000000");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -42,6 +46,16 @@ function InvestmentCard({assetAddress, symbol}) {
             Math.round(web3.utils.fromWei(currentBalanceDeposited) * web3.utils.fromWei(lastPrice) * 100) / 100
         );
     }
+
+    useEffect(() => {
+        (async() => {
+            const reserData = await contracts.IProtocolDataProviderAAVE2.methods.getReserveData(assetAddress)
+            .call({from: accounts[0]});
+            const currentLiquidityRate  = reserData[3];
+            const result = Math.round(currentLiquidityRate/ RAY * 100 * 100) / 100;
+            setApr(result);
+        })()
+    }, [accounts, open]);
 
     useEffect(() => {
         (async() => {
@@ -85,9 +99,12 @@ function InvestmentCard({assetAddress, symbol}) {
     return <>
         <Card sx={{ minWidth: 275 }}>
             <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    {balanceDeposited} {symbol}
-                </Typography>
+                <Box display="flex" justifyContent="space-between" mt={2}>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        {balanceDeposited} {symbol}
+                    </Typography>
+                    <img src="/aaveLogo.svg" width="60px" height="20px" />
+                </Box>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     ${balanceDepositedUsd}
                 </Typography>
@@ -96,10 +113,10 @@ function InvestmentCard({assetAddress, symbol}) {
                 </Box>
                 <Box display="flex" justifyContent="space-between" mt={2}>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        APY
+                        APR
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        0%
+                        {apr}%
                     </Typography>
                 </Box>
                 <Box display="flex" justifyContent="space-between" mt={2}>
