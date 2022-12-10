@@ -85,9 +85,12 @@ function InvestmentCard({assetAddress, symbol}) {
     return <>
         <Card sx={{ minWidth: 275 }}>
             <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    {balanceDeposited} {symbol}
-                </Typography>
+                <Box display="flex" justifyContent="space-between" mt={2}>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        {balanceDeposited} {symbol}
+                    </Typography>
+                    <img src="/aaveLogo.svg" width="60px" height="20px" />
+                </Box>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     ${balanceDepositedUsd}
                 </Typography>
