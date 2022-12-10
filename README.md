@@ -12,7 +12,8 @@ HelloDefi is a decentralized application (dapp) that allows you to invest funds 
 5. [Project structure](#project-structure)
 6. [Requirements](#requirements)
 7. [Installation](#installation)
-8. [TODO/Improvements](#todo--improvements)
+8. [Deployment](#deployment)
+9. [TODO/Improvements](#todo--improvements)
 
 ## Introduction
 
@@ -79,6 +80,8 @@ Tests
 cd truffle
 yarn test
 ```
+## Deployment
+The dApp is deployed on the goerli network and available at https://hello-defi.vercel.app/
 
 ## TODO / Improvements
 
