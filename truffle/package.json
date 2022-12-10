@@ -5,9 +5,8 @@
   "main": "truffle-config.js",
   "dependencies": {},
   "scripts": {
-    "compile": "npm run clean-abi && npm run clean-mocks && truffle compile --reset && truffle compile --contracts_directory test/helpers --reset && npm run generate-types && npm run clean-mocks",
+    "compile": "npm run clean-abi && npm run clean-types && truffle compile --reset && truffle compile --contracts_directory test/helpers --reset && npm run generate-types",
     "generate-types": "typechain --target=truffle-v5 --out-dir types '../client/src/contracts/*.json'",
-    "clean-mocks": "rimraf ../client/src/contracts/Mock*.json ../client/src/contracts/Context.json",
     "clean-types": "rimraf types/*",
     "clean-abi": "rimraf ../client/src/contracts/*.json",
     "test": "truffle test"

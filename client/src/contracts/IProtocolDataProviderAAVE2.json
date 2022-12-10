@@ -466,7 +466,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.11",
-  "updatedAt": "2022-12-09T22:42:41.099Z",
+  "updatedAt": "2022-12-10T10:14:02.031Z",
   "devdoc": {
     "details": "AAVE2 interface to get the aToken balance from the underlying assset",
     "kind": "dev",

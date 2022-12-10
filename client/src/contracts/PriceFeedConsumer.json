@@ -34,7 +34,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_aggregatorAddressDai\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_aggregatorAddressLink\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_asset\",\"type\":\"address\"}],\"name\":\"getLatestPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getLatestPrice(address)\":{\"notice\":\"Returns the latest price\"}},\"notice\":\"For now it supports manual added asset because feed registry (https://docs.chain.link/data-feeds/feed-registry) is not available on testnet. TODO: handle multiple assets\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PriceFeedConsumer.sol\":\"PriceFeedConsumer\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol\":{\"keccak256\":\"0x6e6e4b0835904509406b070ee173b5bc8f677c19421b76be38aea3b1b3d30846\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3beaa37ee61e4ab615e250fbf01601ae481de843fd0ef55e6b44fd9d5fff8a7\",\"dweb:/ipfs/QmeZUVwd26LzK4Mfp8Zba5JbQNkZFfTzFu1A6FVMMZDg9c\"]},\"@openzeppelin/contracts/interfaces/IERC20Metadata.sol\":{\"keccak256\":\"0x687142c633b33037c3137b6bfeef848a44eb1ef83fb5fdb59a3affdf28a46516\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0d26b5d0495ffb4c36b1abdf003f43ab478c324752ce60847af8019bad5a3ad0\",\"dweb:/ipfs/QmQGcXZcq7eBrZUyxLbHFkBFWCyMwFonvJwLRSsL82dbWx\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x9750c6b834f7b43000631af5cc30001c5f547b3ceb3635488f140f60e897ea6b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://5a7d5b1ef5d8d5889ad2ed89d8619c09383b80b72ab226e0fe7bde1636481e34\",\"dweb:/ipfs/QmebXWgtEfumQGBdVeM6c71McLixYXQP5Bk6kKXuoY4Bmr\"]},\"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol\":{\"keccak256\":\"0x8de418a5503946cabe331f35fe242d3201a73f67f77aaeb7110acb1f30423aca\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://5a376d3dda2cb70536c0a45c208b29b34ac560c4cb4f513a42079f96ba47d2dd\",\"dweb:/ipfs/QmZQg6gn1sUpM8wHzwNvSnihumUCAhxD119MpXeKp8B9s8\"]},\"project:/contracts/PriceFeedConsumer.sol\":{\"keccak256\":\"0xe419e247b1413cb0c3478585078bd038b5f3c8910ea540531cb1de0fe461fa22\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://793bae9ea33c44cf8ccb4762647f730ed09551016b0f952279b58254fa0b26d7\",\"dweb:/ipfs/QmXs4W6E7714YQPDFLZot22zQVvpBokj64sEivRKe2kBjn\"]}},\"version\":1}",
@@ -6666,9 +6667,23 @@
     "name": "solc",
     "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
   },
-  "networks": {},
-  "schemaVersion": "3.4.11",
-  "updatedAt": "2022-12-09T22:42:41.101Z",
+  "networks": {
+    "5": {
+      "events": {},
+      "links": {},
+      "address": "0xeCff2C946a989f65E37CE3f0Ca1afA5eB22Cd484",
+      "transactionHash": "0xd9fa5420908416307e1ddcbb944269cc51942cab99188ec80881356e74425e4f"
+    },
+    "1337": {
+      "events": {},
+      "links": {},
+      "address": "0x6b6a96C9769c034d4E80E7C824F5Ed6db6b57CA6",
+      "transactionHash": "0x2fc64997e71e4209fee003b39529d8d933f00deeb53d99fe0d56068b30da8b5d"
+    }
+  },
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2022-12-10T10:31:20.975Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
