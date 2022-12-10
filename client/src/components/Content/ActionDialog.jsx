@@ -173,7 +173,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
     }
 
     return (
-        <Dialog onClose={handleClose} open={open} PaperProps={{ sx: { minWidth: "20%" } }}>
+        <Dialog onClose={handleClose} open={open} PaperProps={{ sx: { minWidth: "30%" } }}>
             <DialogTitle display="flex" justifyContent="center" alignItems="center">
                 <img src={`/${symbol.toLowerCase()}.svg`} width="40px" height="40px" />
             </DialogTitle>
