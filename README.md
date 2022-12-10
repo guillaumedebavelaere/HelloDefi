@@ -1,42 +1,44 @@
 [![CI](https://github.com/guillaumedebavelaere/HelloDefi/actions/workflows/ci.yml/badge.svg)](https://github.com/guillaumedebavelaere/HelloDefi/actions/workflows/ci.yml)
 
-# React Truffle Box
+# Hello Defi
 
-This box comes with everything you need to start using Truffle to write, compile, test, and deploy smart contracts, and interact with them from a React app.
+HelloDefi is a decentralized application (dapp) that allows you to invest funds securely and transparently using the blockchain.
+
+This is a simple POC that allows AAVE V2 DAI and LINK lending pool investment on Goerli testnet.
+
+The platform uses smart contracts to interact with AAVE lending pools. 
+A smart contract is created for the user who will own the contract to assure security and transparency.
+
+<img width="1080" alt="Capture d’écran 2022-12-10 à 12 33 56" src="https://user-images.githubusercontent.com/17125662/206855406-131d1e6a-f5d1-4039-a851-b7c0b7d7bf4a.png">
+
+
+## Project structure
+
+This project was created with truffle unbox react.
+2 main folders : client for the frontend and truffle for the smart contracts.
+
+## Requirements
+
+Node 16 Truffle Ganache Yarn
 
 ## Installation
 
-First ensure you are in an empty directory.
-
-Run the `unbox` command using 1 of 2 ways.
-
+Front-end
 ```sh
-# Install Truffle globally and run `truffle unbox`
-$ npm install -g truffle
-$ truffle unbox react
+cd client
+yarn install
 ```
 
+Smart contracts
 ```sh
-# Alternatively, run `truffle unbox` via npx
-$ npx truffle unbox react
+cd truffle
+yarn compile
 ```
 
-Start the react dev server.
-
+Tests
 ```sh
-$ cd client
-$ npm start
-  Starting the development server...
+cd truffle
+yarn test
 ```
 
-From there, follow the instructions on the hosted React app. It will walk you through using Truffle and Ganache to deploy the `SimpleStorage` contract, making calls to it, and sending transactions to change the contract's state.
 
-## FAQ
-
-- __How do I use this with Ganache (or any other network)?__
-
-  The Truffle project is set to deploy to Ganache by default. If you'd like to change this, it's as easy as modifying the Truffle config file! Check out [our documentation on adding network configurations](https://trufflesuite.com/docs/truffle/reference/configuration/#networks). From there, you can run `truffle migrate` pointed to another network, restart the React dev server, and see the change take place.
-
-- __Where can I find more resources?__
-
-  This Box is a sweet combo of [Truffle](https://trufflesuite.com) and [Create React App](https://create-react-app.dev). Either one would be a great place to start!
