@@ -80,22 +80,22 @@
     "absolutePath": "project:/contracts/IProtocolDataProviderAAVE2.sol",
     "exportedSymbols": {
       "IProtocolDataProviderAAVE2": [
-        3266
+        818
       ]
     },
-    "id": 3267,
+    "id": 819,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3238,
+        "id": 790,
         "literals": [
           "solidity",
           "0.8",
           ".17"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:19"
+        "src": "32:23:7"
       },
       {
         "abstract": false,
@@ -104,48 +104,48 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-          "id": 3239,
+          "id": 791,
           "nodeType": "StructuredDocumentation",
-          "src": "57:84:19",
+          "src": "57:84:7",
           "text": " @dev AAVE2 interface to get the aToken balance from the underlying assset"
         },
         "fullyImplemented": false,
-        "id": 3266,
+        "id": 818,
         "linearizedBaseContracts": [
-          3266
+          818
         ],
         "name": "IProtocolDataProviderAAVE2",
-        "nameLocation": "152:26:19",
+        "nameLocation": "152:26:7",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "documentation": {
-              "id": 3240,
+              "id": 792,
               "nodeType": "StructuredDocumentation",
-              "src": "186:70:19",
+              "src": "186:70:7",
               "text": " @dev Returns the user's reserve data for asset.    "
             },
             "functionSelector": "28dd2d01",
-            "id": 3265,
+            "id": 817,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getUserReserveData",
-            "nameLocation": "270:18:19",
+            "nameLocation": "270:18:7",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3245,
+              "id": 797,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3242,
+                  "id": 794,
                   "mutability": "mutable",
                   "name": "asset",
-                  "nameLocation": "297:5:19",
+                  "nameLocation": "297:5:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "289:13:19",
+                  "scope": 817,
+                  "src": "289:13:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -153,10 +153,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3241,
+                    "id": 793,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "289:7:19",
+                    "src": "289:7:7",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -167,13 +167,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3244,
+                  "id": 796,
                   "mutability": "mutable",
                   "name": "user",
-                  "nameLocation": "312:4:19",
+                  "nameLocation": "312:4:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "304:12:19",
+                  "scope": 817,
+                  "src": "304:12:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -181,10 +181,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3243,
+                    "id": 795,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "304:7:19",
+                    "src": "304:7:7",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -194,21 +194,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "288:29:19"
+              "src": "288:29:7"
             },
             "returnParameters": {
-              "id": 3264,
+              "id": 816,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3247,
+                  "id": 799,
                   "mutability": "mutable",
                   "name": "currentATokenBalance",
-                  "nameLocation": "386:20:19",
+                  "nameLocation": "386:20:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "378:28:19",
+                  "scope": 817,
+                  "src": "378:28:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -216,10 +216,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3246,
+                    "id": 798,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "378:7:19",
+                    "src": "378:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -229,13 +229,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3249,
+                  "id": 801,
                   "mutability": "mutable",
                   "name": "currentStableDebt",
-                  "nameLocation": "428:17:19",
+                  "nameLocation": "428:17:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "420:25:19",
+                  "scope": 817,
+                  "src": "420:25:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -243,10 +243,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3248,
+                    "id": 800,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "420:7:19",
+                    "src": "420:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -256,13 +256,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3251,
+                  "id": 803,
                   "mutability": "mutable",
                   "name": "currentVariableDebt",
-                  "nameLocation": "467:19:19",
+                  "nameLocation": "467:19:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "459:27:19",
+                  "scope": 817,
+                  "src": "459:27:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -270,10 +270,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3250,
+                    "id": 802,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "459:7:19",
+                    "src": "459:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -283,13 +283,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3253,
+                  "id": 805,
                   "mutability": "mutable",
                   "name": "principalStableDebt",
-                  "nameLocation": "508:19:19",
+                  "nameLocation": "508:19:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "500:27:19",
+                  "scope": 817,
+                  "src": "500:27:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -297,10 +297,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3252,
+                    "id": 804,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "500:7:19",
+                    "src": "500:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -310,13 +310,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3255,
+                  "id": 807,
                   "mutability": "mutable",
                   "name": "scaledVariableDebt",
-                  "nameLocation": "549:18:19",
+                  "nameLocation": "549:18:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "541:26:19",
+                  "scope": 817,
+                  "src": "541:26:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -324,10 +324,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3254,
+                    "id": 806,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "541:7:19",
+                    "src": "541:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -337,13 +337,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3257,
+                  "id": 809,
                   "mutability": "mutable",
                   "name": "stableBorrowRate",
-                  "nameLocation": "589:16:19",
+                  "nameLocation": "589:16:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "581:24:19",
+                  "scope": 817,
+                  "src": "581:24:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -351,10 +351,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3256,
+                    "id": 808,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "581:7:19",
+                    "src": "581:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -364,13 +364,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3259,
+                  "id": 811,
                   "mutability": "mutable",
                   "name": "liquidityRate",
-                  "nameLocation": "627:13:19",
+                  "nameLocation": "627:13:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "619:21:19",
+                  "scope": 817,
+                  "src": "619:21:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -378,10 +378,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 3258,
+                    "id": 810,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "619:7:19",
+                    "src": "619:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -391,13 +391,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3261,
+                  "id": 813,
                   "mutability": "mutable",
                   "name": "stableRateLastUpdated",
-                  "nameLocation": "661:21:19",
+                  "nameLocation": "661:21:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "654:28:19",
+                  "scope": 817,
+                  "src": "654:28:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -405,10 +405,10 @@
                     "typeString": "uint40"
                   },
                   "typeName": {
-                    "id": 3260,
+                    "id": 812,
                     "name": "uint40",
                     "nodeType": "ElementaryTypeName",
-                    "src": "654:6:19",
+                    "src": "654:6:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint40",
                       "typeString": "uint40"
@@ -418,13 +418,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 3263,
+                  "id": 815,
                   "mutability": "mutable",
                   "name": "usageAsCollateralEnabled",
-                  "nameLocation": "701:24:19",
+                  "nameLocation": "701:24:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3265,
-                  "src": "696:29:19",
+                  "scope": 817,
+                  "src": "696:29:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -432,10 +432,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 3262,
+                    "id": 814,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "696:4:19",
+                    "src": "696:4:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -444,29 +444,29 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "364:371:19"
+              "src": "364:371:7"
             },
-            "scope": 3266,
-            "src": "261:475:19",
+            "scope": 818,
+            "src": "261:475:7",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3267,
-        "src": "142:596:19",
+        "scope": 819,
+        "src": "142:596:7",
         "usedErrors": []
       }
     ],
-    "src": "32:707:19"
+    "src": "32:707:7"
   },
   "compiler": {
     "name": "solc",
     "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.10",
-  "updatedAt": "2022-12-05T16:13:46.514Z",
+  "schemaVersion": "3.4.11",
+  "updatedAt": "2022-12-10T10:14:02.031Z",
   "devdoc": {
     "details": "AAVE2 interface to get the aToken balance from the underlying assset",
     "kind": "dev",
