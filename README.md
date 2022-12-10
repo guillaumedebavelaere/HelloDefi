@@ -91,4 +91,4 @@ yarn test
 - Use of the aave borrowing to do leverage
 - Add other protocols
 - Add a website (landing page, ...)
-
+- Create our own token and distribute as a reward to the users. It could be used for a DAO to vote to add certain protocols for example, or to decrease the fees if the user holds it.
