@@ -8,7 +8,7 @@ import { useEth } from "../../contexts/EthContext";
 import LoadingButton from '@mui/lab/LoadingButton';
 const { Dialog, DialogTitle, Typography, TextField, InputAdornment } = require("@mui/material");
 
-function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, tokenContract }) {
+function ActionDialog({ assetAddress, onClose, open, symbol, tokenContract }) {
     const { refreshContext, state: { accounts, web3, contracts } } = useEth();
     const [tabValue, setTabValue] = useState('1');
     const handleTabChange = (event, newValue) => {
@@ -23,6 +23,20 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
     const [depositValue, setDepositValue] = useState(0);
     const [depositValueDollars, setDepositValueDollars] = useState(0);
     const [approved, setApproved] = useState(false);
+    const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(0);
+
+    const refreshMaxWithdrawAmount = async () => {
+        const result = await contracts.IProtocolDataProviderAAVE2.methods.getUserReserveData(assetAddress, contracts.HelloDefiAAVE2.options.address)
+            .call({from: accounts[0]});
+            const aTokenBalance = result[0];
+            setMaxWithdrawAmount((Math.round(web3.utils.fromWei(aTokenBalance.toString()) * 100000000) / 100000000))
+    }
+
+    useEffect(() => {
+        (async () => {
+            await refreshMaxWithdrawAmount();
+        })();
+    },[open])
 
 
     useEffect(() => {
@@ -107,7 +121,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
                 await verifyAllowance(contracts.HelloDefiAAVE2.options.address);
             }
         })();
-    }, [depositValue, contracts?.HelloDefiAAVE2]);
+    }, [depositValue, contracts?.HelloDefiAAVE2, open]);
 
     const handleDepositSubmit = async (e) => {
         e.preventDefault();
@@ -121,6 +135,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
         } else {
             await deposit();
             handleClose();
+            setDepositValue(0);
         }
     }
 
@@ -148,8 +163,8 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
 
     const handleWithdrawChange = e => {
         let value = e.target.value;
-        if (value > balanceDeposited) {
-            value = balanceDeposited;
+        if (value > maxWithdrawAmount) {
+            value = maxWithdrawAmount;
         }
         setWithdrawValue(value);
     }
@@ -170,6 +185,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
         e.preventDefault();
         await withdraw();
         handleClose();
+        setWithdrawValue(0);
     }
 
     return (
@@ -182,7 +198,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
                     <Box sx={{ borderBottom: 1, borderColor: 'divider', display: "flex", justifyContent: "center", alignItems: "center", minWidth: "300px" }}>
                         <TabList onChange={handleTabChange} aria-label="lab API tabs example">
                             <Tab label="Deposit" value="1" />
-                            <Tab label="Withdraw" value="2" />
+                            <Tab label="Withdraw" value="2" onClick={() => refreshMaxWithdrawAmount()}/>
                         </TabList>
                     </Box>
                     <TabPanel value="1">
@@ -242,8 +258,8 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
                             }}
                         >
                             <Box display="flex" justifyContent="flex-end" alignItems="flex-end" mb={0}>
-                                <Typography sx={{ fontSize: 14, cursor: "pointer" }} color="text.secondary" gutterBottom onClick={() => setWithdrawValue(balanceDeposited)}>
-                                    Use max ({balanceDeposited} {symbol})
+                                <Typography sx={{ fontSize: 14, cursor: "pointer" }} color="text.secondary" gutterBottom onClick={() => setWithdrawValue(maxWithdrawAmount)}>
+                                    Use max ({maxWithdrawAmount} {symbol})
                                 </Typography>
                             </Box>
                             <Box component="form" onSubmit={handleWithdrawSubmit} noValidate mt={0}>
@@ -271,7 +287,7 @@ function ActionDialog({ assetAddress, onClose, open, balanceDeposited, symbol, t
                                     type="submit"
                                     variant="contained"
                                     loading={withdrawLoading}
-                                    disabled={balanceDeposited === "0" || withdrawValue === "0" || withdrawValue === ""}
+                                    disabled={maxWithdrawAmount === "0" || withdrawValue === "0" || withdrawValue === ""}
                                     fullWidth
                                     sx={{ mt: 3, mb: 2 }}
                                 >

@@ -137,7 +137,6 @@ function InvestmentCard({assetAddress, symbol}) {
         <ActionDialog
             open={open}
             onClose={handleClose}
-            balanceDeposited={balanceDeposited}
             symbol={symbol}
             assetAddress={assetAddress}
             tokenContract={tokenContract}
