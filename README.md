@@ -47,6 +47,8 @@ To get DAI and LINK tokens go to: [AAVE2 staging](https://staging.aave.com/) (se
 
 5. If you want to withdraw funds, select the asset that you want to withdraw,  and select the "withdraw" side when the form pops up. You can now enter the amount that you want to withdraw.
 
+Click [here](https://www.loom.com/share/8533906345b94c4c852abd327299cdfb) to see a video demo.
+
 ## How it works ?
 
 The HelloDefi dApp lets you take advantage of the benefits of decentralized finance. When you deposit funds into a protocol a unique smart contract is created with your wallet address, your funds are then sent from your smart contract to the protocol that you have chosen.   
