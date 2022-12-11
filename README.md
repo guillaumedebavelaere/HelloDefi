@@ -69,11 +69,29 @@ cd client
 yarn install
 ```
 
+You have to create a .env file in the client directory with the following content:
+```
+REACT_APP_PROTOCOL_DATA_PROVIDER_AAVE2_CONTRACT_ADDRESS=0x927F584d4321C1dCcBf5e2902368124b02419a1E // contract address of AAVE 2 data provider on goerli network
+REACT_APP_DAI_CONTRACT_ADDRESS=0x75Ab5AB1Eef154C0352Fc31D2428Cef80C7F8B33 // DAI address on goerli network (DAI used in AAVE 2)
+REACT_APP_LINK_CONTRACT_ADDRESS=0x7337e7FF9abc45c0e43f130C136a072F4794d40b // LINK address on goerli network (LINK used in AAVE 2)
+```
+
 Smart contracts
 ```sh
 cd truffle
 yarn compile
 ```
+
+You have to create a .env file in the truffle directory with the following content:
+```
+INFURA_PROJECT_ID=YOUR INFURA PROJECT ID // used for deploy
+MNEMONIC=YOUR MNEMONIC // used for deploy
+LENDING_POOL_AAVE2_CONTRACT_ADDRESS=0x4bd5643ac6f66a5237E18bfA7d47cF22f1c9F210 // contract address of AAAVE2 lending pool on goerli network
+PROTOCOL_DATA_PROVIDER_AAVE2_CONTRACT_ADDRESS=0x927F584d4321C1dCcBf5e2902368124b02419a1E // contract address of AAVE 2 data provider on goerli network
+DAI_AGGREGATOR_V3_CHAIN_LINK_CONTRACT_ADDRESS=0x0d79df66BE487753B02D015Fb622DED7f0E9798d // contract address of DAI chainlink aggregatorv3 on goerli network
+LINK_AGGREGATOR_V3_CHAIN_LINK_CONTRACT_ADDRESS=0x48731cF7e84dc94C5f84577882c14Be11a5B7456 // contract address of LINK chainlink aggregatorv3 on goerli network
+```
+
 
 Tests
 ```sh
